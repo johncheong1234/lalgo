@@ -8,8 +8,11 @@ export const customAlgoSlice = createSlice({
         algoLineState: 'semi'
     },
     reducers:{
-
+        setCustomAlgoInput: (state, action) => {
+            state.customAlgoInput = action.payload.customAlgoInput;
+        }
     }
 });
 
+export const { setCustomAlgoInput } = customAlgoSlice.actions;
 export default customAlgoSlice.reducer;
