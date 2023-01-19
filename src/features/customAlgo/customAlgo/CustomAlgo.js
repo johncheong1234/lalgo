@@ -69,7 +69,9 @@ export function CustomAlgo() {
         }
     }
 
-    function handleRandomiseAlgo(e) {
+    function handleRandomiseAlgo() {
+        dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
+        dispatch(setCodeInput({ codeInput: '' }));
         // generate random number between 0 and length of presetAlgos
         const randomIndex = Math.floor(Math.random() * presetAlgos.length);
         const randomAlgo = presetAlgos[randomIndex];
