@@ -21,9 +21,18 @@ export const customAlgoSlice = createSlice({
         addCodeInputToTypedAlgoOutput(state) {
             state.typedAlgoOutput.push(state.codeInput);
             state.codeInput = '';
+        },
+        setTypedAlgoOutput(state, action) {
+            state.typedAlgoOutput = action.payload.typedAlgoOutput;
         }
     }
 });
 
-export const { setCustomAlgoInput, setAlgoLineState, setCodeInput, addCodeInputToTypedAlgoOutput } = customAlgoSlice.actions;
+export const {
+    setCustomAlgoInput,
+    setAlgoLineState, 
+    setCodeInput, 
+    addCodeInputToTypedAlgoOutput, 
+    setTypedAlgoOutput 
+} = customAlgoSlice.actions;
 export default customAlgoSlice.reducer;

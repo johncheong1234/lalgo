@@ -4,7 +4,8 @@ import {
     setCustomAlgoInput,
     setAlgoLineState,
     setCodeInput,
-    addCodeInputToTypedAlgoOutput
+    addCodeInputToTypedAlgoOutput,
+    setTypedAlgoOutput
 } from '../customAlgoSlice';
 
 export function CustomAlgo() {
@@ -17,6 +18,8 @@ export function CustomAlgo() {
     const dispatch = useDispatch();
 
     function handleAnswerInputChange(e) {
+        dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
+        dispatch(setCodeInput({ codeInput: '' }));
         const codeSubmitted = e.target.value
         const AllLinesOfCode = codeSubmitted.split("\n");
         for (let i = 0; i < AllLinesOfCode.length; i++) {
@@ -55,6 +58,9 @@ export function CustomAlgo() {
     function handleCodeInputKeyDown(e) {
         if (e.key === 'Enter' && algoLineState === 'correct') {
             dispatch(addCodeInputToTypedAlgoOutput())
+            if(typedAlgoOutput.length === customAlgoInput.length-1) {
+                alert('You have completed the custom algo!')
+            }
         }
     }
 
