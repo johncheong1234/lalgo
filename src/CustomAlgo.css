@@ -1,4 +1,23 @@
-.code-input{
+.code-input-incorrect {
     width: 800px;
     margin-top: 20px;
-  }
+    color: red;
+}
+
+.code-input-correct {
+    width: 800px;
+    margin-top: 20px;
+    color: green;
+}
+
+.code-input-semi {
+    width: 800px;
+    margin-top: 20px;
+    color: orange;
+}
+
+.answers-typed {
+    width: 800px;
+    border: 1px solid black;
+    overflow: auto;
+}
