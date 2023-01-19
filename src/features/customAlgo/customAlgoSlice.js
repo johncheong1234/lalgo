@@ -29,7 +29,6 @@ export const customAlgoSlice = createSlice({
             '    let right = mergeSort(arr.slice(mid));',
             '    return merge(left, right);',
             '}',
-            '',
             'function merge(left, right) {',
             '    let merged = [];',
             '    while (left.length && right.length) {',
