@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     setCustomAlgoInput,
@@ -20,11 +20,8 @@ export function CustomAlgo() {
     const codeSubmitted = customAlgoObject.codeSubmitted;
     const dispatch = useDispatch();
 
-    function handleAnswerInputChange(e) {
-        dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
-        dispatch(setCodeInput({ codeInput: '' }));
-        const codeSubmitted = e.target.value
-        dispatch(setCodeSubmitted({ codeSubmitted }))
+    useEffect(() => {
+
         const AllLinesOfCode = codeSubmitted.split("\n");
         for (let i = 0; i < AllLinesOfCode.length; i++) {
             // remove all spaces including leading and trailing spaces and tabs
@@ -40,15 +37,25 @@ export function CustomAlgo() {
 
         const customAlgoInput = AllLinesOfCode;
         dispatch(setCustomAlgoInput({ customAlgoInput }))
+
+
+    }, [codeSubmitted]);
+
+    function handleAnswerInputChange(e) {
+        dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
+        dispatch(setCodeInput({ codeInput: '' }));
+        const codeSubmitted = e.target.value
+        dispatch(setCodeSubmitted({ codeSubmitted }))
     }
 
     function handleCodeInputChange(e) {
         if (customAlgoInput.length > 0) {
             const comparisonCodeUnclean = customAlgoInput[typedAlgoOutput.length];
+            let comparisonCode = comparisonCodeUnclean.replace(/\s/g, '');
             let val = e.target.value;
             dispatch(setCodeInput({ codeInput: val }))
             let codeInputVal = val.replace(/\s/g, '');
-            let comparisonCode = comparisonCodeUnclean.replace(/\s/g, '');
+            // let comparisonCode = comparisonCodeUnclean.replace(/\s/g, '');
             console.log('code inputted is ', codeInputVal, 'comparison is ', comparisonCode)
             if (comparisonCode.substring(0, codeInputVal.length) === codeInputVal && codeInputVal !== comparisonCode) {
                 dispatch(setAlgoLineState({ algoLineState: 'semi' }))
@@ -90,9 +97,7 @@ export function CustomAlgo() {
                 randomAlgoCopy.splice(i, 1);
             }
         }
-
-        console.log('cleaned random algo', randomAlgoCopy)
-        dispatch(setCustomAlgoInput({ customAlgoInput: randomAlgo }))
+        
         dispatch(setCodeSubmitted({ codeSubmitted: codeSubmittedString }));
     }
 
