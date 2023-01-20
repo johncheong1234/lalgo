@@ -9,7 +9,8 @@ import {
     setCodeSubmitted,
     setRepeatsInitial,
     setRepeatOn,
-    setRepeatsLeft
+    setRepeatsLeft,
+    setAlgoSelected
 } from '../customAlgoSlice';
 
 export function CustomAlgo() {
@@ -22,6 +23,7 @@ export function CustomAlgo() {
     const presetAlgos = customAlgoObject.presetAlgos;
     const codeSubmitted = customAlgoObject.codeSubmitted;
     const repeatObject = customAlgoObject.repeatObject;
+    const algoSelected = customAlgoObject.algoSelected;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -82,8 +84,11 @@ export function CustomAlgo() {
                     dispatch(setRepeatOn({ repeatOn: false }))
                     dispatch(setRepeatsLeft({ repeatsLeft: 0 }))
                     dispatch(setCodeSubmitted({ codeSubmitted: '' }));
+                    dispatch(setAlgoSelected({ algoSelected: 'default' }))
                     alert(`You have completed the repeat ${repeatObject.repeatsInitial} times! Well done! :D`)
+                    dispatch(setRepeatsInitial({ repeatsInitial: 1 }))
                 } else if (!repeatObject.repeatOn) {
+                    dispatch(setAlgoSelected({ algoSelected: 'default' }))
                     dispatch(setCodeSubmitted({ codeSubmitted: '' }));
                     alert('You have completed the algorithm! Well done! :D')
                 }
@@ -124,6 +129,7 @@ export function CustomAlgo() {
             dispatch(setRepeatsLeft({ repeatsLeft: 0 }))
             dispatch(setRepeatsInitial({ repeatsInitial: 1 }));
         }
+        dispatch(setAlgoSelected({ algoSelected: e.target.value }));
         dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
         dispatch(setCodeInput({ codeInput: '' }));
         const selectedAlgo = e.target.value;
@@ -180,8 +186,8 @@ export function CustomAlgo() {
             <h2>Custom Algo Learning Feature</h2>
             <div className='toggle-algorithm-options'>
                 <div className='button-div' onClick={handleRandomiseAlgo}>Randomise!</div>
-                <select onChange={handleSelectAlgo} defaultValue={'DEFAULT'}>
-                    <option disabled value='DEFAULT'>Select your Algo</option>
+                <select onChange={handleSelectAlgo} value={algoSelected}>
+                    <option disabled value='default'>Select your Algo</option>
                     {
                         Object.keys(presetAlgos).map((key, index) => {
                             return (

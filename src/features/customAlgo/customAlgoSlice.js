@@ -64,7 +64,8 @@ export const customAlgoSlice = createSlice({
             repeatOn: false,
             repeatsLeft: 1,
             repeatsInitial: 1,
-        }
+        },
+        algoSelected: 'default'
     },
     reducers: {
         setCustomAlgoInput: (state, action) => {
@@ -94,6 +95,9 @@ export const customAlgoSlice = createSlice({
         },
         setRepeatsLeft(state, action){
             state.repeatObject.repeatsLeft = action.payload.repeatsLeft;
+        },
+        setAlgoSelected(state, action){
+            state.algoSelected = action.payload.algoSelected;
         }
     }
 });
@@ -107,6 +111,7 @@ export const {
     setCodeSubmitted,
     setRepeatsInitial,
     setRepeatOn,
-    setRepeatsLeft
+    setRepeatsLeft,
+    setAlgoSelected
 } = customAlgoSlice.actions;
 export default customAlgoSlice.reducer;
