@@ -6,7 +6,10 @@ import {
     setCodeInput,
     addCodeInputToTypedAlgoOutput,
     setTypedAlgoOutput,
-    setCodeSubmitted
+    setCodeSubmitted,
+    setRepeatsInitial,
+    setRepeatOn,
+    setRepeatsLeft
 } from '../customAlgoSlice';
 
 export function CustomAlgo() {
@@ -18,6 +21,7 @@ export function CustomAlgo() {
     const codeInput = customAlgoObject.codeInput;
     const presetAlgos = customAlgoObject.presetAlgos;
     const codeSubmitted = customAlgoObject.codeSubmitted;
+    const repeatObject = customAlgoObject.repeatObject;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -70,10 +74,19 @@ export function CustomAlgo() {
         if (e.key === 'Enter' && algoLineState === 'correct') {
             dispatch(addCodeInputToTypedAlgoOutput())
             if (typedAlgoOutput.length === customAlgoInput.length - 1) {
-                alert('You have completed the custom algo!')
-                // empty the typed algo output
                 dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
-                dispatch(setCodeSubmitted({ codeSubmitted: '' }));
+
+                if (repeatObject.repeatOn && repeatObject.repeatsLeft > 1) {
+                    dispatch(setRepeatsLeft({ repeatsLeft: repeatObject.repeatsLeft - 1 }))
+                } else if (repeatObject.repeatOn && repeatObject.repeatsLeft === 1) {
+                    dispatch(setRepeatOn({ repeatOn: false }))
+                    dispatch(setRepeatsLeft({ repeatsLeft: 0 }))
+                    dispatch(setCodeSubmitted({ codeSubmitted: '' }));
+                    alert(`You have completed the repeat ${repeatObject.repeatsInitial} times! Well done! :D`)
+                } else if (!repeatObject.repeatOn) {
+                    dispatch(setCodeSubmitted({ codeSubmitted: '' }));
+                    alert('You have completed the algorithm! Well done! :D')
+                }
             }
         }
     }
@@ -105,7 +118,12 @@ export function CustomAlgo() {
         dispatch(setCodeSubmitted({ codeSubmitted: codeSubmittedString }));
     }
 
-    function handleSelectAlgo(e){
+    function handleSelectAlgo(e) {
+        if (repeatObject.repeatOn) {
+            dispatch(setRepeatOn({ repeatOn: false }))
+            dispatch(setRepeatsLeft({ repeatsLeft: 0 }))
+            dispatch(setRepeatsInitial({ repeatsInitial: 1 }));
+        }
         dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
         dispatch(setCodeInput({ codeInput: '' }));
         const selectedAlgo = e.target.value;
@@ -124,6 +142,28 @@ export function CustomAlgo() {
         }
 
         dispatch(setCodeSubmitted({ codeSubmitted: codeSubmittedString }));
+
+    }
+
+    function handleRepeatsInitialChange(e) {
+        if (repeatObject.repeatOn) {
+            alert('Please turn off repeat first!')
+            return
+        }
+        dispatch(setRepeatsInitial({ repeatsInitial: e.target.value }))
+    }
+
+    function handleRepeatClick(e) {
+        if (!codeSubmitted) {
+            alert('Please enter some code first!')
+        } else if (!repeatObject.repeatOn) {
+            dispatch(setRepeatOn({ repeatOn: true }));
+            dispatch(setRepeatsLeft({ repeatsLeft: repeatObject.repeatsInitial }));
+        } else if (repeatObject.repeatOn) {
+            dispatch(setRepeatOn({ repeatOn: false }));
+            dispatch(setRepeatsLeft({ repeatsLeft: 0 }));
+            dispatch(setRepeatsInitial({ repeatsInitial: 1 }));
+        }
     }
 
     return (
@@ -139,17 +179,29 @@ export function CustomAlgo() {
             </div>
             <h2>Custom Algo Learning Feature</h2>
             <div className='toggle-algorithm-options'>
-            <div className='button-div' onClick={handleRandomiseAlgo}>Randomise!</div>
-            <select onChange={handleSelectAlgo} defaultValue={'DEFAULT'}>
-                <option disabled value='DEFAULT'>Select your Algo</option>
-                {
-                    Object.keys(presetAlgos).map((key, index) => {
-                        return (
-                            <option key={index}>{key}</option>
-                        )
-                    })
-                }
-            </select>
+                <div className='button-div' onClick={handleRandomiseAlgo}>Randomise!</div>
+                <select onChange={handleSelectAlgo} defaultValue={'DEFAULT'}>
+                    <option disabled value='DEFAULT'>Select your Algo</option>
+                    {
+                        Object.keys(presetAlgos).map((key, index) => {
+                            return (
+                                <option key={index}>{key}</option>
+                            )
+                        })
+                    }
+                </select>
+                <div className={repeatObject.repeatOn ? 'button-div-alert' : 'button-div'} onClick={handleRepeatClick}>{
+                    repeatObject.repeatOn ? 'Stop' : 'Repeat'
+                }</div>
+                <select value={repeatObject.repeatsInitial} onChange={handleRepeatsInitialChange}>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+
+                {repeatObject.repeatOn && <div className='repeats-left'>Repeats left: {repeatObject.repeatsLeft}</div>}
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
             <h3> Create algo answer </h3>

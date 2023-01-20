@@ -55,7 +55,15 @@ export const customAlgoSlice = createSlice({
                 '}',
                 'return chunks.length;',
                 '}'
+            ],
+            testAlgo: [
+                'this is a test'
             ]
+        },
+        repeatObject:{
+            repeatOn: false,
+            repeatsLeft: 1,
+            repeatsInitial: 1,
         }
     },
     reducers: {
@@ -77,6 +85,15 @@ export const customAlgoSlice = createSlice({
         },
         setCodeSubmitted(state, action) {
             state.codeSubmitted = action.payload.codeSubmitted;
+        },
+        setRepeatsInitial(state, action){
+            state.repeatObject.repeatsInitial = action.payload.repeatsInitial;
+        },
+        setRepeatOn(state, action){
+            state.repeatObject.repeatOn = action.payload.repeatOn;
+        },
+        setRepeatsLeft(state, action){
+            state.repeatObject.repeatsLeft = action.payload.repeatsLeft;
         }
     }
 });
@@ -87,6 +104,9 @@ export const {
     setCodeInput,
     addCodeInputToTypedAlgoOutput,
     setTypedAlgoOutput,
-    setCodeSubmitted
+    setCodeSubmitted,
+    setRepeatsInitial,
+    setRepeatOn,
+    setRepeatsLeft
 } = customAlgoSlice.actions;
 export default customAlgoSlice.reducer;
