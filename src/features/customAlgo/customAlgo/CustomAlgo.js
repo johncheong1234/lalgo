@@ -121,6 +121,7 @@ export function CustomAlgo() {
         }
 
         dispatch(setCodeSubmitted({ codeSubmitted: codeSubmittedString }));
+        dispatch(setAlgoSelected({ algoSelected: randomAlgoKey }));
     }
 
     function handleSelectAlgo(e) {
