@@ -138,6 +138,7 @@ export function CustomAlgo() {
                 })}
             </div>
             <h2>Custom Algo Learning Feature</h2>
+            <div className='toggle-algorithm-options'>
             <div className='button-div' onClick={handleRandomiseAlgo}>Randomise!</div>
             <select onChange={handleSelectAlgo} defaultValue={'DEFAULT'}>
                 <option disabled value='DEFAULT'>Select your Algo</option>
@@ -149,6 +150,7 @@ export function CustomAlgo() {
                     })
                 }
             </select>
+            </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
             <h3> Create algo answer </h3>
             <textarea rows={customAlgoInput.length + 1} cols="120" id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} />

@@ -22,11 +22,18 @@
     overflow: auto;
 }
 
-.button-div{
-    margin-top: 20px;
+.button-div {
     background-color: blue;
     color: white;
     width: 100px;
     border-radius: 10%;
     text-align: center;
+}
+
+.toggle-algorithm-options {
+    display: flex;
+    flex-direction: row;
+    /* vertical align child elements */
+    align-items: center;
+    gap: 10px
 }
