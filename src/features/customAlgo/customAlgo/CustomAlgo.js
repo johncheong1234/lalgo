@@ -56,7 +56,6 @@ export function CustomAlgo() {
             dispatch(setCodeInput({ codeInput: val }))
             let codeInputVal = val.replace(/\s/g, '');
             // let comparisonCode = comparisonCodeUnclean.replace(/\s/g, '');
-            console.log('code inputted is ', codeInputVal, 'comparison is ', comparisonCode)
             if (comparisonCode.substring(0, codeInputVal.length) === codeInputVal && codeInputVal !== comparisonCode) {
                 dispatch(setAlgoLineState({ algoLineState: 'semi' }))
             } else if (comparisonCode === codeInputVal) {
@@ -72,6 +71,9 @@ export function CustomAlgo() {
             dispatch(addCodeInputToTypedAlgoOutput())
             if (typedAlgoOutput.length === customAlgoInput.length - 1) {
                 alert('You have completed the custom algo!')
+                // empty the typed algo output
+                dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
+                dispatch(setCodeSubmitted({ codeSubmitted: '' }));
             }
         }
     }
@@ -79,9 +81,11 @@ export function CustomAlgo() {
     function handleRandomiseAlgo() {
         dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
         dispatch(setCodeInput({ codeInput: '' }));
-        // generate random number between 0 and length of presetAlgos
-        const randomIndex = Math.floor(Math.random() * presetAlgos.length);
-        const randomAlgo = presetAlgos[randomIndex];
+
+        // get random key of presetAlgos
+        const randomAlgoKey = Object.keys(presetAlgos)[Math.floor(Math.random() * Object.keys(presetAlgos).length)];
+        const randomAlgo = presetAlgos[randomAlgoKey];
+
         // create copy of randomAlgo
         const randomAlgoCopy = [...randomAlgo];
         // remove all spaces including leading and trailing spaces and tabs
@@ -97,7 +101,28 @@ export function CustomAlgo() {
                 randomAlgoCopy.splice(i, 1);
             }
         }
-        
+
+        dispatch(setCodeSubmitted({ codeSubmitted: codeSubmittedString }));
+    }
+
+    function handleSelectAlgo(e){
+        dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
+        dispatch(setCodeInput({ codeInput: '' }));
+        const selectedAlgo = e.target.value;
+        const selectedAlgoCopy = [...presetAlgos[selectedAlgo]];
+        let codeSubmittedString = ''
+        for (let i = 0; i < selectedAlgoCopy.length; i++) {
+            // add each line of code to codeSubmittedString with a new line character
+            codeSubmittedString += selectedAlgoCopy[i] + '\n';
+            selectedAlgoCopy[i] = selectedAlgoCopy[i].replace(/\s/g, '');
+        }
+        // remove empty string from array
+        for (let i = 0; i < selectedAlgoCopy.length; i += 1) {
+            if (selectedAlgoCopy[i] === "") {
+                selectedAlgoCopy.splice(i, 1);
+            }
+        }
+
         dispatch(setCodeSubmitted({ codeSubmitted: codeSubmittedString }));
     }
 
@@ -114,6 +139,16 @@ export function CustomAlgo() {
             </div>
             <h2>Custom Algo Learning Feature</h2>
             <div className='button-div' onClick={handleRandomiseAlgo}>Randomise!</div>
+            <select onChange={handleSelectAlgo} defaultValue={'DEFAULT'}>
+                <option disabled value='DEFAULT'>Select your Algo</option>
+                {
+                    Object.keys(presetAlgos).map((key, index) => {
+                        return (
+                            <option key={index}>{key}</option>
+                        )
+                    })
+                }
+            </select>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
             <h3> Create algo answer </h3>
             <textarea rows={customAlgoInput.length + 1} cols="120" id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} />

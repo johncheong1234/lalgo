@@ -8,39 +8,55 @@ export const customAlgoSlice = createSlice({
         codeSubmitted: '',
         algoLineState: 'semi',
         codeInput: '',
-        presetAlgos: [[
-            'function bubbleSort(arr) {',
-            '    for (let i = 0; i < arr.length; i++) {',
-            '        for (let j = 0; j < arr.length; j++) {',
-            '            if (arr[j] > arr[j + 1]) {',
-            '                let temp = arr[j];',
-            '                arr[j] = arr[j + 1];',
-            '                arr[j + 1] = temp;',
-            '            }',
-            '        }',
-            '    }',
-            '    return arr;',
-            '}'
-        ], [
-            'function mergeSort(arr) {',
-            '    if (arr.length <= 1) return arr;',
-            '    let mid = Math.floor(arr.length / 2);',
-            '    let left = mergeSort(arr.slice(0, mid));',
-            '    let right = mergeSort(arr.slice(mid));',
-            '    return merge(left, right);',
-            '}',
-            'function merge(left, right) {',
-            '    let merged = [];',
-            '    while (left.length && right.length) {',
-            '        if (left[0] < right[0]) {',
-            '            merged.push(left.shift());',
-            '        } else {',
-            '            merged.push(right.shift());',
-            '        }',
-            '    }',
-            '    return [...merged, ...left, ...right];',
-            '}'
-        ]]
+        presetAlgos: {
+            bubbleSort: [
+                'function bubbleSort(arr) {',
+                '    for (let i = 0; i < arr.length; i++) {',
+                '        for (let j = 0; j < arr.length; j++) {',
+                '            if (arr[j] > arr[j + 1]) {',
+                '                let temp = arr[j];',
+                '                arr[j] = arr[j + 1];',
+                '                arr[j + 1] = temp;',
+                '            }',
+                '        }',
+                '    }',
+                '    return arr;',
+                '}'
+            ], mergeSort: [
+                'function mergeSort(arr) {',
+                '    if (arr.length <= 1) return arr;',
+                '    let mid = Math.floor(arr.length / 2);',
+                '    let left = mergeSort(arr.slice(0, mid));',
+                '    let right = mergeSort(arr.slice(mid));',
+                '    return merge(left, right);',
+                '}',
+                'function merge(left, right) {',
+                '    let merged = [];',
+                '    while (left.length && right.length) {',
+                '        if (left[0] < right[0]) {',
+                '            merged.push(left.shift());',
+                '        } else {',
+                '            merged.push(right.shift());',
+                '        }',
+                '    }',
+                '    return [...merged, ...left, ...right];',
+                '}'
+            ],
+            maxChunksToSorted: [
+                'var maxChunksToSorted = function(arr) {',
+                'const chunks = [];',
+                'for(let i=0; i<arr.length; i++){',
+                'const maxElem = Math.max(arr[i], chunks[chunks.length-1] ? chunks[chunks.length-1] : 0);',
+                'while(chunks.length && chunks[chunks.length-1] > arr[i]){',
+                'chunks.pop();',
+                '}',
+
+                'chunks.push(maxElem);',
+                '}',
+                'return chunks.length;',
+                '}'
+            ]
+        }
     },
     reducers: {
         setCustomAlgoInput: (state, action) => {
