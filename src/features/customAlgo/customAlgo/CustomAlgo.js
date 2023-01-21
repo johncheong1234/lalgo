@@ -212,7 +212,7 @@ export function CustomAlgo() {
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
             <h3> Create algo answer </h3>
-            <textarea rows={customAlgoInput.length + 1} cols="120" id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} />
+            <textarea rows={customAlgoInput.length < 13 ? customAlgoInput.length+1 : 14} cols="120" id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} />
         </div>
     );
 }
