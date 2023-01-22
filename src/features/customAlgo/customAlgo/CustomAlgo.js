@@ -10,7 +10,8 @@ import {
     setRepeatsInitial,
     setRepeatOn,
     setRepeatsLeft,
-    setAlgoSelected
+    setAlgoSelected,
+    setReadCode
 } from '../customAlgoSlice';
 
 export function CustomAlgo() {
@@ -24,6 +25,7 @@ export function CustomAlgo() {
     const codeSubmitted = customAlgoObject.codeSubmitted;
     const repeatObject = customAlgoObject.repeatObject;
     const algoSelected = customAlgoObject.algoSelected;
+    const readCode = customAlgoObject.readCode;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -44,8 +46,20 @@ export function CustomAlgo() {
         const customAlgoInput = AllLinesOfCode;
         dispatch(setCustomAlgoInput({ customAlgoInput }))
 
-
     }, [codeSubmitted]);
+
+    useEffect(() => {
+
+        const codeToBeRead = customAlgoInput[typedAlgoOutput.length];
+        if (codeToBeRead && readCode && 'speechSynthesis' in window) {
+            const msg = new SpeechSynthesisUtterance();
+            msg.text = codeToBeRead;
+            window.speechSynthesis.speak(msg);
+        }
+
+        dispatch(setReadCode({ readCode: false }));
+
+    }, [readCode])
 
     function handleAnswerInputChange(e) {
         dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
@@ -62,6 +76,9 @@ export function CustomAlgo() {
             dispatch(setCodeInput({ codeInput: val }))
             let codeInputVal = val.replace(/\s/g, '');
             // let comparisonCode = comparisonCodeUnclean.replace(/\s/g, '');
+            if(val.length === 1){
+                dispatch(setReadCode({ readCode: true }));
+            }
             if (comparisonCode.substring(0, codeInputVal.length) === codeInputVal && codeInputVal !== comparisonCode) {
                 dispatch(setAlgoLineState({ algoLineState: 'semi' }))
             } else if (comparisonCode === codeInputVal) {
@@ -212,7 +229,7 @@ export function CustomAlgo() {
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
             <h3> Create algo answer </h3>
-            <textarea rows={customAlgoInput.length < 13 ? customAlgoInput.length+1 : 14} cols="120" id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} />
+            <textarea rows={customAlgoInput.length < 13 ? customAlgoInput.length + 1 : 14} cols="120" id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} />
         </div>
     );
 }
