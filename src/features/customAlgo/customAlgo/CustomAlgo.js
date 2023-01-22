@@ -76,7 +76,7 @@ export function CustomAlgo() {
             dispatch(setCodeInput({ codeInput: val }))
             let codeInputVal = val.replace(/\s/g, '');
             // let comparisonCode = comparisonCodeUnclean.replace(/\s/g, '');
-            if(val.length === 1){
+            if(val.length === 1 && comparisonCode.substring(0, codeInputVal.length) === codeInputVal){
                 dispatch(setReadCode({ readCode: true }));
             }
             if (comparisonCode.substring(0, codeInputVal.length) === codeInputVal && codeInputVal !== comparisonCode) {
