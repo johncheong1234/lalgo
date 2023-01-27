@@ -144,6 +144,9 @@ export const customAlgoSlice = createSlice({
         },
         setReadCode(state, action){
             state.readCode = action.payload.readCode;
+        },
+        setPresetAlgos(state, action){
+            state.presetAlgos = action.payload.presetAlgos;
         }
     }
 });
@@ -159,6 +162,7 @@ export const {
     setRepeatOn,
     setRepeatsLeft,
     setAlgoSelected,
-    setReadCode
+    setReadCode,
+    setPresetAlgos
 } = customAlgoSlice.actions;
 export default customAlgoSlice.reducer;

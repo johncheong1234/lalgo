@@ -11,8 +11,10 @@ import {
     setRepeatOn,
     setRepeatsLeft,
     setAlgoSelected,
-    setReadCode
+    setReadCode,
+    setPresetAlgos
 } from '../customAlgoSlice';
+import axios from 'axios';
 
 export function CustomAlgo() {
 
@@ -27,6 +29,28 @@ export function CustomAlgo() {
     const algoSelected = customAlgoObject.algoSelected;
     const readCode = customAlgoObject.readCode;
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_all_algos";
+
+        const presetAlgos = axios.get(url, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        let objectToDispatch = {};
+
+
+        presetAlgos.then((response) => {
+            for (let i = 0; i < response.data.length; i++) {
+                objectToDispatch[response.data[i].algo.algoKey] = { algoCode: response.data[i].algo.algoCode, algoName: response.data[i].algo.algoName }
+            }
+
+            dispatch(setPresetAlgos({ presetAlgos: objectToDispatch }));
+        });
+
+    }, [])
 
     useEffect(() => {
 
@@ -76,7 +100,7 @@ export function CustomAlgo() {
             dispatch(setCodeInput({ codeInput: val }))
             let codeInputVal = val.replace(/\s/g, '');
             // let comparisonCode = comparisonCodeUnclean.replace(/\s/g, '');
-            if(val.length === 1 && comparisonCode.substring(0, codeInputVal.length) === codeInputVal){
+            if (val.length === 1 && comparisonCode.substring(0, codeInputVal.length) === codeInputVal) {
                 dispatch(setReadCode({ readCode: true }));
             }
             if (comparisonCode.substring(0, codeInputVal.length) === codeInputVal && codeInputVal !== comparisonCode) {
@@ -119,7 +143,7 @@ export function CustomAlgo() {
 
         // get random key of presetAlgos
         const randomAlgoKey = Object.keys(presetAlgos)[Math.floor(Math.random() * Object.keys(presetAlgos).length)];
-        const randomAlgo = presetAlgos[randomAlgoKey];
+        const randomAlgo = presetAlgos[randomAlgoKey].algoCode;
 
         // create copy of randomAlgo
         const randomAlgoCopy = [...randomAlgo];
@@ -151,7 +175,7 @@ export function CustomAlgo() {
         dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
         dispatch(setCodeInput({ codeInput: '' }));
         const selectedAlgo = e.target.value;
-        const selectedAlgoCopy = [...presetAlgos[selectedAlgo]];
+        const selectedAlgoCopy = [...presetAlgos[selectedAlgo].algoCode];
         let codeSubmittedString = ''
         for (let i = 0; i < selectedAlgoCopy.length; i++) {
             // add each line of code to codeSubmittedString with a new line character
