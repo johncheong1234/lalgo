@@ -110,6 +110,7 @@ export const customAlgoSlice = createSlice({
         algoSelected: 'default',
         readCode: false,
         showAnswer: true,
+        voiceEnabled: true
     },
     reducers: {
         setCustomAlgoInput: (state, action) => {
@@ -151,6 +152,9 @@ export const customAlgoSlice = createSlice({
         },
         setShowAnswer(state, action){
             state.showAnswer = action.payload.showAnswer;
+        },
+        setVoiceEnabled(state, action){
+            state.voiceEnabled = action.payload.voiceEnabled;
         }
     }
 });
@@ -168,6 +172,7 @@ export const {
     setAlgoSelected,
     setReadCode,
     setPresetAlgos,
-    setShowAnswer
+    setShowAnswer,
+    setVoiceEnabled
 } = customAlgoSlice.actions;
 export default customAlgoSlice.reducer;

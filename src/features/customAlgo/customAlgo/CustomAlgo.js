@@ -13,7 +13,8 @@ import {
     setAlgoSelected,
     setReadCode,
     setPresetAlgos,
-    setShowAnswer
+    setShowAnswer,
+    setVoiceEnabled
 } from '../customAlgoSlice';
 import axios from 'axios';
 
@@ -30,6 +31,7 @@ export function CustomAlgo() {
     const algoSelected = customAlgoObject.algoSelected;
     const readCode = customAlgoObject.readCode;
     const showAnswer = customAlgoObject.showAnswer;
+    const voiceEnabled = customAlgoObject.voiceEnabled;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -76,13 +78,15 @@ export function CustomAlgo() {
 
     useEffect(() => {
 
-        const codeToBeRead = customAlgoInput[typedAlgoOutput.length];
-        if (codeToBeRead && readCode && 'speechSynthesis' in window) {
-            const msg = new SpeechSynthesisUtterance();
-            msg.text = codeToBeRead;
-            msg.rate = 0.6;
-            msg.pitch = 1.2;
-            window.speechSynthesis.speak(msg);
+        if (voiceEnabled) {
+            const codeToBeRead = customAlgoInput[typedAlgoOutput.length];
+            if (codeToBeRead && readCode && 'speechSynthesis' in window) {
+                const msg = new SpeechSynthesisUtterance();
+                msg.text = codeToBeRead;
+                msg.rate = 0.6;
+                msg.pitch = 1.2;
+                window.speechSynthesis.speak(msg);
+            }
         }
 
         dispatch(setReadCode({ readCode: false }));
@@ -218,8 +222,12 @@ export function CustomAlgo() {
         }
     }
 
-    function handleShowAnswer(){
-        dispatch(setShowAnswer({showAnswer: !showAnswer}));
+    function handleShowAnswer() {
+        dispatch(setShowAnswer({ showAnswer: !showAnswer }));
+    }
+
+    function handleVoiceEnable() {
+        dispatch(setVoiceEnabled({ voiceEnabled: !voiceEnabled }));
     }
 
     return (
@@ -258,9 +266,10 @@ export function CustomAlgo() {
                 </select>
 
                 {repeatObject.repeatOn && <div className='repeats-left'>Repeats left: {repeatObject.repeatsLeft}</div>}
+                <button onClick={handleVoiceEnable}>{voiceEnabled ? 'Disable Voice' : 'Enable Voice'}</button>
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
-            <h3> Create algo answer </h3> <button onClick = {handleShowAnswer}>{showAnswer ? "Hide" : "Show"}</button>
+            <h3> Create algo answer </h3> <button onClick={handleShowAnswer}>{showAnswer ? "Hide" : "Show"}</button>
             <textarea rows={customAlgoInput.length < 13 ? customAlgoInput.length + 1 : 14} cols="120" id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} style={{
                 display: showAnswer ? 'block' : 'none'
             }} />
