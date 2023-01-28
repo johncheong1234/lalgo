@@ -80,6 +80,8 @@ export function CustomAlgo() {
         if (codeToBeRead && readCode && 'speechSynthesis' in window) {
             const msg = new SpeechSynthesisUtterance();
             msg.text = codeToBeRead;
+            msg.rate = 0.6;
+            msg.pitch = 1.2;
             window.speechSynthesis.speak(msg);
         }
 
@@ -217,7 +219,6 @@ export function CustomAlgo() {
     }
 
     function handleShowAnswer(){
-        console.log('show answer clicked ', showAnswer)
         dispatch(setShowAnswer({showAnswer: !showAnswer}));
     }
 
