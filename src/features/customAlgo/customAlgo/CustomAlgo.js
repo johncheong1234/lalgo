@@ -12,7 +12,8 @@ import {
     setRepeatsLeft,
     setAlgoSelected,
     setReadCode,
-    setPresetAlgos
+    setPresetAlgos,
+    setShowAnswer
 } from '../customAlgoSlice';
 import axios from 'axios';
 
@@ -28,6 +29,7 @@ export function CustomAlgo() {
     const repeatObject = customAlgoObject.repeatObject;
     const algoSelected = customAlgoObject.algoSelected;
     const readCode = customAlgoObject.readCode;
+    const showAnswer = customAlgoObject.showAnswer;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -214,6 +216,11 @@ export function CustomAlgo() {
         }
     }
 
+    function handleShowAnswer(){
+        console.log('show answer clicked ', showAnswer)
+        dispatch(setShowAnswer({showAnswer: !showAnswer}));
+    }
+
     return (
         <div>
             <div className='answers-typed'>
@@ -252,8 +259,10 @@ export function CustomAlgo() {
                 {repeatObject.repeatOn && <div className='repeats-left'>Repeats left: {repeatObject.repeatsLeft}</div>}
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
-            <h3> Create algo answer </h3>
-            <textarea rows={customAlgoInput.length < 13 ? customAlgoInput.length + 1 : 14} cols="120" id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} />
+            <h3> Create algo answer </h3> <button onClick = {handleShowAnswer}>{showAnswer ? "Hide" : "Show"}</button>
+            <textarea rows={customAlgoInput.length < 13 ? customAlgoInput.length + 1 : 14} cols="120" id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} style={{
+                display: showAnswer ? 'block' : 'none'
+            }} />
         </div>
     );
 }
