@@ -136,6 +136,8 @@ export function CustomAlgo() {
 
                 if (repeatObject.repeatOn && repeatObject.repeatsLeft > 1) {
                     dispatch(setRepeatsLeft({ repeatsLeft: repeatObject.repeatsLeft - 1 }))
+                    dispatch(setCarelessErrorCount({ carelessErrorCount: 0 }))
+                    dispatch(setConceptErrorCount({ conceptErrorCount: 0 }))
                 } else if (repeatObject.repeatOn && repeatObject.repeatsLeft === 1) {
                     dispatch(setRepeatOn({ repeatOn: false }))
                     dispatch(setRepeatsLeft({ repeatsLeft: 0 }))
@@ -146,6 +148,8 @@ export function CustomAlgo() {
                 } else if (!repeatObject.repeatOn) {
                     dispatch(setAlgoSelected({ algoSelected: 'default' }))
                     dispatch(setCodeSubmitted({ codeSubmitted: '' }));
+                    dispatch(setCarelessErrorCount({ carelessErrorCount: 0 }))
+                    dispatch(setConceptErrorCount({ conceptErrorCount: 0 }))
                     alert('You have completed the algorithm! Well done! :D')
                 }
             }
@@ -189,6 +193,8 @@ export function CustomAlgo() {
         dispatch(setAlgoSelected({ algoSelected: e.target.value }));
         dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
         dispatch(setCodeInput({ codeInput: '' }));
+        dispatch(setCarelessErrorCount({ carelessErrorCount: 0 }))
+        dispatch(setConceptErrorCount({ conceptErrorCount: 0 }))
         const selectedAlgo = e.target.value;
         const selectedAlgoCopy = [...presetAlgos[selectedAlgo].algoCode];
         let codeSubmittedString = ''
