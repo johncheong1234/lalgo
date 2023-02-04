@@ -14,7 +14,10 @@ import {
     setReadCode,
     setPresetAlgos,
     setShowAnswer,
-    setVoiceEnabled
+    setVoiceEnabled,
+    setConceptErrorCount,
+    setCarelessErrorCount,
+    setMistakeModalDisplay
 } from '../customAlgoSlice';
 import axios from 'axios';
 
@@ -32,6 +35,9 @@ export function CustomAlgo() {
     const readCode = customAlgoObject.readCode;
     const showAnswer = customAlgoObject.showAnswer;
     const voiceEnabled = customAlgoObject.voiceEnabled;
+    const mistakeModalDisplay = customAlgoObject.mistakeModalDisplay;
+    const conceptErrorCount = customAlgoObject.conceptErrorCount;
+    const carelessErrorCount = customAlgoObject.carelessErrorCount;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -117,6 +123,7 @@ export function CustomAlgo() {
                 dispatch(setAlgoLineState({ algoLineState: 'correct' }))
             } else {
                 dispatch(setAlgoLineState({ algoLineState: 'incorrect' }))
+                dispatch(setMistakeModalDisplay({ mistakeModalDisplay: true }))
             }
         }
     }
@@ -230,6 +237,20 @@ export function CustomAlgo() {
         dispatch(setVoiceEnabled({ voiceEnabled: !voiceEnabled }));
     }
 
+    function handleMistakeModalBackgroundClick() {
+        dispatch(setMistakeModalDisplay({ mistakeModalDisplay: false }));
+    }
+
+    function handleConceptMistakeClick() {
+        dispatch(setMistakeModalDisplay({ mistakeModalDisplay: false }));
+        dispatch(setConceptErrorCount({ conceptErrorCount: conceptErrorCount + 1 }));
+    }
+
+    function handleTypoMistakeClick() {
+        dispatch(setMistakeModalDisplay({ mistakeModalDisplay: false }));
+        dispatch(setCarelessErrorCount({ carelessErrorCount: carelessErrorCount + 1 }));
+    }
+
     return (
         <div>
             <div className='answers-typed'>
@@ -267,12 +288,37 @@ export function CustomAlgo() {
 
                 {repeatObject.repeatOn && <div className='repeats-left'>Repeats left: {repeatObject.repeatsLeft}</div>}
                 <button onClick={handleVoiceEnable}>{voiceEnabled ? 'Disable Voice' : 'Enable Voice'}</button>
+                <div style={{
+                    display: conceptErrorCount ? 'block' : 'none'
+                }}>
+                    Conceptual Errors: {conceptErrorCount}
+                </div>
+                <div style={{
+                    display: carelessErrorCount ? 'block' : 'none'
+                }}>
+                    Careless Errors: {carelessErrorCount}
+                </div>
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
             <h3> Create algo answer </h3> <button onClick={handleShowAnswer}>{showAnswer ? "Hide" : "Show"}</button>
             <textarea rows={customAlgoInput.length < 13 ? customAlgoInput.length + 1 : 14} cols="120" id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} style={{
                 display: showAnswer ? 'block' : 'none'
             }} />
+            <div className='mistake-modal-background' style={{
+                display: mistakeModalDisplay ? 'block' : 'none'
+            }}
+                onClick={handleMistakeModalBackgroundClick}
+            >
+                <div className='mistake-modal'>
+                    <div className='mistake-modal-text'>
+                        You've made a mistake!
+                    </div>
+                    <button onClick={handleConceptMistakeClick}>Concept Mistake</button>
+                    <button onClick={handleTypoMistakeClick}>Typo Mistake</button>
+                    <button>Not a mistake</button>
+                </div>
+
+            </div>
         </div>
     );
 }

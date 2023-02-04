@@ -22,7 +22,8 @@ export const customAlgoSlice = createSlice({
                 '    }',
                 '    return arr;',
                 '}'
-            ], mergeSort: [
+            ], 
+            mergeSort: [
                 'function mergeSort(arr) {',
                 '    if (arr.length <= 1) return arr;',
                 '    let mid = Math.floor(arr.length / 2);',
@@ -110,7 +111,10 @@ export const customAlgoSlice = createSlice({
         algoSelected: 'default',
         readCode: false,
         showAnswer: true,
-        voiceEnabled: true
+        voiceEnabled: true,
+        conceptErrorCount: 0,
+        carelessErrorCount: 0,
+        mistakeModalDisplay: false
     },
     reducers: {
         setCustomAlgoInput: (state, action) => {
@@ -155,6 +159,15 @@ export const customAlgoSlice = createSlice({
         },
         setVoiceEnabled(state, action){
             state.voiceEnabled = action.payload.voiceEnabled;
+        },
+        setConceptErrorCount(state, action){
+            state.conceptErrorCount = action.payload.conceptErrorCount;
+        },
+        setCarelessErrorCount(state, action){
+            state.carelessErrorCount = action.payload.carelessErrorCount;
+        },
+        setMistakeModalDisplay(state, action){
+            state.mistakeModalDisplay = action.payload.mistakeModalDisplay;
         }
     }
 });
@@ -173,6 +186,9 @@ export const {
     setReadCode,
     setPresetAlgos,
     setShowAnswer,
-    setVoiceEnabled
+    setVoiceEnabled,
+    setConceptErrorCount,
+    setCarelessErrorCount,
+    setMistakeModalDisplay
 } = customAlgoSlice.actions;
 export default customAlgoSlice.reducer;
