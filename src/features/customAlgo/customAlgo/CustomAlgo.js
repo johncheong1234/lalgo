@@ -107,7 +107,14 @@ export function CustomAlgo() {
     }
 
     function handleCodeInputChange(e) {
-        if (customAlgoInput.length > 0 && !mistakeModalDisplay) {
+        // check if delete key is pressed
+        let codeInputChangeAllowed = false;
+        if (customAlgoInput.length > 0 && e.nativeEvent.inputType === 'deleteContentBackward') {
+            codeInputChangeAllowed = true;
+        } else if (customAlgoInput.length > 0 && algoLineState !== 'incorrect' && e.nativeEvent.inputType !== 'deleteContentBackward') {
+            codeInputChangeAllowed = true;
+        }
+        if (codeInputChangeAllowed) {
             const comparisonCodeUnclean = customAlgoInput[typedAlgoOutput.length];
             let comparisonCode = comparisonCodeUnclean.replace(/\s/g, '');
             let val = e.target.value;
@@ -257,7 +264,7 @@ export function CustomAlgo() {
         dispatch(setCarelessErrorCount({ carelessErrorCount: carelessErrorCount + 1 }));
     }
 
-    function handleGlobalKeyDown(e){
+    function handleGlobalKeyDown(e) {
         // if escape key is pressed, close mistake modal
         if (e.key === 'Escape') {
             dispatch(setMistakeModalDisplay({ mistakeModalDisplay: false }));
