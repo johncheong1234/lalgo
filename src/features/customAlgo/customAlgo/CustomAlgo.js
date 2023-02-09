@@ -107,7 +107,7 @@ export function CustomAlgo() {
     }
 
     function handleCodeInputChange(e) {
-        if (customAlgoInput.length > 0) {
+        if (customAlgoInput.length > 0 && !mistakeModalDisplay) {
             const comparisonCodeUnclean = customAlgoInput[typedAlgoOutput.length];
             let comparisonCode = comparisonCodeUnclean.replace(/\s/g, '');
             let val = e.target.value;
