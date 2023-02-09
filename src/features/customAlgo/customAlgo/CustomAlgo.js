@@ -109,7 +109,7 @@ export function CustomAlgo() {
     function handleCodeInputChange(e) {
         // check if delete key is pressed
         let codeInputChangeAllowed = false;
-        if (customAlgoInput.length > 0 && e.nativeEvent.inputType === 'deleteContentBackward') {
+        if (customAlgoInput.length > 0 && e.nativeEvent.inputType === 'deleteContentBackward' && !mistakeModalDisplay) {
             codeInputChangeAllowed = true;
         } else if (customAlgoInput.length > 0 && algoLineState !== 'incorrect' && e.nativeEvent.inputType !== 'deleteContentBackward') {
             codeInputChangeAllowed = true;
@@ -268,6 +268,7 @@ export function CustomAlgo() {
         // if escape key is pressed, close mistake modal
         if (e.key === 'Escape') {
             dispatch(setMistakeModalDisplay({ mistakeModalDisplay: false }));
+            dispatch(setCarelessErrorCount({ carelessErrorCount: carelessErrorCount + 1 }));
         }
     }
 
