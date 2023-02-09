@@ -257,8 +257,15 @@ export function CustomAlgo() {
         dispatch(setCarelessErrorCount({ carelessErrorCount: carelessErrorCount + 1 }));
     }
 
+    function handleGlobalKeyDown(e){
+        // if escape key is pressed, close mistake modal
+        if (e.key === 'Escape') {
+            dispatch(setMistakeModalDisplay({ mistakeModalDisplay: false }));
+        }
+    }
+
     return (
-        <div>
+        <div onKeyDown={handleGlobalKeyDown}>
             <div className='answers-typed'>
                 {typedAlgoOutput.map((line, index) => {
                     return (
