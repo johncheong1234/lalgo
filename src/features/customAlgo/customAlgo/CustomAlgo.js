@@ -20,6 +20,7 @@ import {
     setMistakeModalDisplay
 } from '../customAlgoSlice';
 import axios from 'axios';
+import { Analytics } from '@vercel/analytics/react';
 
 export function CustomAlgo() {
 
@@ -274,6 +275,7 @@ export function CustomAlgo() {
 
     return (
         <div onKeyDown={handleGlobalKeyDown}>
+            <Analytics />
             <div className='answers-typed'>
                 {typedAlgoOutput.map((line, index) => {
                     return (
