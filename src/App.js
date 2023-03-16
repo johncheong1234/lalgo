@@ -10,6 +10,7 @@ import {
 } from './features/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
+import axios from 'axios';
 
 function App() {
 
@@ -24,6 +25,11 @@ function App() {
     dispatch(setUserObject({ userObject: userObject }));
     // save userObject to local storage
     window.localStorage.setItem('userObject', JSON.stringify(userObject));
+    const postUrl = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/upsert_user';
+    axios.post(postUrl, {
+      email: userObject.email,
+      name: userObject.name
+    })
   };
 
   useEffect(() => {
@@ -45,7 +51,7 @@ function App() {
     )
   }, [given_name]);
 
-  useEffect(()=>{
+  useEffect(() => {
 
     // get userObject from local storage
     var userObject = JSON.parse(window.localStorage.getItem('userObject'));
@@ -53,7 +59,7 @@ function App() {
       dispatch(setUserObject({ userObject: userObject }));
     }
 
-  },[])
+  }, [])
 
   function handleSignOut(e) {
     e.preventDefault();
