@@ -70,7 +70,9 @@ function App() {
   return (
     <div>
       <h1>Learn Algos Fast Here</h1>
-      {given_name ? <h2>Welcome {given_name}</h2> : <div id="loginButton"></div>}
+      {given_name ? <h2>Welcome {given_name}</h2> : <div id="loginButton" style={{
+        width: '240px'
+      }}></div>}
       {given_name ? <div className='sign-out' onClick={handleSignOut}>Sign out</div> : null}
       <BrowserRouter>
         <Routes>
