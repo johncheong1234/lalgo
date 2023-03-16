@@ -5,14 +5,25 @@ import { SubmitAlgo } from './features/submitAlgo/submitAlgo/SubmitAlgo';
 import './CustomAlgo.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import {
+  setUserObject
+} from './features/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import './App.css';
 
 function App() {
+
+  const dispatch = useDispatch();
+  const given_name = useSelector((state) => state.user.userObject.given_name);
 
   const handleLoginCallbackResponse = (response) => {
     console.log(response);
     console.log(response.credential)
     var userObject = jwt_decode(response.credential);
     console.log(userObject)
+    dispatch(setUserObject({ userObject: userObject }));
+    // save userObject to local storage
+    window.localStorage.setItem('userObject', JSON.stringify(userObject));
   };
 
   useEffect(() => {
@@ -32,12 +43,29 @@ function App() {
         type: "standard",
       }
     )
-  }, []);
+  }, [given_name]);
+
+  useEffect(()=>{
+
+    // get userObject from local storage
+    var userObject = JSON.parse(window.localStorage.getItem('userObject'));
+    if (userObject) {
+      dispatch(setUserObject({ userObject: userObject }));
+    }
+
+  },[])
+
+  function handleSignOut(e) {
+    e.preventDefault();
+    dispatch(setUserObject({ userObject: {} }));
+    window.localStorage.removeItem('userObject');
+  }
 
   return (
     <div>
       <h1>Learn Algos Fast Here</h1>
-      <div id="loginButton"></div>
+      {given_name ? <h2>Welcome {given_name}</h2> : <div id="loginButton"></div>}
+      {given_name ? <div className='sign-out' onClick={handleSignOut}>Sign out</div> : null}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<CustomAlgo />} />

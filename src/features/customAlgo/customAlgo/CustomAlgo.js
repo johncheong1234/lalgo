@@ -276,7 +276,9 @@ export function CustomAlgo() {
     return (
         <div onKeyDown={handleGlobalKeyDown}>
             <Analytics />
-            <div className='answers-typed'>
+            <div className='answers-typed' style= {{
+                border: typedAlgoOutput.length > 0 ? '1px solid black' : 'none'
+            }}>
                 {typedAlgoOutput.map((line, index) => {
                     return (
                         <div key={index}>
