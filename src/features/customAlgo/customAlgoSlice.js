@@ -111,7 +111,7 @@ export const customAlgoSlice = createSlice({
         algoSelected: 'default',
         readCode: false,
         showAnswer: true,
-        voiceEnabled: true,
+        voiceEnabled: false,
         conceptErrorCount: 0,
         carelessErrorCount: 0,
         mistakeModalDisplay: false
