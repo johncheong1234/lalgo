@@ -98,7 +98,8 @@ export function CustomAlgo() {
 
         const customAlgoInput = AllLinesOfCode;
         dispatch(setCustomAlgoInput({ customAlgoInput }))
-        if(customAlgoInput.length > 0){
+
+        if (customAlgoInput.length > 0) {
             dispatch(setStartTime({ startTime: new Date().getTime() }));
         } else {
             dispatch(setStartTime({ startTime: 0 }));
@@ -125,6 +126,7 @@ export function CustomAlgo() {
     function handleAnswerInputChange(e) {
         dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
         dispatch(setCodeInput({ codeInput: '' }));
+        dispatch(setAlgoSelected({ algoSelected: 'default' }));
         const codeSubmitted = e.target.value
         dispatch(setCodeSubmitted({ codeSubmitted }))
     }
@@ -162,6 +164,24 @@ export function CustomAlgo() {
         if (e.key === 'Enter' && algoLineState === 'correct') {
             dispatch(addCodeInputToTypedAlgoOutput())
             if (typedAlgoOutput.length === customAlgoInput.length - 1) {
+
+                const algoRecord = {
+                    algoSelected: algoSelected,
+                    conceptErrorCount: conceptErrorCount,
+                    carelessErrorCount: carelessErrorCount,
+                    startTime: startTime,
+                    endTime: new Date().getTime(),
+                    timeElapsed: timeElapsed,
+                    customAlgoInput: customAlgoInput,
+                }
+
+                const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/add_algo_record";
+                axios.post(url, algoRecord).then((response) => {
+                    console.log(response);
+                }).catch((error) => {
+                    console.log(error);
+                })
+
                 dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
                 dispatch(setStartTime({ startTime: 0 }));
                 dispatch(setTimeElapsed({ timeElapsed: 0 }));
@@ -358,7 +378,7 @@ export function CustomAlgo() {
                 <div style={{
                     display: startTime ? 'block' : 'none'
                 }}>
-                    Time Taken: {timeElapsed/100} seconds
+                    Time Taken: {timeElapsed / 100} seconds
                 </div>
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
