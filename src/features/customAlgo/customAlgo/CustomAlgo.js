@@ -174,6 +174,7 @@ export function CustomAlgo() {
                     endTime: new Date().getTime(),
                     timeElapsed: timeElapsed,
                     customAlgoInput: customAlgoInput,
+                    repeatObject: repeatObject,
                 }
 
                 if(email){
