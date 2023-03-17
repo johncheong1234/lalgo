@@ -17,7 +17,9 @@ import {
     setVoiceEnabled,
     setConceptErrorCount,
     setCarelessErrorCount,
-    setMistakeModalDisplay
+    setMistakeModalDisplay,
+    setStartTime,
+    setTimeElapsed
 } from '../customAlgoSlice';
 import axios from 'axios';
 import { Analytics } from '@vercel/analytics/react';
@@ -39,6 +41,8 @@ export function CustomAlgo() {
     const mistakeModalDisplay = customAlgoObject.mistakeModalDisplay;
     const conceptErrorCount = customAlgoObject.conceptErrorCount;
     const carelessErrorCount = customAlgoObject.carelessErrorCount;
+    const startTime = customAlgoObject.startTime;
+    const timeElapsed = customAlgoObject.timeElapsed;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -65,6 +69,20 @@ export function CustomAlgo() {
 
     useEffect(() => {
 
+        if (startTime) {
+            const interval = setInterval(() => {
+                //calculate time elapsed
+                const newTimeElapsed = Math.floor((new Date() - startTime) / 10);
+                //update time elapsed
+                dispatch(setTimeElapsed({ timeElapsed: newTimeElapsed }));
+            }, 10);
+            return () => clearInterval(interval);
+        }
+
+    }, [startTime])
+
+    useEffect(() => {
+
         const AllLinesOfCode = codeSubmitted.split("\n");
         for (let i = 0; i < AllLinesOfCode.length; i++) {
             // remove all spaces including leading and trailing spaces and tabs
@@ -80,7 +98,11 @@ export function CustomAlgo() {
 
         const customAlgoInput = AllLinesOfCode;
         dispatch(setCustomAlgoInput({ customAlgoInput }))
-
+        if(customAlgoInput.length > 0){
+            dispatch(setStartTime({ startTime: new Date().getTime() }));
+        } else {
+            dispatch(setStartTime({ startTime: 0 }));
+        }
     }, [codeSubmitted]);
 
     useEffect(() => {
@@ -141,7 +163,8 @@ export function CustomAlgo() {
             dispatch(addCodeInputToTypedAlgoOutput())
             if (typedAlgoOutput.length === customAlgoInput.length - 1) {
                 dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
-
+                dispatch(setStartTime({ startTime: 0 }));
+                dispatch(setTimeElapsed({ timeElapsed: 0 }));
                 if (repeatObject.repeatOn && repeatObject.repeatsLeft > 1) {
                     dispatch(setRepeatsLeft({ repeatsLeft: repeatObject.repeatsLeft - 1 }))
                     dispatch(setCarelessErrorCount({ carelessErrorCount: 0 }))
@@ -190,6 +213,8 @@ export function CustomAlgo() {
 
         dispatch(setCodeSubmitted({ codeSubmitted: codeSubmittedString }));
         dispatch(setAlgoSelected({ algoSelected: randomAlgoKey }));
+        const currentTime = new Date().getTime();
+        dispatch(setStartTime({ startTime: currentTime }));
     }
 
     function handleSelectAlgo(e) {
@@ -219,6 +244,8 @@ export function CustomAlgo() {
         }
 
         dispatch(setCodeSubmitted({ codeSubmitted: codeSubmittedString }));
+        const currentTime = new Date().getTime();
+        dispatch(setStartTime({ startTime: currentTime }));
 
     }
 
@@ -276,7 +303,7 @@ export function CustomAlgo() {
     return (
         <div onKeyDown={handleGlobalKeyDown}>
             <Analytics />
-            <div className='answers-typed' style= {{
+            <div className='answers-typed' style={{
                 border: typedAlgoOutput.length > 0 ? '1px solid black' : 'none'
             }}>
                 {typedAlgoOutput.map((line, index) => {
@@ -322,6 +349,16 @@ export function CustomAlgo() {
                     display: carelessErrorCount ? 'block' : 'none'
                 }}>
                     Careless Errors: {carelessErrorCount}
+                </div>
+                <div>
+                    Start Time: {
+                        startTime ? new Date(startTime).toLocaleTimeString() : 'Not started'
+                    }
+                </div>
+                <div style={{
+                    display: startTime ? 'block' : 'none'
+                }}>
+                    Time Taken: {timeElapsed/100} seconds
                 </div>
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />

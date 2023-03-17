@@ -114,7 +114,9 @@ export const customAlgoSlice = createSlice({
         voiceEnabled: false,
         conceptErrorCount: 0,
         carelessErrorCount: 0,
-        mistakeModalDisplay: false
+        mistakeModalDisplay: false,
+        startTime: 0,
+        timeElapsed: 0,
     },
     reducers: {
         setCustomAlgoInput: (state, action) => {
@@ -168,6 +170,12 @@ export const customAlgoSlice = createSlice({
         },
         setMistakeModalDisplay(state, action){
             state.mistakeModalDisplay = action.payload.mistakeModalDisplay;
+        },
+        setStartTime(state, action){
+            state.startTime = action.payload.startTime;
+        },
+        setTimeElapsed(state, action){
+            state.timeElapsed = action.payload.timeElapsed;
         }
     }
 });
@@ -189,6 +197,8 @@ export const {
     setVoiceEnabled,
     setConceptErrorCount,
     setCarelessErrorCount,
-    setMistakeModalDisplay
+    setMistakeModalDisplay,
+    setStartTime,
+    setTimeElapsed
 } = customAlgoSlice.actions;
 export default customAlgoSlice.reducer;
