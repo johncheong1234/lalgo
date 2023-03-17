@@ -101,8 +101,6 @@ export function CustomAlgo() {
         dispatch(setCustomAlgoInput({ customAlgoInput }))
 
         if (customAlgoInput.length > 0) {
-            dispatch(setStartTime({ startTime: new Date().getTime() }));
-        } else {
             dispatch(setStartTime({ startTime: 0 }));
         }
     }, [codeSubmitted]);
@@ -149,6 +147,9 @@ export function CustomAlgo() {
             // let comparisonCode = comparisonCodeUnclean.replace(/\s/g, '');
             if (val.length === 1 && comparisonCode.substring(0, codeInputVal.length) === codeInputVal) {
                 dispatch(setReadCode({ readCode: true }));
+                if (!startTime && typedAlgoOutput.length === 0) {
+                    dispatch(setStartTime({ startTime: new Date() }));
+                }
             }
             if (comparisonCode.substring(0, codeInputVal.length) === codeInputVal && codeInputVal !== comparisonCode) {
                 dispatch(setAlgoLineState({ algoLineState: 'semi' }))
@@ -177,9 +178,9 @@ export function CustomAlgo() {
                     repeatObject: repeatObject,
                 }
 
-                if(email){
+                if (email) {
                     algoRecord.email = email;
-                }else{
+                } else {
                     algoRecord.email = 'guest';
                 }
 
@@ -241,8 +242,6 @@ export function CustomAlgo() {
 
         dispatch(setCodeSubmitted({ codeSubmitted: codeSubmittedString }));
         dispatch(setAlgoSelected({ algoSelected: randomAlgoKey }));
-        const currentTime = new Date().getTime();
-        dispatch(setStartTime({ startTime: currentTime }));
     }
 
     function handleSelectAlgo(e) {
@@ -272,8 +271,6 @@ export function CustomAlgo() {
         }
 
         dispatch(setCodeSubmitted({ codeSubmitted: codeSubmittedString }));
-        const currentTime = new Date().getTime();
-        dispatch(setStartTime({ startTime: currentTime }));
 
     }
 
