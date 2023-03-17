@@ -43,6 +43,7 @@ export function CustomAlgo() {
     const carelessErrorCount = customAlgoObject.carelessErrorCount;
     const startTime = customAlgoObject.startTime;
     const timeElapsed = customAlgoObject.timeElapsed;
+    const email = useSelector((state) => state.user.userObject.email);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -173,6 +174,12 @@ export function CustomAlgo() {
                     endTime: new Date().getTime(),
                     timeElapsed: timeElapsed,
                     customAlgoInput: customAlgoInput,
+                }
+
+                if(email){
+                    algoRecord.email = email;
+                }else{
+                    algoRecord.email = 'guest';
                 }
 
                 const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/add_algo_record";
@@ -320,6 +327,10 @@ export function CustomAlgo() {
         }
     }
 
+    function handleStopTimer() {
+        dispatch(setStartTime({ startTime: 0 }));
+    }
+
     return (
         <div onKeyDown={handleGlobalKeyDown}>
             <Analytics />
@@ -375,11 +386,17 @@ export function CustomAlgo() {
                         startTime ? new Date(startTime).toLocaleTimeString() : 'Not started'
                     }
                 </div>
+                <div className='button-div' onClick={handleStopTimer} style={{
+                    display: startTime ? 'block' : 'none'
+                }}>
+                    Stop Timer
+                </div>
                 <div style={{
                     display: startTime ? 'block' : 'none'
                 }}>
                     Time Taken: {timeElapsed / 100} seconds
                 </div>
+
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
             <h3> Create algo answer </h3> <button onClick={handleShowAnswer}>{showAnswer ? "Hide" : "Show"}</button>

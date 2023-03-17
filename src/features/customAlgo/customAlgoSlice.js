@@ -199,6 +199,6 @@ export const {
     setCarelessErrorCount,
     setMistakeModalDisplay,
     setStartTime,
-    setTimeElapsed
+    setTimeElapsed,
 } = customAlgoSlice.actions;
 export default customAlgoSlice.reducer;
