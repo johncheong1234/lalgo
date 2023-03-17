@@ -19,7 +19,9 @@ import {
     setCarelessErrorCount,
     setMistakeModalDisplay,
     setStartTime,
-    setTimeElapsed
+    setTimeElapsed,
+    addShowAnswerTime,
+    emptyTimedShowAnswers
 } from '../customAlgoSlice';
 import axios from 'axios';
 import { Analytics } from '@vercel/analytics/react';
@@ -44,6 +46,7 @@ export function CustomAlgo() {
     const startTime = customAlgoObject.startTime;
     const timeElapsed = customAlgoObject.timeElapsed;
     const email = useSelector((state) => state.user.userObject.email);
+    const timedShowAnswers = customAlgoObject.timedShowAnswers;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -103,6 +106,8 @@ export function CustomAlgo() {
         if (customAlgoInput.length > 0) {
             dispatch(setStartTime({ startTime: 0 }));
         }
+
+        dispatch(emptyTimedShowAnswers());
     }, [codeSubmitted]);
 
     useEffect(() => {
@@ -148,7 +153,14 @@ export function CustomAlgo() {
             if (val.length === 1 && comparisonCode.substring(0, codeInputVal.length) === codeInputVal) {
                 dispatch(setReadCode({ readCode: true }));
                 if (!startTime && typedAlgoOutput.length === 0) {
-                    dispatch(setStartTime({ startTime: new Date() }));
+                    const newStartTime = new Date().getTime();
+                    dispatch(setStartTime({ startTime: newStartTime }));
+                    dispatch(addShowAnswerTime({
+                        showAnswerTime: {
+                            time: newStartTime,
+                            showAnswer: showAnswer
+                        }
+                    }))
                 }
             }
             if (comparisonCode.substring(0, codeInputVal.length) === codeInputVal && codeInputVal !== comparisonCode) {
@@ -176,6 +188,7 @@ export function CustomAlgo() {
                     timeElapsed: timeElapsed,
                     customAlgoInput: customAlgoInput,
                     repeatObject: repeatObject,
+                    timedShowAnswers: timedShowAnswers
                 }
 
                 if (email) {
@@ -194,6 +207,7 @@ export function CustomAlgo() {
                 dispatch(setTypedAlgoOutput({ typedAlgoOutput: [] }));
                 dispatch(setStartTime({ startTime: 0 }));
                 dispatch(setTimeElapsed({ timeElapsed: 0 }));
+                dispatch(emptyTimedShowAnswers());
                 if (repeatObject.repeatOn && repeatObject.repeatsLeft > 1) {
                     dispatch(setRepeatsLeft({ repeatsLeft: repeatObject.repeatsLeft - 1 }))
                     dispatch(setCarelessErrorCount({ carelessErrorCount: 0 }))
@@ -296,6 +310,12 @@ export function CustomAlgo() {
     }
 
     function handleShowAnswer() {
+        dispatch(addShowAnswerTime({
+            showAnswerTime: {
+                time: new Date().getTime(),
+                showAnswer: !showAnswer
+            }
+        }))
         dispatch(setShowAnswer({ showAnswer: !showAnswer }));
     }
 

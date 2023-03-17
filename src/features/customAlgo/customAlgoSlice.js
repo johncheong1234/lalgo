@@ -117,6 +117,7 @@ export const customAlgoSlice = createSlice({
         mistakeModalDisplay: false,
         startTime: 0,
         timeElapsed: 0,
+        timedShowAnswers: [],
     },
     reducers: {
         setCustomAlgoInput: (state, action) => {
@@ -176,6 +177,12 @@ export const customAlgoSlice = createSlice({
         },
         setTimeElapsed(state, action){
             state.timeElapsed = action.payload.timeElapsed;
+        },
+        addShowAnswerTime(state, action){
+            state.timedShowAnswers.push(action.payload.showAnswerTime);
+        },
+        emptyTimedShowAnswers(state){
+            state.timedShowAnswers = [];
         }
     }
 });
@@ -200,5 +207,7 @@ export const {
     setMistakeModalDisplay,
     setStartTime,
     setTimeElapsed,
+    addShowAnswerTime,
+    emptyTimedShowAnswers
 } = customAlgoSlice.actions;
 export default customAlgoSlice.reducer;
