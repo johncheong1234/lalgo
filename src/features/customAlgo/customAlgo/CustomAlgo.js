@@ -21,7 +21,8 @@ import {
     setStartTime,
     setTimeElapsed,
     addShowAnswerTime,
-    emptyTimedShowAnswers
+    emptyTimedShowAnswers,
+    setShowTimer
 } from '../customAlgoSlice';
 import axios from 'axios';
 import { Analytics } from '@vercel/analytics/react';
@@ -47,6 +48,7 @@ export function CustomAlgo() {
     const timeElapsed = customAlgoObject.timeElapsed;
     const email = useSelector((state) => state.user.userObject.email);
     const timedShowAnswers = customAlgoObject.timedShowAnswers;
+    const showTimer = customAlgoObject.showTimer;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -345,8 +347,8 @@ export function CustomAlgo() {
         }
     }
 
-    function handleStopTimer() {
-        dispatch(setStartTime({ startTime: 0 }));
+    function handleHideTimer() {
+        dispatch(setShowTimer({ showTimer: !showTimer }))
     }
 
     return (
@@ -404,13 +406,13 @@ export function CustomAlgo() {
                         startTime ? new Date(startTime).toLocaleTimeString() : 'Not started'
                     }
                 </div>
-                <div className='button-div' onClick={handleStopTimer} style={{
+                <div className='button-div' onClick={handleHideTimer} style={{
                     display: startTime ? 'block' : 'none'
                 }}>
-                    Stop Timer
+                    {showTimer ? 'Hide' : 'Show'} Timer
                 </div>
                 <div style={{
-                    display: startTime ? 'block' : 'none'
+                    display: showTimer ? 'block' : 'none'
                 }}>
                     Time Taken: {timeElapsed / 100} seconds
                 </div>
