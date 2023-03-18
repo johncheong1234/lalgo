@@ -120,7 +120,8 @@ export const customAlgoSlice = createSlice({
         timedShowAnswers: [],
         showTimer: true,
         timeInAnswerShown: 0,
-        timeInAnswerNotShown: 0
+        timeInAnswerNotShown: 0,
+        pastRecordsRender: false,
     },
     reducers: {
         setCustomAlgoInput: (state, action) => {
@@ -195,6 +196,9 @@ export const customAlgoSlice = createSlice({
         },
         setTimeInAnswerNotShown(state, action){
             state.timeInAnswerNotShown = action.payload.timeInAnswerNotShown;
+        },
+        setPastRecordsRender(state, action){
+            state.pastRecordsRender = action.payload.pastRecordsRender;
         }
     }
 });
@@ -223,6 +227,7 @@ export const {
     emptyTimedShowAnswers,
     setShowTimer,
     setTimeInAnswerShown,
-    setTimeInAnswerNotShown
+    setTimeInAnswerNotShown,
+    setPastRecordsRender
 } = customAlgoSlice.actions;
 export default customAlgoSlice.reducer;

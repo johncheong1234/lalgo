@@ -24,7 +24,8 @@ import {
     emptyTimedShowAnswers,
     setShowTimer,
     setTimeInAnswerShown,
-    setTimeInAnswerNotShown
+    setTimeInAnswerNotShown,
+    setPastRecordsRender
 } from '../customAlgoSlice';
 import axios from 'axios';
 import { PastRecordsParent } from './pastRecordsParent/PastRecordsParent';
@@ -323,7 +324,7 @@ export function CustomAlgo() {
         }
 
         dispatch(setCodeSubmitted({ codeSubmitted: codeSubmittedString }));
-
+        dispatch(setPastRecordsRender({ setPastRecordsRender: true }));
     }
 
     function handleRepeatsInitialChange(e) {
@@ -489,7 +490,7 @@ export function CustomAlgo() {
         <div style={{
             width: '30%'
         }}> 
-            <PastRecordsParent />
+            <PastRecordsParent email={email} algoSelected={algoSelected} />
         </div>
         </div>
     );
