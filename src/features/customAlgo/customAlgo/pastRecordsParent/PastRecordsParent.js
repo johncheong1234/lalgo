@@ -2,15 +2,20 @@ import React, {
     useEffect, useState
 } from "react";
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import {
+    setPastRecords
+} from './pastRecordsSlice';
 
 export function PastRecordsParent(props) {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+
     const algoSelected = props.algoSelected;
     const email = props.email;
     // const pastRecordsRender = useSelector((state) => state.customAlgo.pastRecordsRender);
     const postUrl = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_algo_records';
-    const [pastRecords, setPastRecords] = useState([]);
+    const pastRecords = useSelector((state) => state.pastRecords.pastRecords);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -28,31 +33,15 @@ export function PastRecordsParent(props) {
                     return b.startTime - a.startTime;
                 })
 
-                setPastRecords(response.data);
+                dispatch(setPastRecords({
+                    pastRecords: response.data
+                }));
                 setIsLoading(false);
             };
             get_algo_records();
         }
 
     }, [algoSelected, email])
-
-    // useEffect(() => {
-    //     if (pastRecordsRender) {
-    //         console.log('rendering past records')
-    //         const get_algo_records = async () => {
-    //             setIsLoading(true);
-    //             const response = await axios.post(postUrl, {
-    //                 email,
-    //                 algoSelected: algoSelected
-    //             })
-    //             console.log('response ', response)
-    //             setPastRecords(response.data);
-    //             setIsLoading(false);
-    //         };
-    //         get_algo_records();
-    //         dispatch(setPastRecordsRender({ pastRecordsRender: false }));
-    //     }
-    // }, [dispatch, pastRecordsRender])
 
     return (
         // console.log('props are ', props, 'pastRecords are ', pastRecords, 'isLoading is ', isLoading),

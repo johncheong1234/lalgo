@@ -25,10 +25,13 @@ import {
     setShowTimer,
     setTimeInAnswerShown,
     setTimeInAnswerNotShown,
-    setPastRecordsRender
+    setPastRecordsRender,
 } from '../customAlgoSlice';
 import axios from 'axios';
 import { PastRecordsParent } from './pastRecordsParent/PastRecordsParent';
+import {
+    setPastRecords
+} from './pastRecordsParent/pastRecordsSlice';
 
 export function CustomAlgo() {
 
@@ -54,6 +57,7 @@ export function CustomAlgo() {
     const showTimer = customAlgoObject.showTimer;
     const timeInAnswerShown = customAlgoObject.timeInAnswerShown;
     const timeInAnswerNotShown = customAlgoObject.timeInAnswerNotShown;
+    const pastRecords = useSelector((state) => state.pastRecords.pastRecords);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -239,6 +243,8 @@ export function CustomAlgo() {
                 const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/add_algo_record";
                 axios.post(url, algoRecord).then((response) => {
                     console.log(response);
+
+                    dispatch(setPastRecords({ pastRecords: [response.data, ...pastRecords] }))
                 }).catch((error) => {
                     console.log(error);
                 })
