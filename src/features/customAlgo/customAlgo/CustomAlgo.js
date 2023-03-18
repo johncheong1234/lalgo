@@ -94,30 +94,32 @@ export function CustomAlgo() {
 
     useEffect(() => {
 
-        const interval = setInterval(() => {
-            let timeInAnswerShown = 0;
-            let timeInAnswerNotShown = 0;
-            const currentTime = new Date();
-            for (let i = 0; i < timedShowAnswers.length; i++) {
-                if (i !== timedShowAnswers.length - 1) {
-                    if (timedShowAnswers[i].showAnswer === true) {
-                        timeInAnswerShown += timedShowAnswers[i + 1].time - timedShowAnswers[i].time;
+        if (timedShowAnswers.length > 0) {
+            const interval = setInterval(() => {
+                let timeInAnswerShown = 0;
+                let timeInAnswerNotShown = 0;
+                const currentTime = new Date();
+                for (let i = 0; i < timedShowAnswers.length; i++) {
+                    if (i !== timedShowAnswers.length - 1) {
+                        if (timedShowAnswers[i].showAnswer === true) {
+                            timeInAnswerShown += timedShowAnswers[i + 1].time - timedShowAnswers[i].time;
+                        } else {
+                            timeInAnswerNotShown += timedShowAnswers[i + 1].time - timedShowAnswers[i].time;
+                        }
                     } else {
-                        timeInAnswerNotShown += timedShowAnswers[i + 1].time - timedShowAnswers[i].time;
-                    }
-                } else {
-                    if (timedShowAnswers[i].showAnswer === true) {
-                        timeInAnswerShown += currentTime - timedShowAnswers[i].time;
-                    } else {
-                        timeInAnswerNotShown += currentTime - timedShowAnswers[i].time;
+                        if (timedShowAnswers[i].showAnswer === true) {
+                            timeInAnswerShown += currentTime - timedShowAnswers[i].time;
+                        } else {
+                            timeInAnswerNotShown += currentTime - timedShowAnswers[i].time;
+                        }
                     }
                 }
-            }
-            // console.log(timeInAnswerShown, timeInAnswerNotShown)
-            dispatch(setTimeInAnswerShown({ timeInAnswerShown }));
-            dispatch(setTimeInAnswerNotShown({ timeInAnswerNotShown }));
-        }, 10);
-        return () => clearInterval(interval);
+                // console.log(timeInAnswerShown, timeInAnswerNotShown)
+                dispatch(setTimeInAnswerShown({ timeInAnswerShown }));
+                dispatch(setTimeInAnswerNotShown({ timeInAnswerNotShown }));
+            }, 10);
+            return () => clearInterval(interval);
+        }
 
     }, [timedShowAnswers])
 
@@ -452,8 +454,10 @@ export function CustomAlgo() {
                 </div>
 
             </div>
-            <div className='progress-bar-wrapper'>
-                <p>Time spent in answer hidden! </p>
+            <div className='progress-bar-wrapper' style={{
+                display: startTime ? 'flex' : 'none'
+            }}>
+                <p>Time spent in answer hidden is {Number((timeInAnswerNotShown / (timeInAnswerNotShown + timeInAnswerShown)) * 100).toFixed(1)}%</p>
                 <progress value={`${(timeInAnswerNotShown / (timeInAnswerNotShown + timeInAnswerShown)) * 100}`} max="100"></progress>
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
