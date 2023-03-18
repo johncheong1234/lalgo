@@ -22,7 +22,9 @@ import {
     setTimeElapsed,
     addShowAnswerTime,
     emptyTimedShowAnswers,
-    setShowTimer
+    setShowTimer,
+    setTimeInAnswerShown,
+    setTimeInAnswerNotShown
 } from '../customAlgoSlice';
 import axios from 'axios';
 import { Analytics } from '@vercel/analytics/react';
@@ -49,6 +51,8 @@ export function CustomAlgo() {
     const email = useSelector((state) => state.user.userObject.email);
     const timedShowAnswers = customAlgoObject.timedShowAnswers;
     const showTimer = customAlgoObject.showTimer;
+    const timeInAnswerShown = customAlgoObject.timeInAnswerShown;
+    const timeInAnswerNotShown = customAlgoObject.timeInAnswerNotShown;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -78,7 +82,8 @@ export function CustomAlgo() {
         if (startTime) {
             const interval = setInterval(() => {
                 //calculate time elapsed
-                const newTimeElapsed = Math.floor((new Date() - startTime) / 10);
+                const currentTime = new Date();
+                const newTimeElapsed = Math.floor((currentTime - startTime) / 10);
                 //update time elapsed
                 dispatch(setTimeElapsed({ timeElapsed: newTimeElapsed }));
             }, 10);
@@ -86,6 +91,35 @@ export function CustomAlgo() {
         }
 
     }, [startTime])
+
+    useEffect(() => {
+
+        const interval = setInterval(() => {
+            let timeInAnswerShown = 0;
+            let timeInAnswerNotShown = 0;
+            const currentTime = new Date();
+            for (let i = 0; i < timedShowAnswers.length; i++) {
+                if (i !== timedShowAnswers.length - 1) {
+                    if (timedShowAnswers[i].showAnswer === true) {
+                        timeInAnswerShown += timedShowAnswers[i + 1].time - timedShowAnswers[i].time;
+                    } else {
+                        timeInAnswerNotShown += timedShowAnswers[i + 1].time - timedShowAnswers[i].time;
+                    }
+                } else {
+                    if (timedShowAnswers[i].showAnswer === true) {
+                        timeInAnswerShown += currentTime - timedShowAnswers[i].time;
+                    } else {
+                        timeInAnswerNotShown += currentTime - timedShowAnswers[i].time;
+                    }
+                }
+            }
+            // console.log(timeInAnswerShown, timeInAnswerNotShown)
+            dispatch(setTimeInAnswerShown({ timeInAnswerShown }));
+            dispatch(setTimeInAnswerNotShown({ timeInAnswerNotShown }));
+        }, 10);
+        return () => clearInterval(interval);
+
+    }, [timedShowAnswers])
 
     useEffect(() => {
 
@@ -417,6 +451,10 @@ export function CustomAlgo() {
                     Time Taken: {timeElapsed / 100} seconds
                 </div>
 
+            </div>
+            <div className='progress-bar-wrapper'>
+                <p>Time spent in answer hidden! </p>
+                <progress value={`${(timeInAnswerNotShown / (timeInAnswerNotShown + timeInAnswerShown)) * 100}`} max="100"></progress>
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
             <h3> Create algo answer </h3> <button onClick={handleShowAnswer}>{showAnswer ? "Hide" : "Show"}</button>
