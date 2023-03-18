@@ -1,24 +1,24 @@
 .code-input-incorrect {
-    width: 800px;
+    width: 100%;
     margin-top: 20px;
     color: red;
 }
 
 .code-input-correct {
-    width: 800px;
+    width: 100%;
     margin-top: 20px;
     color: green;
 }
 
 .code-input-semi {
-    width: 800px;
+    width: 100%;
     margin-top: 20px;
     color: orange;
 }
 
 .answers-typed {
     margin-top: 20px;
-    width: 800px;
+    width: 100%;
     overflow: auto;
 }
 
@@ -76,4 +76,20 @@
 
 .progress-bar-wrapper p{
     margin-bottom: 0px;
+}
+
+.timer-wrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.column{
+    flex: 50%;
 }

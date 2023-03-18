@@ -27,7 +27,6 @@ import {
     setTimeInAnswerNotShown
 } from '../customAlgoSlice';
 import axios from 'axios';
-import { Analytics } from '@vercel/analytics/react';
 
 export function CustomAlgo() {
 
@@ -388,8 +387,10 @@ export function CustomAlgo() {
     }
 
     return (
-        <div onKeyDown={handleGlobalKeyDown}>
-            <Analytics />
+        <div className='row'>
+        <div onKeyDown={handleGlobalKeyDown} style={{
+            width: '70%'
+        }}>
             <div className='answers-typed' style={{
                 border: typedAlgoOutput.length > 0 ? '1px solid black' : 'none'
             }}>
@@ -437,6 +438,8 @@ export function CustomAlgo() {
                 }}>
                     Careless Errors: {carelessErrorCount}
                 </div>
+            </div>
+            <div className='timer-wrapper'>
                 <div>
                     Start Time: {
                         startTime ? new Date(startTime).toLocaleTimeString() : 'Not started'
@@ -462,8 +465,9 @@ export function CustomAlgo() {
             </div>
             <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
             <h3> Create algo answer </h3> <button onClick={handleShowAnswer}>{showAnswer ? "Hide" : "Show"}</button>
-            <textarea rows={customAlgoInput.length < 13 ? customAlgoInput.length + 1 : 14} cols="120" id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} style={{
-                display: showAnswer ? 'block' : 'none'
+            <textarea rows={customAlgoInput.length < 13 ? customAlgoInput.length + 1 : 14} id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} style={{
+                display: showAnswer ? 'block' : 'none',
+                width: '100%'
             }} />
             <div className='mistake-modal-background' style={{
                 display: mistakeModalDisplay ? 'block' : 'none'
@@ -480,6 +484,14 @@ export function CustomAlgo() {
                 </div>
 
             </div>
+        </div>
+        <div style={{
+            width: '30%'
+        }}>
+            <h2>
+                Past Records
+            </h2>
+        </div>
         </div>
     );
 }

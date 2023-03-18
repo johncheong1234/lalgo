@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import axios from 'axios';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
 
@@ -69,6 +70,7 @@ function App() {
 
   return (
     <div>
+      <Analytics />
       <h1>Learn Algos Fast Here</h1>
       {given_name ? <h2>Welcome {given_name}</h2> : <div id="loginButton" style={{
         width: '240px'
