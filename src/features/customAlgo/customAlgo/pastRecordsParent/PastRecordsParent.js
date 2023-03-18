@@ -60,7 +60,9 @@ export function PastRecordsParent(props) {
 
     return (
         // console.log('props are ', props, 'pastRecords are ', pastRecords, 'isLoading is ', isLoading),
-        <div>
+        <div style={{
+            display: (algoSelected === 'default' && email === undefined) ? 'none' : 'block'
+        }}>
             <h2>
                 Past Records
             </h2>
@@ -79,7 +81,7 @@ export function PastRecordsParent(props) {
                                     End time: {record.endTime}
                                 </p>
                                 <p>
-                                    Time taken: {timeTaken/1000} s
+                                    Time taken: {timeTaken / 1000} s
                                 </p>
                             </div>
                         )
