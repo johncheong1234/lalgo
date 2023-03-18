@@ -61,7 +61,7 @@ export function PastRecordsParent(props) {
     return (
         // console.log('props are ', props, 'pastRecords are ', pastRecords, 'isLoading is ', isLoading),
         <div style={{
-            display: (algoSelected === 'default' && email === undefined) ? 'none' : 'block'
+            display: (algoSelected === 'default' || email === undefined) ? 'none' : 'block'
         }}>
             <h2>
                 Past Records
