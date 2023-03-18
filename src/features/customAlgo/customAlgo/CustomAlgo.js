@@ -27,6 +27,7 @@ import {
     setTimeInAnswerNotShown
 } from '../customAlgoSlice';
 import axios from 'axios';
+import { PastRecordsParent } from './pastRecordsParent/PastRecordsParent';
 
 export function CustomAlgo() {
 
@@ -487,10 +488,8 @@ export function CustomAlgo() {
         </div>
         <div style={{
             width: '30%'
-        }}>
-            <h2>
-                Past Records
-            </h2>
+        }}> 
+            <PastRecordsParent />
         </div>
         </div>
     );
