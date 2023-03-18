@@ -25,7 +25,13 @@ export function PastRecordsParent(props) {
                     email: email,
                     algoSelected: algoSelected
                 })
-                console.log('response ', response)
+                // console.log('response ', response)
+
+                // sort the records by start time, most recent first
+                response.data.sort((a, b) => {
+                    return b.startTime - a.startTime;
+                })
+
                 setPastRecords(response.data);
                 setIsLoading(false);
             };
@@ -61,14 +67,19 @@ export function PastRecordsParent(props) {
             {
                 isLoading ? <div>Loading...</div> :
                     pastRecords.map((record, i) => {
+                        let timeTaken = record.endTime - record.startTime;
                         return (
                             // console.log('record ', record),
-                            <div key={i}>
+
+                            <div key={i} className='record-card'>
                                 <p>
-                                    {record.startTime}
+                                    Start time: {record.startTime}
                                 </p>
                                 <p>
-                                    {record.endTime}
+                                    End time: {record.endTime}
+                                </p>
+                                <p>
+                                    Time taken: {timeTaken/1000} s
                                 </p>
                             </div>
                         )
