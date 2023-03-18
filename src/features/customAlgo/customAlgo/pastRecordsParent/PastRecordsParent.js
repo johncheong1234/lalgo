@@ -1,11 +1,7 @@
 import React, {
     useEffect, useState
 } from "react";
-// import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
-// import {
-//     setPastRecordsRender
-// } from '../../customAlgoSlice';
 
 export function PastRecordsParent(props) {
 
