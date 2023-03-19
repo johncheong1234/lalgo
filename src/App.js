@@ -72,9 +72,24 @@ function App() {
     <div>
       <Analytics />
       <h1>Learn Algos Fast Here</h1>
-      {given_name ? <h2>Welcome {given_name}</h2> : <div id="loginButton" style={{
-        width: '240px'
-      }}></div>}
+      {given_name ? <h2>Welcome {given_name}</h2> :
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+        }}>
+          <div id="loginButton"
+            style={{
+              width: '240px'
+            }}>
+          </div>
+          <div>
+            <p style={{
+              marginTop: '8px'
+            }}>
+              Sign in to enable records of your attempts to be saved.
+            </p>
+          </div>
+        </div>}
       {given_name ? <div className='sign-out' onClick={handleSignOut}>Sign out</div> : null}
       <BrowserRouter>
         <Routes>
@@ -82,7 +97,7 @@ function App() {
           <Route path="/submit" element={<SubmitAlgo />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </div >
   );
 }
 
