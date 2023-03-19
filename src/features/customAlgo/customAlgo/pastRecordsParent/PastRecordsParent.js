@@ -47,22 +47,28 @@ export function PastRecordsParent(props) {
     return (
         // console.log('props are ', props, 'pastRecords are ', pastRecords, 'isLoading is ', isLoading),
         <div style={{
-            display: (algoSelected === 'default' || email === undefined) ? 'none' : 'block'
+            display: (algoSelected === 'default' || email === undefined) ? 'none' : 'block',
         }}>
             <h2>
                 Past Records
             </h2>
-            {
-                isLoading ? <div>Loading...</div> :
-                    pastRecords.map((record, i) => {
-                        if (i < 5) {
+            <div style={{
+                overflowY: 'scroll',
+                height: '100vh',
+            }}>
+                {
+                    isLoading ? <div>Loading...</div> :
+
+                        pastRecords.map((record, i) => {
                             return (
                                 <Record key={i} record={record} />
                             )
-                        }
-                    })
 
-            }
+                        })
+
+
+                }
+            </div>
         </div>
     );
 }
