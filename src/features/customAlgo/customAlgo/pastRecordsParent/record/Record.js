@@ -21,9 +21,9 @@ export function Record(props) {
             }
         } else {
             if (timedShowAnswers[i].showAnswer === true) {
-                timeInAnswerShown += endTime - timedShowAnswers[i].time;
+                timeInAnswerShown += record.endTime - timedShowAnswers[i].time;
             } else {
-                timeInAnswerNotShown += endTime - timedShowAnswers[i].time;
+                timeInAnswerNotShown += record.endTime - timedShowAnswers[i].time;
             }
         }
     }
