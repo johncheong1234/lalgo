@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     setPastRecords
 } from './pastRecordsSlice';
+import {Record} from './record/Record';
 
 export function PastRecordsParent(props) {
 
@@ -54,21 +55,8 @@ export function PastRecordsParent(props) {
             {
                 isLoading ? <div>Loading...</div> :
                     pastRecords.map((record, i) => {
-                        let timeTaken = record.endTime - record.startTime;
                         return (
-                            // console.log('record ', record),
-
-                            <div key={i} className='record-card'>
-                                <p>
-                                    Start time: {record.startTime}
-                                </p>
-                                <p>
-                                    End time: {record.endTime}
-                                </p>
-                                <p>
-                                    Time taken: {timeTaken / 1000} s
-                                </p>
-                            </div>
+                            <Record key={i} record={record} />
                         )
                     })
 
