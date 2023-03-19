@@ -12,7 +12,6 @@ export function Record(props) {
 
     let timeInAnswerShown = 0;
     let timeInAnswerNotShown = 0;
-    const currentTime = new Date();
     for (let i = 0; i < timedShowAnswers.length; i++) {
         if (i !== timedShowAnswers.length - 1) {
             if (timedShowAnswers[i].showAnswer === true) {
@@ -22,9 +21,9 @@ export function Record(props) {
             }
         } else {
             if (timedShowAnswers[i].showAnswer === true) {
-                timeInAnswerShown += currentTime - timedShowAnswers[i].time;
+                timeInAnswerShown += endTime - timedShowAnswers[i].time;
             } else {
-                timeInAnswerNotShown += currentTime - timedShowAnswers[i].time;
+                timeInAnswerNotShown += endTime - timedShowAnswers[i].time;
             }
         }
     }
