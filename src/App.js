@@ -96,6 +96,7 @@ function App() {
           <Route path="/" element={<CustomAlgo />} />
           <Route path="/submit" element={<SubmitAlgo />} />
           <Route path="/set" element={<Set />} />
+          <Route path="*" element={<div>404</div>} />
         </Routes>
       </BrowserRouter>
     </div >
