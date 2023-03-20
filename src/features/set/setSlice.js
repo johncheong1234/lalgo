@@ -15,7 +15,8 @@ export const setSlice = createSlice({
         algoLineState: 'semi',
         algoLine: '',
         completedAlgoKeys: [],
-        completionIndex: 0
+        completionIndex: 0,
+        displayAnswer: true,
     },
     reducers: {
         setSetData: (state, action) => {
@@ -47,6 +48,9 @@ export const setSlice = createSlice({
         },
         setCompletionIndex: (state, action) => {
             state.completionIndex = action.payload.completionIndex;
+        },
+        setDisplayAnswer: (state, action) => {
+            state.displayAnswer = action.payload.displayAnswer;
         }
     }
 });
@@ -61,6 +65,7 @@ export const {
     setAlgoLineState,
     setAlgoLine,
     setCompletedAlgoKeys,
-    setCompletionIndex
+    setCompletionIndex,
+    setDisplayAnswer
 } = setSlice.actions;
 export default setSlice.reducer;

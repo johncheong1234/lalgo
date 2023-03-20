@@ -10,7 +10,8 @@ import {
     setAlgoLineState,
     setAlgoLine,
     setCompletedAlgoKeys,
-    setCompletionIndex
+    setCompletionIndex,
+    setDisplayAnswer
 } from './setSlice';
 import axios from 'axios';
 import { AlgoCard } from './algoCard/AlgoCard';
@@ -29,6 +30,7 @@ export function Set() {
     const typedAlgoOutput = useSelector(state => state.set.typedAlgoOutput);
     const completedAlgoKeys = useSelector(state => state.set.completedAlgoKeys);
     const completionIndex = useSelector(state => state.set.completionIndex);
+    const displayAnswer = useSelector(state => state.set.displayAnswer);
 
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_sets";
@@ -200,6 +202,12 @@ export function Set() {
         }
     }
 
+    function handleHideButton(){
+        dispatch(setDisplayAnswer({
+            displayAnswer: !displayAnswer
+        }))
+    }
+
     return (
         (email !== undefined) ?
             <div className='row'>
@@ -248,7 +256,14 @@ export function Set() {
 
                             className={`code-input-${algoLineState}`}
                         ></input>
-                        <div className='answer-display'>
+                        <div className='button-div' 
+                        onClick = {handleHideButton}
+                        >
+                            {displayAnswer ? 'Hide' : 'Show'}
+                        </div>
+                        <div className='answer-display' style={{
+                            display: displayAnswer ? 'block' : 'none'
+                        }}>
                             {currentQuestionData.algoCode ?
                                 currentQuestionData.algoCode.map((line, index) => {
                                     return (
