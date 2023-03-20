@@ -8,7 +8,9 @@ import {
     setCurrentQuestionData,
     setTypedAlgoOutput,
     setAlgoLineState,
-    setAlgoLine
+    setAlgoLine,
+    setCompletedAlgoKeys,
+    setCompletionIndex
 } from './setSlice';
 import axios from 'axios';
 
@@ -23,6 +25,8 @@ export function Set() {
     const algoLine = useSelector(state => state.set.algoLine);
     const algoLineState = useSelector(state => state.set.algoLineState);
     const typedAlgoOutput = useSelector(state => state.set.typedAlgoOutput);
+    const completedAlgoKeys = useSelector(state => state.set.completedAlgoKeys);
+    const completionIndex = useSelector(state => state.set.completionIndex);
 
     useEffect(() => {
         // const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_all_algos";
@@ -58,9 +62,9 @@ export function Set() {
                 setQuestions: [
                     {
                         algoKey: 'test2',
-                        repeats: 2,
                     },
-                    { algoKey: 'mergeSort', repeats: 2 },
+                    { algoKey: 'test2' },
+                    { algoKey: 'test' },
                 ]
             }
 
@@ -82,11 +86,14 @@ export function Set() {
             trainingStarted: true
         }))
 
-        console.log(setData.setQuestions[0].algoKey)
+        editCurrentQuestionData(setData.setQuestions[0].algoKey);
+    }
+
+    function editCurrentQuestionData(algoKey) {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_question";
 
         axios.post(url, {
-            'algo.algoKey': setData.setQuestions[0].algoKey
+            'algo.algoKey': algoKey
         }).then((response) => {
             console.log(response.data);
             const algoName = response.data[0].algo.algoName;
@@ -140,6 +147,49 @@ export function Set() {
                     dispatch(setTypedAlgoOutput({
                         typedAlgoOutput: []
                     }))
+
+                    dispatch(setCompletedAlgoKeys({
+                        completedAlgoKeys: [...completedAlgoKeys, currentQuestionData.algoKey]
+                    }))
+
+                    if (completionIndex === setData.setQuestions.length - 1) {
+                        dispatch(setTrainingStarted({
+                            trainingStarted: false
+                        }))
+                        dispatch(setSetSelected({
+                            setSelected: 'default'
+                        }))
+                        dispatch(setSetData({
+                            setData: {}
+                        }))
+                        dispatch(setCurrentQuestionData({
+                            currentQuestionData: {}
+                        }))
+                        dispatch(setAlgoLine({
+                            algoLine: ''
+                        }))
+                        dispatch(setAlgoLineState({
+                            algoLineState: 'semi'
+                        }))
+                        dispatch(setTypedAlgoOutput({
+                            typedAlgoOutput: []
+                        }))
+                        dispatch(setCompletedAlgoKeys({
+                            completedAlgoKeys: []
+                        }))
+                        dispatch(setCompletionIndex({
+                            completionIndex: 0
+                        }))
+                        return;
+                    }
+
+                    dispatch(setCompletionIndex({
+                        completionIndex: completionIndex + 1
+                    }))
+
+                    const newAlgoKey = setData.setQuestions[completionIndex + 1].algoKey;
+
+                    editCurrentQuestionData(newAlgoKey);
                 }
                 dispatch(setAlgoLine({
                     algoLine: ''
