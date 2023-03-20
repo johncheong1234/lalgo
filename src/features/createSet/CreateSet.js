@@ -54,11 +54,23 @@ export function CreateSet() {
         <h2> Create new Training Set </h2>
         <div className='row'>
             <div style={{
+                width: '50%',
+                display: 'flex',
+                flexDirection: 'row',
+                gap: '10px'
+            }}>
+                <h5>Set Name: </h5>
+                <input type='text' />
+            </div>
+        </div>
+        <div className='row'>
+            <div style={{
                 width: '50%'
             }}>
                 <h5>
                     Questions
                 </h5>
+                <div className='set-questions-wrapper'>
                 {
                         Object.keys(questions).map((key, index) => {
                             return (
@@ -66,6 +78,7 @@ export function CreateSet() {
                             )
                         })
                     }
+                </div>
             </div>
             <div style={{
                 width: '50%'
