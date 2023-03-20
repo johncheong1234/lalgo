@@ -57,7 +57,7 @@ export function Set() {
                 setName: setSelected,
                 setQuestions: [
                     {
-                        algoKey: 'bubbleSort',
+                        algoKey: 'test2',
                         repeats: 2,
                     },
                     { algoKey: 'mergeSort', repeats: 2 },
@@ -136,12 +136,18 @@ export function Set() {
                         algoLine
                     ]
                 }))
+                if (typedAlgoOutput.length === currentQuestionData.algoCode.length - 1) {
+                    dispatch(setTypedAlgoOutput({
+                        typedAlgoOutput: []
+                    }))
+                }
                 dispatch(setAlgoLine({
                     algoLine: ''
                 }))
                 dispatch(setAlgoLineState({
                     algoLineState: 'semi'
                 }))
+
             }
         }
     }
