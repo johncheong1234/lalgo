@@ -15,6 +15,7 @@ export function SubmitAlgo() {
     const algoName = useSelector(state => state.submitAlgo.algoName);
     const algoKey = useSelector(state => state.submitAlgo.algoKey);
     const algoCode = useSelector(state => state.submitAlgo.algoCode);
+    const email = useSelector(state => state.user.userObject.email);
 
     function handleAlgoNameChange(e) {
         dispatch(setAlgoName(e.target.value));
@@ -36,14 +37,14 @@ export function SubmitAlgo() {
         dispatch(setAlgoCode(AllLinesOfCode));
     }
 
-    function handleSubmit(){
-        if(algoName === '' || algoKey === '' || algoCode.length === 0){
+    function handleSubmit() {
+        if (algoName === '' || algoKey === '' || algoCode.length === 0) {
             alert('Please fill all the fields');
             return;
         }
 
         //ensure algoKey is 1 word
-        if(algoKey.split(' ').length > 1){
+        if (algoKey.split(' ').length > 1) {
             alert('Algo Key should be one word');
             return;
         }
@@ -58,19 +59,25 @@ export function SubmitAlgo() {
     }
 
     return (
-        <div>
-            <h1>Submit Algo</h1>
-            <div>
-                <input type="text" placeholder="Enter algo name" value={algoName} onChange={handleAlgoNameChange} />
-            </div>
-            <div>
-                <input type="text" placeholder="Enter algo Key" value={algoKey} onChange={handleAlgoKeyChange} />
-            </div>
-            <div>
-                <textarea placeholder="Enter algo code" cols='100' rows={algoCode.length} onChange={handleEnterAlgoCodeChange} />
-            </div>
-            <button onClick={handleSubmit}>Submit</button>
+        console.log('email is ', email),
 
-        </div>
+        (email !== undefined) ?
+            <div>
+                < h1 > Submit Algo</h1 >
+                <div>
+                    <input type="text" placeholder="Enter algo name" value={algoName} onChange={handleAlgoNameChange} />
+                </div>
+                <div>
+                    <input type="text" placeholder="Enter algo Key" value={algoKey} onChange={handleAlgoKeyChange} />
+                </div>
+                <div>
+                    <textarea placeholder="Enter algo code" cols='100' rows={algoCode.length} onChange={handleEnterAlgoCodeChange} />
+                </div>
+                <button onClick={handleSubmit}>Submit</button>
+
+            </div >
+
+
+            : <div>Please login to submit algo</div>
     )
 }
