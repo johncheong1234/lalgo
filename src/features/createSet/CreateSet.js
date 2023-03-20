@@ -6,6 +6,7 @@ import {
     setCreateSetData
 } from './createSetSlice';
 import {QuestionCard} from './QuestionCard/QuestionCard';
+import {SetQuestionCard} from './SetQuestionCard/SetQuestionCard';
 
 export function CreateSet() {
 
@@ -38,8 +39,10 @@ export function CreateSet() {
     function handleDropQuestion(e){
         e.preventDefault();
         const data = e.dataTransfer.getData('text');
-        const {algoKey, repeats} = JSON.parse(data);
-        console.log(algoKey, repeats);
+        const {algoKey, repeats, algoName} = JSON.parse(data);
+        console.log(algoKey, repeats, algoName);
+        const newCreateSetData = [...createSetData, {algoKey, repeats, algoName}];
+        dispatch(setCreateSetData({createSetData: newCreateSetData}));
     }
 
     function handleOnDragOver(e){
@@ -74,9 +77,7 @@ export function CreateSet() {
                     {
                         createSetData.map((data, index) => {
                             return (
-                                <div key={index}>
-                                    {data.algoName}
-                                </div>
+                                <SetQuestionCard key={index} data={data} index={index} />
                             )
                         })
                     }

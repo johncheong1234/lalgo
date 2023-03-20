@@ -8,7 +8,8 @@ export function QuestionCard(props) {
     function handleOnDragStart(event) {
         const algoKey = event.target.getAttribute('data-algokey');
         const repeats = event.target.getAttribute('data-repeats');
-        event.dataTransfer.setData('text/plain', JSON.stringify({ algoKey, repeats }));
+        const algoName = event.target.getAttribute('data-algoname');
+        event.dataTransfer.setData('text/plain', JSON.stringify({ algoKey, repeats, algoName }));
     }
 
     return (
@@ -19,6 +20,7 @@ export function QuestionCard(props) {
             }
             data-algokey={`${algoKey}`}
             data-repeats={1}
+            data-algoname={`${algoName}`}
         >
             <div>
                 {algoName}
