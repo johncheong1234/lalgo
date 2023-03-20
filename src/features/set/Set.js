@@ -13,6 +13,8 @@ import {
     setCompletionIndex
 } from './setSlice';
 import axios from 'axios';
+import { AlgoCard } from './algoCard/AlgoCard';
+import '../../../src/Set.css';
 
 export function Set() {
     const dispatch = useDispatch();
@@ -205,63 +207,81 @@ export function Set() {
 
     return (
         (email !== undefined) ?
-            <div>
-                <h2>Set Training</h2>
-                {(!trainingStarted) && <>
-                    <select onChange={handleSelectSet} value={setSelected}>
-                        <option disabled value='default'>Select your set</option>
-                        {
-                            setNames.map((algoName, index) => {
-                                return (
-                                    <option value={algoName} key={index}>{algoName}</option>
+            <div className='row'>
+                <div style={{
+                    width: '70%',
+                }}>
+                    <h2>Set Training</h2>
+                    {(!trainingStarted) && <>
+                        <select onChange={handleSelectSet} value={setSelected}>
+                            <option disabled value='default'>Select your set</option>
+                            {
+                                setNames.map((algoName, index) => {
+                                    return (
+                                        <option value={algoName} key={index}>{algoName}</option>
+                                    )
+                                }
                                 )
                             }
-                            )
-                        }
-                    </select>
+                        </select>
 
-                    {setSelected !== 'default' && <div className='button-div' onClick={handleStartTraining}>
-                        Start Training
+                        {setSelected !== 'default' && <div className='button-div' onClick={handleStartTraining}>
+                            Start Training
+                        </div>}
+                    </>}
+                    {trainingStarted && <div>
+                        <div>
+                            {
+                                typedAlgoOutput.map((line, index) => {
+                                    return (
+                                        <div key={index}>
+                                            {line}
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                        <input type='text' placeholder='Enter your answer here' style={{
+                            width: '100%',
+                        }}
+
+                            value={algoLine}
+
+                            onChange={handleCodeInputChange}
+
+                            onKeyDown={handleCodeInputKeyDown}
+
+                            className={`code-input-${algoLineState}`}
+                        ></input>
+                        <div className='answer-display'>
+                            {currentQuestionData.algoCode ?
+                                currentQuestionData.algoCode.map((line, index) => {
+                                    return (
+                                        <div key={index}>
+                                            {line}
+                                        </div>
+                                    )
+                                }) : <div></div>
+                            }
+
+                        </div>
                     </div>}
-                </>}
-                {trainingStarted && <div>
-                    <div>
+                </div>
+                {
+                    trainingStarted &&
+                    <div style={{
+                        width: '30%',
+                    }}>
+                        <h3>Progress</h3>
                         {
-                            typedAlgoOutput.map((line, index) => {
+                            setData.setQuestions.map((algo, index) => {
                                 return (
-                                    <div key={index}>
-                                        {line}
-                                    </div>
+                                    <AlgoCard key={index} algo={algo} completionIndex={completionIndex} index={index} />
                                 )
                             })
                         }
                     </div>
-                    <input type='text' placeholder='Enter your answer here' style={{
-                        width: '100%',
-                    }}
-
-                        value={algoLine}
-
-                        onChange={handleCodeInputChange}
-
-                        onKeyDown={handleCodeInputKeyDown}
-
-                        className={`code-input-${algoLineState}`}
-                    ></input>
-                    <div className='answer-display'>
-                        {currentQuestionData.algoCode ?
-                            currentQuestionData.algoCode.map((line, index) => {
-                                return (
-                                    <div key={index}>
-                                        {line}
-                                    </div>
-                                )
-                            }) : <div></div>
-                        }
-
-                    </div>
-                </div>}
-
+                }
             </div> : <div>
                 <h1>Please login to access this page</h1>
             </div>
