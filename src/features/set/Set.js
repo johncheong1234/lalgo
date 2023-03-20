@@ -127,6 +127,25 @@ export function Set() {
         }
     }
 
+    function handleCodeInputKeyDown(e) {
+        if (e.key === 'Enter') {
+            if (algoLineState === 'correct') {
+                dispatch(setTypedAlgoOutput({
+                    typedAlgoOutput: [
+                        ...typedAlgoOutput,
+                        algoLine
+                    ]
+                }))
+                dispatch(setAlgoLine({
+                    algoLine: ''
+                }))
+                dispatch(setAlgoLineState({
+                    algoLineState: 'semi'
+                }))
+            }
+        }
+    }
+
     return (
         (email !== undefined) ?
             <div>
@@ -149,6 +168,17 @@ export function Set() {
                     </div>}
                 </>}
                 {trainingStarted && <div>
+                    <div>
+                        {
+                            typedAlgoOutput.map((line, index) => {
+                                return (
+                                    <div key={index}>
+                                        {line}
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                     <input type='text' placeholder='Enter your answer here' style={{
                         width: '100%',
                     }}
@@ -156,6 +186,8 @@ export function Set() {
                         value={algoLine}
 
                         onChange={handleCodeInputChange}
+
+                        onKeyDown={handleCodeInputKeyDown}
 
                         className={`code-input-${algoLineState}`}
                     ></input>
