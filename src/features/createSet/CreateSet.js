@@ -10,6 +10,7 @@ export function CreateSet() {
 
     const dispatch = useDispatch();
     const questions = useSelector((state) => state.createSet.questions);
+    const email = useSelector((state) => state.user.userObject.email);
 
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_all_algos";
@@ -32,7 +33,8 @@ export function CreateSet() {
 
     }, []);
 
-    return (<div>
+    return (
+        (email !== undefined) ? <div>
         <h2> Create new Training Set </h2>
         <div className='row'>
             <div style={{
@@ -57,5 +59,6 @@ export function CreateSet() {
                 </h5>
             </div>
         </div>
-    </div>);
+    </div> : <div> Please login to create a new set </div>
+    );
 }
