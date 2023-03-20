@@ -202,7 +202,7 @@ export function Set() {
         }
     }
 
-    function handleHideButton(){
+    function handleHideButton() {
         dispatch(setDisplayAnswer({
             displayAnswer: !displayAnswer
         }))
@@ -256,8 +256,8 @@ export function Set() {
 
                             className={`code-input-${algoLineState}`}
                         ></input>
-                        <div className='button-div' 
-                        onClick = {handleHideButton}
+                        <div className='button-div'
+                            onClick={handleHideButton}
                         >
                             {displayAnswer ? 'Hide' : 'Show'}
                         </div>
@@ -267,7 +267,7 @@ export function Set() {
                             {currentQuestionData.algoCode ?
                                 currentQuestionData.algoCode.map((line, index) => {
                                     return (
-                                        <div key={index}>
+                                        <div key={index} style={{ whiteSpace: 'pre' }}>
                                             {line}
                                         </div>
                                     )
