@@ -57,6 +57,9 @@ export function CreateSet() {
                 <h5>
                     Set Data
                 </h5>
+                <div className='create-set-information'>
+
+                </div>
             </div>
         </div>
     </div> : <div> Please login to create a new set </div>
