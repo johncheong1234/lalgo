@@ -23,10 +23,10 @@ export function QuestionCard(props) {
             data-algoname={`${algoName}`}
         >
             <div>
-                {algoName}
+                Name: {algoName}
             </div>
             <div>
-                {algoKey}
+                Key: {algoKey}
             </div>
         </div>
     )
