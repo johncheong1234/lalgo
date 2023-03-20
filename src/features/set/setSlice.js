@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const setSlice = createSlice({
     name: 'set',
     initialState: {
-        setNames: [
+        setDataObjects: [
         ],
         setData: {
         },
@@ -24,8 +24,8 @@ export const setSlice = createSlice({
         setSetSelected: (state, action) => {
             state.setSelected = action.payload.setSelected;
         },
-        setSetNames: (state, action) => {
-            state.setNames = action.payload.setNames;
+        setsetDataObjects: (state, action) => {
+            state.setDataObjects = action.payload.setDataObjects;
         },
         setTrainingStarted: (state, action) => {
             state.trainingStarted = action.payload.trainingStarted;
@@ -54,7 +54,7 @@ export const setSlice = createSlice({
 export const {
     setSetData,
     setSetSelected,
-    setSetNames,
+    setsetDataObjects,
     setTrainingStarted,
     setCurrentQuestionData,
     setTypedAlgoOutput,

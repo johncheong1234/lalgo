@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     setSetSelected,
     setSetData,
-    setSetNames,
+    setsetDataObjects,
     setTrainingStarted,
     setCurrentQuestionData,
     setTypedAlgoOutput,
@@ -19,7 +19,7 @@ import '../../../src/Set.css';
 export function Set() {
     const dispatch = useDispatch();
     const email = useSelector(state => state.user.userObject.email);
-    const setNames = useSelector(state => state.set.setNames);
+    const setDataObjects = useSelector(state => state.set.setDataObjects);
     const setSelected = useSelector(state => state.set.setSelected);
     const trainingStarted = useSelector(state => state.set.trainingStarted);
     const setData = useSelector(state => state.set.setData);
@@ -31,43 +31,38 @@ export function Set() {
     const completionIndex = useSelector(state => state.set.completionIndex);
 
     useEffect(() => {
-        // const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_all_algos";
+        const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_sets";
 
-        // const presetAlgos = axios.get(url, {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     }
-        // });
-
-        // let objectToDispatch = {};
-
-
-        // presetAlgos.then((response) => {
-        //     for (let i = 0; i < response.data.length; i++) {
-        //         objectToDispatch[response.data[i].algo.algoKey] = { algoCode: response.data[i].algo.algoCode, algoName: response.data[i].algo.algoName }
-        //     }
-
-        //     dispatch(setPresetAlgos({ presetAlgos: objectToDispatch }));
-        // });
-
-        dispatch(setSetNames({
-            setNames: ['set1', 'set2']
-        }));
+        axios.post(url, {
+            'user.email': email
+        }
+        ).then((response) => {
+            console.log(response.data);
+            const setDataObjects = []
+            response.data.forEach((set) => {
+                setDataObjects.push({
+                    setName: set.setName,
+                    setId: set.setId,
+                    setQuestions: set.setQuestions
+                })
+            })
+            dispatch(setsetDataObjects({
+                setDataObjects
+            }))
+        });
 
     }, [])
 
     useEffect(() => {
 
         if (setSelected !== 'default') {
+            const selectedSet = setDataObjects.find((set) => {
+                return set.setId === setSelected;
+            })
+
             const setData = {
-                setName: setSelected,
-                setQuestions: [
-                    {
-                        algoKey: 'test2',
-                    },
-                    { algoKey: 'test2' },
-                    { algoKey: 'test' },
-                ]
+                setName: selectedSet.setName,
+                setQuestions: selectedSet.setQuestions
             }
 
             dispatch(setSetData({
@@ -216,9 +211,9 @@ export function Set() {
                         <select onChange={handleSelectSet} value={setSelected}>
                             <option disabled value='default'>Select your set</option>
                             {
-                                setNames.map((algoName, index) => {
+                                setDataObjects.map((setNameObject, index) => {
                                     return (
-                                        <option value={algoName} key={index}>{algoName}</option>
+                                        <option value={setNameObject.setId} key={index}>{setNameObject.setName}</option>
                                     )
                                 }
                                 )
