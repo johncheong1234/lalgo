@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { CustomAlgo } from './features/customAlgo/customAlgo/CustomAlgo';
 import { SubmitAlgo } from './features/submitAlgo/submitAlgo/SubmitAlgo';
 import { Set } from './features/set/Set';
-import './CustomAlgo.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import {

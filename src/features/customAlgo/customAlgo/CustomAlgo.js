@@ -32,6 +32,7 @@ import { PastRecordsParent } from './pastRecordsParent/PastRecordsParent';
 import {
     setPastRecords
 } from './pastRecordsParent/pastRecordsSlice';
+import '../../../CustomAlgo.css';
 
 export function CustomAlgo() {
 

@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     setSetSelected,
     setSetData,
-    setSetNames
+    setSetNames,
+    setTrainingStarted
 } from './setSlice';
 
 export function Set() {
@@ -11,6 +12,7 @@ export function Set() {
     const email = useSelector(state => state.user.userObject.email);
     const setNames = useSelector(state => state.set.setNames);
     const setSelected = useSelector(state => state.set.setSelected);
+    const trainingStarted = useSelector(state => state.set.trainingStarted);
 
     useEffect(() => {
         // const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_all_algos";
@@ -65,21 +67,34 @@ export function Set() {
         }));
     }
 
+    function handleStartTraining(e) {
+        dispatch(setTrainingStarted({
+            trainingStarted: true
+        }))
+    }
+
     return (
         (email !== undefined) ?
             <div>
                 <h2>Set Training</h2>
-                <select onChange={handleSelectSet} value={setSelected}>
-                    <option disabled value='default'>Select your set</option>
-                    {
-                        setNames.map((algoName, index) => {
-                            return (
-                                <option value={algoName} key={index}>{algoName}</option>
+                {!trainingStarted && <>
+                    <select onChange={handleSelectSet} value={setSelected}>
+                        <option disabled value='default'>Select your set</option>
+                        {
+                            setNames.map((algoName, index) => {
+                                return (
+                                    <option value={algoName} key={index}>{algoName}</option>
+                                )
+                            }
                             )
                         }
-                        )
-                    }
-                </select>
+                    </select>
+
+                    <div className='button-div' onClick={handleStartTraining}>
+                        Start Training
+                    </div>
+                </>}
+
             </div> : <div>
                 <h1>Please login to access this page</h1>
             </div>
