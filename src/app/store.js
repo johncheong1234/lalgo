@@ -4,6 +4,7 @@ import submitAlgoReducer from '../features/submitAlgo/submitAlgoSlice';
 import userReducer from '../features/user/userSlice';
 import pastRecordsReducer from '../features/customAlgo/customAlgo/pastRecordsParent/pastRecordsSlice';
 import setReducer from '../features/set/setSlice';
+import createSetReducer from '../features/createSet/createSetSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     submitAlgo: submitAlgoReducer,
     user: userReducer,
     pastRecords: pastRecordsReducer,
-    set: setReducer
+    set: setReducer,
+    createSet: createSetReducer
   },
 });

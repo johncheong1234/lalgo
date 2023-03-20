@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { CustomAlgo } from './features/customAlgo/customAlgo/CustomAlgo';
 import { SubmitAlgo } from './features/submitAlgo/submitAlgo/SubmitAlgo';
 import { Set } from './features/set/Set';
+import { CreateSet } from './features/createSet/CreateSet';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import {
@@ -96,6 +97,7 @@ function App() {
           <Route path="/" element={<CustomAlgo />} />
           <Route path="/submit" element={<SubmitAlgo />} />
           <Route path="/set" element={<Set />} />
+          <Route path='/create-set' element={<CreateSet />} />
           <Route path="*" element={<div>404</div>} />
         </Routes>
       </BrowserRouter>
