@@ -3,7 +3,8 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
     setQuestions,
-    setCreateSetData
+    setCreateSetData,
+    setSetName
 } from './createSetSlice';
 import {QuestionCard} from './QuestionCard/QuestionCard';
 import {SetQuestionCard} from './SetQuestionCard/SetQuestionCard';
@@ -14,6 +15,7 @@ export function CreateSet() {
     const questions = useSelector((state) => state.createSet.questions);
     const email = useSelector((state) => state.user.userObject.email);
     const createSetData = useSelector((state) => state.createSet.createSetData);
+    const setName = useSelector((state) => state.createSet.setName);
 
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_all_algos";
@@ -49,6 +51,10 @@ export function CreateSet() {
         e.preventDefault();
     }
 
+    function handleSetNameChange(e){
+        dispatch(setSetName({setName: e.target.value}));
+    }
+
     return (
         (email !== undefined) ? <div>
         <h2> Create new Training Set </h2>
@@ -60,7 +66,10 @@ export function CreateSet() {
                 gap: '10px'
             }}>
                 <h5>Set Name: </h5>
-                <input type='text' />
+                <input type='text' value={setName} onChange={handleSetNameChange} />
+                <div className="submit-set">
+                    Submit Set
+                </div>
             </div>
         </div>
         <div className='row'>

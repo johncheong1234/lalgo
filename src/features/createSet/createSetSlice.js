@@ -4,7 +4,8 @@ export const createSetSlice = createSlice({
     name: 'createSet',
     initialState: {
         questions: {},
-        createSetData: []
+        createSetData: [],
+        setName:''
     },
     reducers: {
         setQuestions: (state, action) => {
@@ -12,12 +13,16 @@ export const createSetSlice = createSlice({
         },
         setCreateSetData: (state, action) => {
             state.createSetData = action.payload.createSetData;
+        },
+        setSetName: (state, action) => {
+            state.setName = action.payload.setName;
         }
     }
 });
 
 export const {
     setQuestions,
-    setCreateSetData
+    setCreateSetData,
+    setSetName
 } = createSetSlice.actions;
 export default createSetSlice.reducer;

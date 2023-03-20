@@ -58,3 +58,18 @@
   right: 5%;
   cursor: pointer;
 }
+
+.submit-set{
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 100px;
+    height: 100%;
+    cursor: pointer;
+    /* vertically align child elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
