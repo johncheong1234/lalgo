@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    setQuestions
+    setQuestions,
+    setCreateSetData
 } from './createSetSlice';
 import {QuestionCard} from './QuestionCard/QuestionCard';
 
@@ -11,6 +12,7 @@ export function CreateSet() {
     const dispatch = useDispatch();
     const questions = useSelector((state) => state.createSet.questions);
     const email = useSelector((state) => state.user.userObject.email);
+    const createSetData = useSelector((state) => state.createSet.createSetData);
 
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_all_algos";
@@ -33,6 +35,17 @@ export function CreateSet() {
 
     }, []);
 
+    function handleDropQuestion(e){
+        e.preventDefault();
+        const data = e.dataTransfer.getData('text');
+        const {algoKey, repeats} = JSON.parse(data);
+        console.log(algoKey, repeats);
+    }
+
+    function handleOnDragOver(e){
+        e.preventDefault();
+    }
+
     return (
         (email !== undefined) ? <div>
         <h2> Create new Training Set </h2>
@@ -46,7 +59,7 @@ export function CreateSet() {
                 {
                         Object.keys(questions).map((key, index) => {
                             return (
-                                <QuestionCard key={index} question={questions[key]} />
+                                <QuestionCard key={index} question={questions[key]} algoKey={key} />
                             )
                         })
                     }
@@ -57,8 +70,16 @@ export function CreateSet() {
                 <h5>
                     Set Data
                 </h5>
-                <div className='create-set-information'>
-
+                <div className='create-set-information' onDrop={handleDropQuestion} onDragOver={handleOnDragOver}>
+                    {
+                        createSetData.map((data, index) => {
+                            return (
+                                <div key={index}>
+                                    {data.algoName}
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
         </div>
