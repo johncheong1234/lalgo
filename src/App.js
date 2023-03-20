@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 // import logo from './logo.svg';
 import { CustomAlgo } from './features/customAlgo/customAlgo/CustomAlgo';
 import { SubmitAlgo } from './features/submitAlgo/submitAlgo/SubmitAlgo';
+import { Set } from './features/set/Set';
 import './CustomAlgo.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
@@ -95,6 +96,7 @@ function App() {
         <Routes>
           <Route path="/" element={<CustomAlgo />} />
           <Route path="/submit" element={<SubmitAlgo />} />
+          <Route path="/set" element={<Set />} />
         </Routes>
       </BrowserRouter>
     </div >
