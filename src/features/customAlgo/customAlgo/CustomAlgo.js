@@ -260,13 +260,13 @@ export function CustomAlgo() {
                 } else if (repeatObject.repeatOn && repeatObject.repeatsLeft === 1) {
                     dispatch(setRepeatOn({ repeatOn: false }))
                     dispatch(setRepeatsLeft({ repeatsLeft: 0 }))
-                    dispatch(setCodeSubmitted({ codeSubmitted: '' }));
-                    dispatch(setAlgoSelected({ algoSelected: 'default' }))
+                    // dispatch(setCodeSubmitted({ codeSubmitted: '' }));
+                    // dispatch(setAlgoSelected({ algoSelected: 'default' }))
                     alert(`You have completed the repeat ${repeatObject.repeatsInitial} times! Well done! :D`)
                     dispatch(setRepeatsInitial({ repeatsInitial: 1 }))
                 } else if (!repeatObject.repeatOn) {
-                    dispatch(setAlgoSelected({ algoSelected: 'default' }))
-                    dispatch(setCodeSubmitted({ codeSubmitted: '' }));
+                    // dispatch(setAlgoSelected({ algoSelected: 'default' }))
+                    // dispatch(setCodeSubmitted({ codeSubmitted: '' }));
                     dispatch(setCarelessErrorCount({ carelessErrorCount: 0 }))
                     dispatch(setConceptErrorCount({ conceptErrorCount: 0 }))
                     alert('You have completed the algorithm! Well done! :D')
