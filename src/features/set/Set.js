@@ -16,6 +16,7 @@ export function Set() {
     const setSelected = useSelector(state => state.set.setSelected);
     const trainingStarted = useSelector(state => state.set.trainingStarted);
     const setData = useSelector(state => state.set.setData);
+    const currentQuestionData = useSelector(state => state.set.currentQuestionData);
 
     useEffect(() => {
         // const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_all_algos";
@@ -122,6 +123,16 @@ export function Set() {
                         width: '100%',
                     }}></input>
                     <div className='answer-display'>
+                        {currentQuestionData.algoCode ?
+                            currentQuestionData.algoCode.map((line, index) => {
+                                return (
+                                    <div key={index}>
+                                        {line}
+                                    </div>
+                                )
+                            }) : <div></div>
+                        }
+
                     </div>
                 </div>}
 
