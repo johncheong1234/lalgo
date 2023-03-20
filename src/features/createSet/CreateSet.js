@@ -55,6 +55,41 @@ export function CreateSet() {
         dispatch(setSetName({setName: e.target.value}));
     }
 
+    function handleSubmitSet(){
+        // create a unique set id based on time and name without spaces and random value
+        const uniqueSetId = Date.now() + Math.random().toString(16).slice(2) + setName.replace(/\s/g, '');
+        const finalSetData = {
+            setName: setName,
+            setId: uniqueSetId,
+            setQuestions: []
+        }
+
+        for(let i = 0; i < createSetData.length; i++){
+            const repeats = parseInt(createSetData[i].repeats);
+            if(repeats === 1){
+                finalSetData.setQuestions.push({algoKey: createSetData[i].algoKey});
+            }else{
+                for(let j = 0; j < repeats; j++){
+                    finalSetData.setQuestions.push({algoKey: createSetData[i].algoKey});
+                }
+            }
+        }
+
+        const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/create_set";
+        axios.post(url, finalSetData, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+            }).then((response) => {
+                console.log(response);
+                alert("Set created successfully!");
+            }
+        ).catch((error) => {
+            console.log(error);
+            alert("Error creating set. Please try again later.")
+        });
+    }
+
     return (
         (email !== undefined) ? <div>
         <h2> Create new Training Set </h2>
@@ -67,7 +102,7 @@ export function CreateSet() {
             }}>
                 <h5>Set Name: </h5>
                 <input type='text' value={setName} onChange={handleSetNameChange} />
-                <div className="submit-set">
+                <div className="submit-set" onClick = {handleSubmitSet}>
                     Submit Set
                 </div>
             </div>
