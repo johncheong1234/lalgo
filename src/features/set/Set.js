@@ -180,6 +180,7 @@ export function Set() {
                         dispatch(setCompletionIndex({
                             completionIndex: 0
                         }))
+                        alert('Training Completed!')
                         return;
                     }
 
