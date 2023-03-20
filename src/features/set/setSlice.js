@@ -10,7 +10,10 @@ export const setSlice = createSlice({
         setSelected: 'default',
         trainingStarted: false,
         currentQuestionData:{
-        }
+        },
+        typedAlgoOutput:[],
+        algoLineState: 'semi',
+        algoLine: '',
     },
     reducers: {
         setSetData: (state, action) => {
@@ -27,6 +30,15 @@ export const setSlice = createSlice({
         },
         setCurrentQuestionData: (state, action) => {
             state.currentQuestionData = action.payload.currentQuestionData;
+        },
+        setTypedAlgoOutput: (state, action) => {
+            state.typedAlgoOutput = action.payload.typedAlgoOutput;
+        },
+        setAlgoLineState: (state, action) => {
+            state.algoLineState = action.payload.algoLineState;
+        },
+        setAlgoLine: (state, action) => {
+            state.algoLine = action.payload.algoLine;
         }
     }
 });
@@ -36,6 +48,9 @@ export const {
     setSetSelected,
     setSetNames,
     setTrainingStarted,
-    setCurrentQuestionData
+    setCurrentQuestionData,
+    setTypedAlgoOutput,
+    setAlgoLineState,
+    setAlgoLine
 } = setSlice.actions;
 export default setSlice.reducer;

@@ -5,7 +5,10 @@ import {
     setSetData,
     setSetNames,
     setTrainingStarted,
-    setCurrentQuestionData
+    setCurrentQuestionData,
+    setTypedAlgoOutput,
+    setAlgoLineState,
+    setAlgoLine
 } from './setSlice';
 import axios from 'axios';
 
@@ -17,6 +20,8 @@ export function Set() {
     const trainingStarted = useSelector(state => state.set.trainingStarted);
     const setData = useSelector(state => state.set.setData);
     const currentQuestionData = useSelector(state => state.set.currentQuestionData);
+    const algoLine = useSelector(state => state.set.algoLine);
+    const algoLineState = useSelector(state => state.set.algoLineState);
 
     useEffect(() => {
         // const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_all_algos";
@@ -96,12 +101,25 @@ export function Set() {
         })
     }
 
+    function handleCodeInputChange(e){
+        let codeInputChangeAllowed = false;
+        if(e.nativeEvent.inputType === 'deleteContentBackward'){
+            codeInputChangeAllowed = true;
+        } else if(algoLineState !== 'incorrect' && e.nativeEvent.inputType !== 'deleteContentBackward'){
+            codeInputChangeAllowed = true;
+        }
+        if(codeInputChangeAllowed){
+            dispatch(setAlgoLine({
+                algoLine: e.target.value
+            }))
+        }
+    }
 
     return (
         (email !== undefined) ?
             <div>
                 <h2>Set Training</h2>
-                {!trainingStarted && <>
+                {(!trainingStarted) && <>
                     <select onChange={handleSelectSet} value={setSelected}>
                         <option disabled value='default'>Select your set</option>
                         {
@@ -114,14 +132,20 @@ export function Set() {
                         }
                     </select>
 
-                    <div className='button-div' onClick={handleStartTraining}>
+                    {setSelected !== 'default' && <div className='button-div' onClick={handleStartTraining}>
                         Start Training
-                    </div>
+                    </div>}
                 </>}
                 {trainingStarted && <div>
                     <input type='text' placeholder='Enter your answer here' style={{
                         width: '100%',
-                    }}></input>
+                    }}
+
+                        value={algoLine}
+
+                        onChange = {handleCodeInputChange}
+
+                    ></input>
                     <div className='answer-display'>
                         {currentQuestionData.algoCode ?
                             currentQuestionData.algoCode.map((line, index) => {
