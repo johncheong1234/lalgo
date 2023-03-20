@@ -4,8 +4,10 @@ import {
     setSetSelected,
     setSetData,
     setSetNames,
-    setTrainingStarted
+    setTrainingStarted,
+    setCurrentQuestionData
 } from './setSlice';
+import axios from 'axios';
 
 export function Set() {
     const dispatch = useDispatch();
@@ -13,6 +15,7 @@ export function Set() {
     const setNames = useSelector(state => state.set.setNames);
     const setSelected = useSelector(state => state.set.setSelected);
     const trainingStarted = useSelector(state => state.set.trainingStarted);
+    const setData = useSelector(state => state.set.setData);
 
     useEffect(() => {
         // const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_all_algos";
@@ -71,7 +74,27 @@ export function Set() {
         dispatch(setTrainingStarted({
             trainingStarted: true
         }))
+
+        console.log(setData.setQuestions[0].algoKey)
+        const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_question";
+
+        axios.post(url, {
+            'algo.algoKey': setData.setQuestions[0].algoKey
+        }).then((response) => {
+            console.log(response.data);
+            const algoName = response.data[0].algo.algoName;
+            const algoCode = response.data[0].algo.algoCode;
+            const algoKey = response.data[0].algo.algoKey;
+            dispatch(setCurrentQuestionData({
+                currentQuestionData: {
+                    algoName,
+                    algoCode,
+                    algoKey
+                }
+            }))
+        })
     }
+
 
     return (
         (email !== undefined) ?
@@ -94,6 +117,13 @@ export function Set() {
                         Start Training
                     </div>
                 </>}
+                {trainingStarted && <div>
+                    <input type='text' placeholder='Enter your answer here' style={{
+                        width: '100%',
+                    }}></input>
+                    <div className='answer-display'>
+                    </div>
+                </div>}
 
             </div> : <div>
                 <h1>Please login to access this page</h1>

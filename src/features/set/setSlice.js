@@ -8,7 +8,9 @@ export const setSlice = createSlice({
         setData: {
         },
         setSelected: 'default',
-        trainingStarted: false
+        trainingStarted: false,
+        currentQuestionData:{
+        }
     },
     reducers: {
         setSetData: (state, action) => {
@@ -22,6 +24,9 @@ export const setSlice = createSlice({
         },
         setTrainingStarted: (state, action) => {
             state.trainingStarted = action.payload.trainingStarted;
+        },
+        setCurrentQuestionData: (state, action) => {
+            state.currentQuestionData = action.payload.currentQuestionData;
         }
     }
 });
@@ -30,6 +35,7 @@ export const {
     setSetData,
     setSetSelected,
     setSetNames,
-    setTrainingStarted
+    setTrainingStarted,
+    setCurrentQuestionData
 } = setSlice.actions;
 export default setSlice.reducer;
