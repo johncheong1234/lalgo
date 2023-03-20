@@ -22,6 +22,7 @@ export function Set() {
     const currentQuestionData = useSelector(state => state.set.currentQuestionData);
     const algoLine = useSelector(state => state.set.algoLine);
     const algoLineState = useSelector(state => state.set.algoLineState);
+    const typedAlgoOutput = useSelector(state => state.set.typedAlgoOutput);
 
     useEffect(() => {
         // const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_all_algos";
@@ -101,17 +102,28 @@ export function Set() {
         })
     }
 
-    function handleCodeInputChange(e){
+    function handleCodeInputChange(e) {
         let codeInputChangeAllowed = false;
-        if(e.nativeEvent.inputType === 'deleteContentBackward'){
+        if (e.nativeEvent.inputType === 'deleteContentBackward') {
             codeInputChangeAllowed = true;
-        } else if(algoLineState !== 'incorrect' && e.nativeEvent.inputType !== 'deleteContentBackward'){
+        } else if (algoLineState !== 'incorrect' && e.nativeEvent.inputType !== 'deleteContentBackward') {
             codeInputChangeAllowed = true;
         }
-        if(codeInputChangeAllowed){
+        if (codeInputChangeAllowed) {
+            const algoCode = currentQuestionData.algoCode;
+            const comparisonCodeUnclean = algoCode[typedAlgoOutput.length];
+            const comparisonCode = comparisonCodeUnclean.replace(/\s/g, '');
+            const codeInputVal = e.target.value.replace(/\s/g, '');
             dispatch(setAlgoLine({
                 algoLine: e.target.value
             }))
+            if (comparisonCode.substring(0, codeInputVal.length) === codeInputVal && codeInputVal !== comparisonCode) {
+                dispatch(setAlgoLineState({ algoLineState: 'semi' }))
+            } else if (comparisonCode === codeInputVal) {
+                dispatch(setAlgoLineState({ algoLineState: 'correct' }))
+            } else {
+                dispatch(setAlgoLineState({ algoLineState: 'incorrect' }))
+            }
         }
     }
 
@@ -143,8 +155,9 @@ export function Set() {
 
                         value={algoLine}
 
-                        onChange = {handleCodeInputChange}
+                        onChange={handleCodeInputChange}
 
+                        className={`code-input-${algoLineState}`}
                     ></input>
                     <div className='answer-display'>
                         {currentQuestionData.algoCode ?
