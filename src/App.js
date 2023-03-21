@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import axios from 'axios';
 import { Analytics } from '@vercel/analytics/react';
+import { Navbar } from './navbar/Navbar';
 
 function App() {
 
@@ -72,7 +73,18 @@ function App() {
   return (
     <div>
       <Analytics />
-      <h1>Learn Algos Fast Here</h1>
+      <div className='row'>
+        <div style={{
+          width: '50%',
+        }}>
+          <h1>Learn Algos Fast Here</h1>
+        </div>
+        <div style={{
+          width: '50%',
+        }}>
+          <Navbar />
+        </div>
+      </div>
       {given_name ? <h2>Welcome {given_name}</h2> :
         <div style={{
           display: 'flex',

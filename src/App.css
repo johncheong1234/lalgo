@@ -52,3 +52,57 @@
   /* width of signout button */
   width: 100px;
 }
+
+.navbar{
+  /* navbar background color */
+  background-color: rgb(112, 76, 182);
+  /* navbar text color */
+  color: white;
+  /* navbar border */
+  border: 1px solid rgb(112, 76, 182);
+  /* navbar border radius */
+  border-radius: 5px;
+  /* navbar padding */
+  padding: 5px 10px;
+  /* width of navbar */
+  width: 100%;
+  /* height of navbar */
+  height: 50px;
+  /* navbar display */
+  display: flex;
+  /* navbar flex direction */
+  flex-direction: row;
+  /* navbar justify content */
+  justify-content: space-between;
+  /* navbar align items */
+  align-items: center;
+}
+
+.navbar-item{
+  /* navbar item text color */
+  color: white;
+  /* navbar item text decoration */
+  text-decoration: none;
+  /* navbar item font size */
+  font-size: 20px;
+}
+
+
+.navbar-item a{
+  /* navbar item text color */
+  color: white;
+  /* navbar item text decoration */
+  text-decoration: none;
+  /* navbar item font size */
+  font-size: 20px;
+}
+
+
+.navbar-item:hover{
+  /* navbar item text color */
+  color: white;
+  /* navbar item text decoration */
+  text-decoration: none;
+  /* navbar item font size */
+  font-size: 20px;
+}
