@@ -11,7 +11,10 @@ import {
     setAlgoLine,
     setCompletedAlgoKeys,
     setCompletionIndex,
-    setDisplayAnswer
+    setDisplayAnswer,
+    setSetStartTime,
+    setSetTimeElapsed,
+    setAlgoStartTime,
 } from './setSlice';
 import axios from 'axios';
 import { AlgoCard } from './algoCard/AlgoCard';
@@ -31,6 +34,9 @@ export function Set() {
     const completedAlgoKeys = useSelector(state => state.set.completedAlgoKeys);
     const completionIndex = useSelector(state => state.set.completionIndex);
     const displayAnswer = useSelector(state => state.set.displayAnswer);
+    const setStartTime = useSelector(state => state.set.setStartTime);
+    const setTimeElapsed = useSelector(state => state.set.setTimeElapsed);
+    const algoStartTime = useSelector(state => state.set.algoStartTime);
 
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_sets";
@@ -54,6 +60,21 @@ export function Set() {
         });
 
     }, [])
+
+    useEffect(() => {
+
+        if (setStartTime !== 0) {
+            const interval = setInterval(() => {
+                //calculate time elapsed
+                const currentTime = new Date();
+                const newTimeElapsed = Math.floor((currentTime - setStartTime) / 10);
+                //update time elapsed
+                dispatch(setSetTimeElapsed({ setTimeElapsed: newTimeElapsed }));
+            }, 10);
+            return () => clearInterval(interval);
+        }
+
+    }, [setStartTime])
 
     useEffect(() => {
 
@@ -83,6 +104,10 @@ export function Set() {
     function handleStartTraining(e) {
         dispatch(setTrainingStarted({
             trainingStarted: true
+        }))
+
+        dispatch(setSetStartTime({
+            setStartTime: Date.now()
         }))
 
         editCurrentQuestionData(setData.setQuestions[0].algoKey);
@@ -244,6 +269,13 @@ export function Set() {
                                 })
                             }
                         </div>
+                        {
+                            setStartTime &&
+                            <div>
+                                <span>Set Started: {new Date(setStartTime).toLocaleTimeString()}</span>
+                                <span> Set Time Elapsed: {setTimeElapsed/100} seconds</span>
+                            </div>
+                        }
                         <input type='text' placeholder='Enter your answer here' style={{
                             width: '100%',
                         }}
