@@ -25,9 +25,9 @@ export function QuestionCard(props) {
             <div>
                 Name: {algoName}
             </div>
-            <div>
+            {/* <div>
                 Key: {algoKey}
-            </div>
+            </div> */}
         </div>
     )
 }

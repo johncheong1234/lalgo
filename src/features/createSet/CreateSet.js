@@ -67,10 +67,10 @@ export function CreateSet() {
         for(let i = 0; i < createSetData.length; i++){
             const repeats = parseInt(createSetData[i].repeats);
             if(repeats === 1){
-                finalSetData.setQuestions.push({algoKey: createSetData[i].algoKey});
+                finalSetData.setQuestions.push({algoKey: createSetData[i].algoKey, algoName: createSetData[i].algoName});
             }else{
                 for(let j = 0; j < repeats; j++){
-                    finalSetData.setQuestions.push({algoKey: createSetData[i].algoKey});
+                    finalSetData.setQuestions.push({algoKey: createSetData[i].algoKey, algoName: createSetData[i].algoName});
                 }
             }
         }

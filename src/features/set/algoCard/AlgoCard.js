@@ -16,7 +16,7 @@ export function AlgoCard(props) {
         <div className='set-algo-progress-card' style={{
             backgroundColor: backgroundColor
         }}>
-            <div>{algo.algoKey}</div>
+            <div>{algo.algoName}</div>
         </div>
     )
 }

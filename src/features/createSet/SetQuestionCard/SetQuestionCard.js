@@ -32,9 +32,9 @@ export function SetQuestionCard(props) {
             <div>
                 Name: {algoName}
             </div>
-            <div>
+            {/* <div>
                 Key: {algoKey}
-            </div>
+            </div> */}
             <div>
                 <input type='number' value={repeats} onChange={handleRepeatsChange} />
             </div>
