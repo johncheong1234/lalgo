@@ -15,6 +15,7 @@ import {
     setSetStartTime,
     setSetTimeElapsed,
     setAlgoStartTime,
+    setAlgoTimeElapsed
 } from './setSlice';
 import axios from 'axios';
 import { AlgoCard } from './algoCard/AlgoCard';
@@ -37,6 +38,7 @@ export function Set() {
     const setStartTime = useSelector(state => state.set.setStartTime);
     const setTimeElapsed = useSelector(state => state.set.setTimeElapsed);
     const algoStartTime = useSelector(state => state.set.algoStartTime);
+    const algoTimeElapsed = useSelector(state => state.set.algoTimeElapsed);
 
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_sets";
@@ -75,6 +77,21 @@ export function Set() {
         }
 
     }, [setStartTime])
+
+    useEffect(()=>{
+
+        if(algoStartTime !== 0){
+            const interval = setInterval(()=>{
+                //calculate time elapsed
+                const currentTime = new Date();
+                const newTimeElapsed = Math.floor((currentTime - algoStartTime)/10);
+                //update time elapsed
+                dispatch(setAlgoTimeElapsed({algoTimeElapsed: newTimeElapsed}));
+            }, 10);
+            return () => clearInterval(interval);
+        }
+
+    }, [algoStartTime])
 
     useEffect(() => {
 
@@ -131,6 +148,10 @@ export function Set() {
                 }
             }))
         })
+
+        dispatch(setAlgoStartTime({
+            algoStartTime: Date.now()
+        }))
     }
 
     function handleCodeInputChange(e) {
@@ -274,6 +295,13 @@ export function Set() {
                             <div>
                                 <span>Set Started: {new Date(setStartTime).toLocaleTimeString()}</span>
                                 <span> Set Time Elapsed: {setTimeElapsed/100} seconds</span>
+                            </div>
+                        }
+                        {
+                            algoStartTime &&
+                            <div>
+                                <span>Algo Started: {new Date(algoStartTime).toLocaleTimeString()}</span>
+                                <span> Algo Time Elapsed: {algoTimeElapsed/100} seconds</span>
                             </div>
                         }
                         <input type='text' placeholder='Enter your answer here' style={{

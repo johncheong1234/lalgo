@@ -18,8 +18,9 @@ export const setSlice = createSlice({
         completionIndex: 0,
         displayAnswer: true,
         setStartTime: 0,
-        algoStartTime: 0,
         setTimeElapsed: 0,
+        algoStartTime: 0,
+        algoTimeElapsed: 0,
     },
     reducers: {
         setSetData: (state, action) => {
@@ -63,6 +64,9 @@ export const setSlice = createSlice({
         },
         setSetTimeElapsed: (state, action) => {
             state.setTimeElapsed = action.payload.setTimeElapsed;
+        },
+        setAlgoTimeElapsed: (state, action) => {
+            state.algoTimeElapsed = action.payload.algoTimeElapsed;
         }
     }
 });
@@ -81,6 +85,7 @@ export const {
     setDisplayAnswer,
     setSetStartTime,
     setAlgoStartTime,
-    setSetTimeElapsed
+    setSetTimeElapsed,
+    setAlgoTimeElapsed
 } = setSlice.actions;
 export default setSlice.reducer;
