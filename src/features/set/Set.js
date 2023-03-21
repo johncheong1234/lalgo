@@ -17,7 +17,8 @@ import {
     setAlgoStartTime,
     setAlgoTimeElapsed,
     setTimedShowAnswers,
-    setTimeInAnswerHiddenPercentage
+    setTimeInAnswerHiddenPercentage,
+    setAlgoCarelessErrors
 } from './setSlice';
 import axios from 'axios';
 import { AlgoCard } from './algoCard/AlgoCard';
@@ -43,6 +44,7 @@ export function Set() {
     const algoTimeElapsed = useSelector(state => state.set.algoTimeElapsed);
     const timedShowAnswers = useSelector(state => state.set.timedShowAnswers);
     const timeInAnswerHiddenPercentage = useSelector(state => state.set.timeInAnswerHiddenPercentage);
+    const algoCarelessErrors = useSelector(state => state.set.algoCarelessErrors);
 
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_sets";
@@ -201,6 +203,11 @@ export function Set() {
                 ]
             })
         )
+        dispatch(
+            setAlgoCarelessErrors({
+                algoCarelessErrors: 0
+            })
+        )
     }
 
     function handleCodeInputChange(e) {
@@ -224,6 +231,9 @@ export function Set() {
                 dispatch(setAlgoLineState({ algoLineState: 'correct' }))
             } else {
                 dispatch(setAlgoLineState({ algoLineState: 'incorrect' }))
+                dispatch(setAlgoCarelessErrors({
+                    algoCarelessErrors: algoCarelessErrors + 1
+                }))
             }
         }
     }
@@ -380,6 +390,10 @@ export function Set() {
                                     <progress value={`${timeInAnswerHiddenPercentage}`} max="100"></progress>
                                 </div>
                             </>
+                        }
+                        {
+                            algoCarelessErrors > 0 &&
+                            <div> Algo Careless Errors: {algoCarelessErrors}</div>
                         }
                         <input type='text' placeholder='Enter your answer here' style={{
                             width: '100%',

@@ -23,6 +23,7 @@ export const setSlice = createSlice({
         algoTimeElapsed: 0,
         timedShowAnswers: [],
         timeInAnswerHiddenPercentage: 0,
+        algoCarelessErrors: 0,
     },
     reducers: {
         setSetData: (state, action) => {
@@ -75,6 +76,9 @@ export const setSlice = createSlice({
         },
         setTimeInAnswerHiddenPercentage: (state, action) => {
             state.timeInAnswerHiddenPercentage = action.payload.timeInAnswerHiddenPercentage;
+        },
+        setAlgoCarelessErrors: (state, action) => {
+            state.algoCarelessErrors = action.payload.algoCarelessErrors;
         }
     }
 });
@@ -97,5 +101,6 @@ export const {
     setAlgoTimeElapsed,
     setTimedShowAnswers,
     setTimeInAnswerHiddenPercentage,
+    setAlgoCarelessErrors
 } = setSlice.actions;
 export default setSlice.reducer;
