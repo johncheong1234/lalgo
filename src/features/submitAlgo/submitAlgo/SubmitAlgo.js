@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     setAlgoCode,
-    setAlgoKey,
+    // setAlgoKey,
     setAlgoName
 } from '../submitAlgoSlice';
 import axios from 'axios';
@@ -13,7 +13,7 @@ export function SubmitAlgo() {
 
     const dispatch = useDispatch();
     const algoName = useSelector(state => state.submitAlgo.algoName);
-    const algoKey = useSelector(state => state.submitAlgo.algoKey);
+    // const algoKey = useSelector(state => state.submitAlgo.algoKey);
     const algoCode = useSelector(state => state.submitAlgo.algoCode);
     const email = useSelector(state => state.user.userObject.email);
 
@@ -21,9 +21,9 @@ export function SubmitAlgo() {
         dispatch(setAlgoName(e.target.value));
     }
 
-    function handleAlgoKeyChange(e) {
-        dispatch(setAlgoKey(e.target.value));
-    }
+    // function handleAlgoKeyChange(e) {
+    //     dispatch(setAlgoKey(e.target.value));
+    // }
 
     function handleEnterAlgoCodeChange(e) {
         const AllLinesOfCode = e.target.value.split("\n");
@@ -38,24 +38,33 @@ export function SubmitAlgo() {
     }
 
     function handleSubmit() {
-        if (algoName === '' || algoKey === '' || algoCode.length === 0) {
+        if (algoName === '' ||
+            // algoKey === '' || 
+            algoCode.length === 0) {
             alert('Please fill all the fields');
             return;
         }
 
         //ensure algoKey is 1 word
-        if (algoKey.split(' ').length > 1) {
-            alert('Algo Key should be one word');
-            return;
-        }
+        // if (algoKey.split(' ').length > 1) {
+        //     alert('Algo Key should be one word');
+        //     return;
+        // }
+
+        // generate unique algoKey based on timestamp
+        const uniqueId = Date.now() + Math.random().toString(16).slice(2) + algoName.replace(/\s/g, '') + email;
 
         const body = {
             algoName,
-            algoKey,
+            algoKey: uniqueId,
             algoCode
         }
 
-        axios.post(postUrl, body)
+        axios.post(postUrl, body).then((response) => {
+            alert('Algo submitted successfully');
+        }).catch((error) => {
+            alert('Error submitting algo');
+        })
     }
 
     return (
@@ -67,9 +76,9 @@ export function SubmitAlgo() {
                 <div>
                     <input type="text" placeholder="Enter algo name" value={algoName} onChange={handleAlgoNameChange} />
                 </div>
-                <div>
+                {/* <div>
                     <input type="text" placeholder="Enter algo Key" value={algoKey} onChange={handleAlgoKeyChange} />
-                </div>
+                </div> */}
                 <div>
                     <textarea placeholder="Enter algo code" cols='100' rows={algoCode.length} onChange={handleEnterAlgoCodeChange} />
                 </div>
