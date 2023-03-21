@@ -28,10 +28,11 @@ export function SubmitAlgo() {
     function handleEnterAlgoCodeChange(e) {
         const AllLinesOfCode = e.target.value.split("\n");
 
-        // remove empty string from array
         for (let i = 0; i < AllLinesOfCode.length; i += 1) {
-            if (AllLinesOfCode[i] === "") {
+            // check if line has no characters apart from spaces and remove it
+            if (AllLinesOfCode[i].trim() === '') {
                 AllLinesOfCode.splice(i, 1);
+                i -= 1;
             }
         }
         dispatch(setAlgoCode(AllLinesOfCode));
