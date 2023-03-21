@@ -419,7 +419,7 @@ export function CustomAlgo() {
                     {
                         Object.keys(presetAlgos).map((key, index) => {
                             return (
-                                <option key={index}>{key}</option>
+                                <option key={index} value={key}>{presetAlgos[key].algoName}</option>
                             )
                         })
                     }
