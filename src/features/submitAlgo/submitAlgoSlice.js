@@ -4,15 +4,15 @@ export const submitAlgoSlice = createSlice({
     name: 'submitAlgo',
     initialState: {
         algoName: '',
-        algoKey: '',
-        algoCode: []
+        description: '',
+        algoCode: [],
     },
     reducers: {
         setAlgoName: (state, action) => {
             state.algoName = action.payload;
         },
-        setAlgoKey: (state, action) => {
-            state.algoKey = action.payload;
+        setDescription: (state, action) => {
+            state.description = action.payload;
         },
         setAlgoCode: (state, action) => {
             state.algoCode = action.payload;
@@ -22,7 +22,7 @@ export const submitAlgoSlice = createSlice({
 
 export const {
     setAlgoName,
-    setAlgoKey,
+    setDescription,
     setAlgoCode
 } = submitAlgoSlice.actions;
 export default submitAlgoSlice.reducer;

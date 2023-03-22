@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     setAlgoCode,
-    // setAlgoKey,
+    setDescription,
     setAlgoName
 } from '../submitAlgoSlice';
 import axios from 'axios';
@@ -13,7 +13,7 @@ export function SubmitAlgo() {
 
     const dispatch = useDispatch();
     const algoName = useSelector(state => state.submitAlgo.algoName);
-    // const algoKey = useSelector(state => state.submitAlgo.algoKey);
+    const description = useSelector(state => state.submitAlgo.description);
     const algoCode = useSelector(state => state.submitAlgo.algoCode);
     const email = useSelector(state => state.user.userObject.email);
 
@@ -21,9 +21,9 @@ export function SubmitAlgo() {
         dispatch(setAlgoName(e.target.value));
     }
 
-    // function handleAlgoKeyChange(e) {
-    //     dispatch(setAlgoKey(e.target.value));
-    // }
+    function handleDescriptionChange(e) {
+        dispatch(setDescription(e.target.value));
+    }
 
     function handleEnterAlgoCodeChange(e) {
         const AllLinesOfCode = e.target.value.split("\n");
@@ -46,19 +46,14 @@ export function SubmitAlgo() {
             return;
         }
 
-        //ensure algoKey is 1 word
-        // if (algoKey.split(' ').length > 1) {
-        //     alert('Algo Key should be one word');
-        //     return;
-        // }
-
         // generate unique algoKey based on timestamp
         const uniqueId = Date.now() + Math.random().toString(16).slice(2) + algoName.replace(/\s/g, '') + email;
 
         const body = {
             algoName,
             algoKey: uniqueId,
-            algoCode
+            algoCode,
+            description
         }
 
         axios.post(postUrl, body).then((response) => {
@@ -77,9 +72,9 @@ export function SubmitAlgo() {
                 <div>
                     <input type="text" placeholder="Enter algo name" value={algoName} onChange={handleAlgoNameChange} />
                 </div>
-                {/* <div>
-                    <input type="text" placeholder="Enter algo Key" value={algoKey} onChange={handleAlgoKeyChange} />
-                </div> */}
+                <div>
+                    <input type="text" placeholder="Enter Description" value={description} onChange={handleDescriptionChange} />
+                </div>
                 <div>
                     <textarea placeholder="Enter algo code" cols='100' rows={algoCode.length} onChange={handleEnterAlgoCodeChange} />
                 </div>

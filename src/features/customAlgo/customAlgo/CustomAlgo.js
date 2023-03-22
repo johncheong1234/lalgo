@@ -75,7 +75,7 @@ export function CustomAlgo() {
 
         presetAlgos.then((response) => {
             for (let i = 0; i < response.data.length; i++) {
-                objectToDispatch[response.data[i].algo.algoKey] = { algoCode: response.data[i].algo.algoCode, algoName: response.data[i].algo.algoName }
+                objectToDispatch[response.data[i].algo.algoKey] = { algoCode: response.data[i].algo.algoCode, algoName: response.data[i].algo.algoName, description: response.data[i].algo.description, algoKey: response.data[i].algo.algoKey }
             }
 
             dispatch(setPresetAlgos({ presetAlgos: objectToDispatch }));
@@ -397,118 +397,125 @@ export function CustomAlgo() {
 
     return (
         <div className='row'>
-        <div onKeyDown={handleGlobalKeyDown} style={{
-            width: '70%'
-        }}>
-            <div className='answers-typed' style={{
-                border: typedAlgoOutput.length > 0 ? '1px solid black' : 'none'
+            <div onKeyDown={handleGlobalKeyDown} style={{
+                width: '70%'
             }}>
-                {typedAlgoOutput.map((line, index) => {
-                    return (
-                        <div key={index}>
-                            {line}
+                <div className='answers-typed' style={{
+                    border: typedAlgoOutput.length > 0 ? '1px solid black' : 'none'
+                }}>
+                    {typedAlgoOutput.map((line, index) => {
+                        return (
+                            <div key={index}>
+                                {line}
+                            </div>
+                        )
+                    })}
+                </div>
+                <h2>Custom Algo Learning Feature</h2>
+                <div className='toggle-algorithm-options'>
+                    <div className='button-div' onClick={handleRandomiseAlgo}>Randomise!</div>
+                    <select onChange={handleSelectAlgo} value={algoSelected}>
+                        <option disabled value='default'>Select your Algo</option>
+                        {
+                            Object.keys(presetAlgos).map((key, index) => {
+                                return (
+                                    <option key={index} value={key}>{presetAlgos[key].algoName}</option>
+                                )
+                            })
+                        }
+                    </select>
+                    <div className={repeatObject.repeatOn ? 'button-div-alert' : 'button-div'} onClick={handleRepeatClick}>{
+                        repeatObject.repeatOn ? 'Stop' : 'Repeat'
+                    }</div>
+                    <select value={repeatObject.repeatsInitial} onChange={handleRepeatsInitialChange}>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                    </select>
+
+                    {repeatObject.repeatOn && <div className='repeats-left'>Repeats left: {repeatObject.repeatsLeft}</div>}
+                    <button onClick={handleVoiceEnable}>{voiceEnabled ? 'Disable Voice' : 'Enable Voice'}</button>
+                    <div style={{
+                        display: conceptErrorCount ? 'block' : 'none'
+                    }}>
+                        Conceptual Errors: {conceptErrorCount}
+                    </div>
+                    <div style={{
+                        display: carelessErrorCount ? 'block' : 'none'
+                    }}>
+                        Careless Errors: {carelessErrorCount}
+                    </div>
+                </div>
+                {
+                    algoSelected !== 'default' && (
+                        <div>
+                            Description: {presetAlgos[algoSelected].description}
                         </div>
                     )
-                })}
-            </div>
-            <h2>Custom Algo Learning Feature</h2>
-            <div className='toggle-algorithm-options'>
-                <div className='button-div' onClick={handleRandomiseAlgo}>Randomise!</div>
-                <select onChange={handleSelectAlgo} value={algoSelected}>
-                    <option disabled value='default'>Select your Algo</option>
-                    {
-                        Object.keys(presetAlgos).map((key, index) => {
-                            return (
-                                <option key={index} value={key}>{presetAlgos[key].algoName}</option>
-                            )
-                        })
-                    }
-                </select>
-                <div className={repeatObject.repeatOn ? 'button-div-alert' : 'button-div'} onClick={handleRepeatClick}>{
-                    repeatObject.repeatOn ? 'Stop' : 'Repeat'
-                }</div>
-                <select value={repeatObject.repeatsInitial} onChange={handleRepeatsInitialChange}>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                    <option>11</option>
-                    <option>12</option>
-                    <option>13</option>
-                    <option>14</option>
-                    <option>15</option>
-                </select>
-
-                {repeatObject.repeatOn && <div className='repeats-left'>Repeats left: {repeatObject.repeatsLeft}</div>}
-                <button onClick={handleVoiceEnable}>{voiceEnabled ? 'Disable Voice' : 'Enable Voice'}</button>
-                <div style={{
-                    display: conceptErrorCount ? 'block' : 'none'
-                }}>
-                    Conceptual Errors: {conceptErrorCount}
-                </div>
-                <div style={{
-                    display: carelessErrorCount ? 'block' : 'none'
-                }}>
-                    Careless Errors: {carelessErrorCount}
-                </div>
-            </div>
-            <div className='timer-wrapper'>
-                <div>
-                    Start Time: {
-                        startTime ? new Date(startTime).toLocaleTimeString() : 'Not started'
-                    }
-                </div>
-                <div className='button-div' onClick={handleHideTimer} style={{
-                    display: startTime ? 'block' : 'none'
-                }}>
-                    {showTimer ? 'Hide' : 'Show'} Timer
-                </div>
-                <div style={{
-                    display: showTimer ? 'block' : 'none'
-                }}>
-                    Time Taken: {timeElapsed / 100} seconds
-                </div>
-
-            </div>
-            <div className='progress-bar-wrapper' style={{
-                display: startTime ? 'flex' : 'none'
-            }}>
-                <p>Time spent in answer hidden is {Number((timeInAnswerNotShown / (timeInAnswerNotShown + timeInAnswerShown)) * 100).toFixed(1)}%</p>
-                <progress value={`${(timeInAnswerNotShown / (timeInAnswerNotShown + timeInAnswerShown)) * 100}`} max="100"></progress>
-            </div>
-            <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
-            <h3> Create algo answer </h3> <button onClick={handleShowAnswer}>{showAnswer ? "Hide" : "Show"}</button>
-            <textarea rows={customAlgoInput.length < 13 ? customAlgoInput.length + 1 : 14} id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} style={{
-                display: showAnswer ? 'block' : 'none',
-                width: '100%'
-            }} />
-            <div className='mistake-modal-background' style={{
-                display: mistakeModalDisplay ? 'block' : 'none'
-            }}
-                onClick={handleMistakeModalBackgroundClick}
-            >
-                <div className='mistake-modal'>
-                    <div className='mistake-modal-text'>
-                        You've made a mistake!
+                }
+                <div className='timer-wrapper'>
+                    <div>
+                        Start Time: {
+                            startTime ? new Date(startTime).toLocaleTimeString() : 'Not started'
+                        }
                     </div>
-                    <button onClick={handleConceptMistakeClick}>Concept Mistake</button>
-                    <button onClick={handleTypoMistakeClick}>Typo Mistake</button>
-                    <button>Not a mistake</button>
-                </div>
+                    <div className='button-div' onClick={handleHideTimer} style={{
+                        display: startTime ? 'block' : 'none'
+                    }}>
+                        {showTimer ? 'Hide' : 'Show'} Timer
+                    </div>
+                    <div style={{
+                        display: showTimer ? 'block' : 'none'
+                    }}>
+                        Time Taken: {timeElapsed / 100} seconds
+                    </div>
 
+                </div>
+                <div className='progress-bar-wrapper' style={{
+                    display: startTime ? 'flex' : 'none'
+                }}>
+                    <p>Time spent in answer hidden is {Number((timeInAnswerNotShown / (timeInAnswerNotShown + timeInAnswerShown)) * 100).toFixed(1)}%</p>
+                    <progress value={`${(timeInAnswerNotShown / (timeInAnswerNotShown + timeInAnswerShown)) * 100}`} max="100"></progress>
+                </div>
+                <input type="text" className={`code-input-${algoLineState}`} id="code-input" onChange={handleCodeInputChange} onKeyDown={handleCodeInputKeyDown} value={codeInput} />
+                <h3> Create algo answer </h3> <button onClick={handleShowAnswer}>{showAnswer ? "Hide" : "Show"}</button>
+                <textarea rows={customAlgoInput.length < 13 ? customAlgoInput.length + 1 : 14} id="answer-input" onChange={handleAnswerInputChange} value={codeSubmitted} style={{
+                    display: showAnswer ? 'block' : 'none',
+                    width: '100%'
+                }} />
+                <div className='mistake-modal-background' style={{
+                    display: mistakeModalDisplay ? 'block' : 'none'
+                }}
+                    onClick={handleMistakeModalBackgroundClick}
+                >
+                    <div className='mistake-modal'>
+                        <div className='mistake-modal-text'>
+                            You've made a mistake!
+                        </div>
+                        <button onClick={handleConceptMistakeClick}>Concept Mistake</button>
+                        <button onClick={handleTypoMistakeClick}>Typo Mistake</button>
+                        <button>Not a mistake</button>
+                    </div>
+
+                </div>
             </div>
-        </div>
-        <div style={{
-            width: '30%'
-        }}> 
-            <PastRecordsParent email={email} algoSelected={algoSelected} />
-        </div>
+            <div style={{
+                width: '30%'
+            }}>
+                <PastRecordsParent email={email} algoSelected={algoSelected} />
+            </div>
         </div>
     );
 }
