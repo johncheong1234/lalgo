@@ -360,7 +360,7 @@ export function Set() {
                         </div>}
                     </>}
                     {trainingStarted && <div>
-                        <div>
+                        <div className='set-algo-output'>
                             {
                                 typedAlgoOutput.map((line, index) => {
                                     return (
@@ -415,6 +415,12 @@ export function Set() {
                         <div className='answer-display' style={{
                             display: displayAnswer ? 'block' : 'none'
                         }}>
+                            <div style={{
+                                height: '40vh',
+                                overflowY: 'scroll',
+                            }}
+                            className='set-algo-code'
+                            >
                             {currentQuestionData.algoCode ?
                                 currentQuestionData.algoCode.map((line, index) => {
                                     return (
@@ -425,6 +431,7 @@ export function Set() {
                                 }) : <div></div>
                             }
 
+                            </div>
                         </div>
                     </div>}
                 </div>
