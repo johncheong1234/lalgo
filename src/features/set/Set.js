@@ -11,7 +11,14 @@ import {
     setAlgoLine,
     setCompletedAlgoKeys,
     setCompletionIndex,
-    setDisplayAnswer
+    setDisplayAnswer,
+    setSetStartTime,
+    setSetTimeElapsed,
+    setAlgoStartTime,
+    setAlgoTimeElapsed,
+    setTimedShowAnswers,
+    setTimeInAnswerHiddenPercentage,
+    setAlgoCarelessErrors
 } from './setSlice';
 import axios from 'axios';
 import { AlgoCard } from './algoCard/AlgoCard';
@@ -31,6 +38,13 @@ export function Set() {
     const completedAlgoKeys = useSelector(state => state.set.completedAlgoKeys);
     const completionIndex = useSelector(state => state.set.completionIndex);
     const displayAnswer = useSelector(state => state.set.displayAnswer);
+    const setStartTime = useSelector(state => state.set.setStartTime);
+    const setTimeElapsed = useSelector(state => state.set.setTimeElapsed);
+    const algoStartTime = useSelector(state => state.set.algoStartTime);
+    const algoTimeElapsed = useSelector(state => state.set.algoTimeElapsed);
+    const timedShowAnswers = useSelector(state => state.set.timedShowAnswers);
+    const timeInAnswerHiddenPercentage = useSelector(state => state.set.timeInAnswerHiddenPercentage);
+    const algoCarelessErrors = useSelector(state => state.set.algoCarelessErrors);
 
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_sets";
@@ -39,7 +53,7 @@ export function Set() {
             'user.email': email
         }
         ).then((response) => {
-            console.log(response.data);
+            // console.log(response.data);
             const setDataObjects = []
             response.data.forEach((set) => {
                 setDataObjects.push({
@@ -54,6 +68,71 @@ export function Set() {
         });
 
     }, [])
+
+    useEffect(() => {
+
+        if (setStartTime !== 0) {
+            const interval = setInterval(() => {
+                //calculate time elapsed
+                const currentTime = new Date();
+                const newTimeElapsed = Math.floor((currentTime - setStartTime) / 10);
+                //update time elapsed
+                dispatch(setSetTimeElapsed({ setTimeElapsed: newTimeElapsed }));
+            }, 10);
+            return () => clearInterval(interval);
+        }
+
+    }, [setStartTime])
+
+    useEffect(() => {
+
+        if (algoStartTime !== 0) {
+            const interval = setInterval(() => {
+                //calculate time elapsed
+                const currentTime = new Date();
+                const newTimeElapsed = Math.floor((currentTime - algoStartTime) / 10);
+                //update time elapsed
+                dispatch(setAlgoTimeElapsed({ algoTimeElapsed: newTimeElapsed }));
+            }, 10);
+            return () => clearInterval(interval);
+        }
+
+    }, [algoStartTime])
+
+    useEffect(() => {
+
+        if (timedShowAnswers.length > 0) {
+            const interval = setInterval(() => {
+                let timeInAnswerShown = 0;
+                let timeInAnswerNotShown = 0;
+                const currentTime = new Date();
+                for (let i = 0; i < timedShowAnswers.length; i++) {
+                    if (i !== timedShowAnswers.length - 1) {
+                        if (timedShowAnswers[i].showAnswer === true) {
+                            timeInAnswerShown += timedShowAnswers[i + 1].time - timedShowAnswers[i].time;
+                        } else {
+                            timeInAnswerNotShown += timedShowAnswers[i + 1].time - timedShowAnswers[i].time;
+                        }
+                    } else {
+                        if (timedShowAnswers[i].showAnswer === true) {
+                            timeInAnswerShown += currentTime - timedShowAnswers[i].time;
+                        } else {
+                            timeInAnswerNotShown += currentTime - timedShowAnswers[i].time;
+                        }
+                    }
+                }
+                const timeInAnswerHiddenPercentage = Math.floor((timeInAnswerNotShown / (timeInAnswerShown + timeInAnswerNotShown)) * 100);
+                dispatch(
+                    setTimeInAnswerHiddenPercentage({
+                        timeInAnswerHiddenPercentage
+                    })
+                )
+
+            }, 10);
+            return () => clearInterval(interval);
+        }
+
+    }, [timedShowAnswers])
 
     useEffect(() => {
 
@@ -85,6 +164,10 @@ export function Set() {
             trainingStarted: true
         }))
 
+        dispatch(setSetStartTime({
+            setStartTime: Date.now()
+        }))
+
         editCurrentQuestionData(setData.setQuestions[0].algoKey);
     }
 
@@ -94,7 +177,7 @@ export function Set() {
         axios.post(url, {
             'algo.algoKey': algoKey
         }).then((response) => {
-            console.log(response.data);
+            // console.log(response.data);
             const algoName = response.data[0].algo.algoName;
             const algoCode = response.data[0].algo.algoCode;
             const algoKey = response.data[0].algo.algoKey;
@@ -106,6 +189,25 @@ export function Set() {
                 }
             }))
         })
+
+        dispatch(setAlgoStartTime({
+            algoStartTime: Date.now()
+        }))
+        dispatch(
+            setTimedShowAnswers({
+                timedShowAnswers: [
+                    {
+                        time: new Date().getTime(),
+                        showAnswer: displayAnswer
+                    }
+                ]
+            })
+        )
+        dispatch(
+            setAlgoCarelessErrors({
+                algoCarelessErrors: 0
+            })
+        )
     }
 
     function handleCodeInputChange(e) {
@@ -129,6 +231,9 @@ export function Set() {
                 dispatch(setAlgoLineState({ algoLineState: 'correct' }))
             } else {
                 dispatch(setAlgoLineState({ algoLineState: 'incorrect' }))
+                dispatch(setAlgoCarelessErrors({
+                    algoCarelessErrors: algoCarelessErrors + 1
+                }))
             }
         }
     }
@@ -179,6 +284,19 @@ export function Set() {
                         dispatch(setCompletionIndex({
                             completionIndex: 0
                         }))
+
+                        dispatch(setSetStartTime({
+                            setStartTime: 0
+                        }))
+
+                        dispatch(setAlgoStartTime({
+                            algoStartTime: 0
+                        }))
+
+                        dispatch(setTimedShowAnswers({
+                            timedShowAnswers: []
+                        }))
+
                         alert('Training Completed!')
                         return;
                     }
@@ -203,9 +321,18 @@ export function Set() {
     }
 
     function handleHideButton() {
+
+        dispatch(setTimedShowAnswers({
+            timedShowAnswers: [...timedShowAnswers, {
+                time: new Date().getTime(),
+                showAnswer: !displayAnswer
+            }]
+        }))
+
         dispatch(setDisplayAnswer({
             displayAnswer: !displayAnswer
         }))
+
     }
 
     return (
@@ -233,7 +360,7 @@ export function Set() {
                         </div>}
                     </>}
                     {trainingStarted && <div>
-                        <div>
+                        <div className='set-algo-output'>
                             {
                                 typedAlgoOutput.map((line, index) => {
                                     return (
@@ -244,6 +371,30 @@ export function Set() {
                                 })
                             }
                         </div>
+                        {
+                            setStartTime &&
+                            <div>
+                                <span>Set Started: {new Date(setStartTime).toLocaleTimeString()}</span>
+                                <span> Set Time Elapsed: {setTimeElapsed / 100} seconds</span>
+                            </div>
+                        }
+                        {
+                            algoStartTime &&
+                            <>
+                                <div>
+                                    <span>Algo Started: {new Date(algoStartTime).toLocaleTimeString()}</span>
+                                    <span> Algo Time Elapsed: {algoTimeElapsed / 100} seconds</span>
+                                </div>
+                                <div className='progress-bar-wrapper'>
+                                    <p>{timeInAnswerHiddenPercentage} % of time spent in answer hidden</p>
+                                    <progress value={`${timeInAnswerHiddenPercentage}`} max="100"></progress>
+                                </div>
+                            </>
+                        }
+                        {
+                            algoCarelessErrors > 0 &&
+                            <div> Algo Careless Errors: {algoCarelessErrors}</div>
+                        }
                         <input type='text' placeholder='Enter your answer here' style={{
                             width: '100%',
                         }}
@@ -264,6 +415,12 @@ export function Set() {
                         <div className='answer-display' style={{
                             display: displayAnswer ? 'block' : 'none'
                         }}>
+                            <div style={{
+                                height: '40vh',
+                                overflowY: 'scroll',
+                            }}
+                            className='set-algo-code'
+                            >
                             {currentQuestionData.algoCode ?
                                 currentQuestionData.algoCode.map((line, index) => {
                                     return (
@@ -274,6 +431,7 @@ export function Set() {
                                 }) : <div></div>
                             }
 
+                            </div>
                         </div>
                     </div>}
                 </div>

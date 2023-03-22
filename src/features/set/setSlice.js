@@ -17,6 +17,13 @@ export const setSlice = createSlice({
         completedAlgoKeys: [],
         completionIndex: 0,
         displayAnswer: true,
+        setStartTime: 0,
+        setTimeElapsed: 0,
+        algoStartTime: 0,
+        algoTimeElapsed: 0,
+        timedShowAnswers: [],
+        timeInAnswerHiddenPercentage: 0,
+        algoCarelessErrors: 0,
     },
     reducers: {
         setSetData: (state, action) => {
@@ -51,6 +58,27 @@ export const setSlice = createSlice({
         },
         setDisplayAnswer: (state, action) => {
             state.displayAnswer = action.payload.displayAnswer;
+        },
+        setSetStartTime: (state, action) => {
+            state.setStartTime = action.payload.setStartTime;
+        },
+        setAlgoStartTime: (state, action) => {
+            state.algoStartTime = action.payload.algoStartTime;
+        },
+        setSetTimeElapsed: (state, action) => {
+            state.setTimeElapsed = action.payload.setTimeElapsed;
+        },
+        setAlgoTimeElapsed: (state, action) => {
+            state.algoTimeElapsed = action.payload.algoTimeElapsed;
+        },
+        setTimedShowAnswers: (state, action) => {
+            state.timedShowAnswers = action.payload.timedShowAnswers;
+        },
+        setTimeInAnswerHiddenPercentage: (state, action) => {
+            state.timeInAnswerHiddenPercentage = action.payload.timeInAnswerHiddenPercentage;
+        },
+        setAlgoCarelessErrors: (state, action) => {
+            state.algoCarelessErrors = action.payload.algoCarelessErrors;
         }
     }
 });
@@ -66,6 +94,13 @@ export const {
     setAlgoLine,
     setCompletedAlgoKeys,
     setCompletionIndex,
-    setDisplayAnswer
+    setDisplayAnswer,
+    setSetStartTime,
+    setAlgoStartTime,
+    setSetTimeElapsed,
+    setAlgoTimeElapsed,
+    setTimedShowAnswers,
+    setTimeInAnswerHiddenPercentage,
+    setAlgoCarelessErrors
 } = setSlice.actions;
 export default setSlice.reducer;
