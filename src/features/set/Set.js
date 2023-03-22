@@ -337,13 +337,68 @@ export function Set() {
 
     }
 
+    function handleStopTraining(){
+        dispatch(setTrainingStarted({
+            trainingStarted: false
+        }))
+        dispatch(setSetSelected({
+            setSelected: 'default'
+        }))
+        dispatch(setSetData({
+            setData: {}
+        }))
+        dispatch(setCurrentQuestionData({
+            currentQuestionData: {}
+        }))
+        dispatch(setAlgoLine({
+            algoLine: ''
+        }))
+        dispatch(setAlgoLineState({
+            algoLineState: 'semi'
+        }))
+        dispatch(setTypedAlgoOutput({
+            typedAlgoOutput: []
+        }))
+        dispatch(setCompletedAlgoKeys({
+            completedAlgoKeys: []
+        }))
+        dispatch(setCompletionIndex({
+            completionIndex: 0
+        }))
+
+        dispatch(setSetStartTime({
+            setStartTime: 0
+        }))
+
+        dispatch(setAlgoStartTime({
+            algoStartTime: 0
+        }))
+
+        dispatch(setTimedShowAnswers({
+            timedShowAnswers: []
+        }))
+
+        alert('Training Stopped!')
+    }
+
     return (
         (email !== undefined) ?
             <div className='row'>
                 <div style={{
                     width: '70%',
                 }}>
-                    <h2>Set Training</h2>
+                    <div className='row'>
+                        <div style={{
+                            width: '30%'
+                        }}><h2>Set Training</h2>
+                        </div>
+                        {
+                            (trainingStarted) && <div className='button-div' onClick={handleStopTraining}>
+                                Stop Training
+                            </div>
+                        }
+                    </div>
+
                     {(!trainingStarted) && <>
                         <select onChange={handleSelectSet} value={setSelected}>
                             <option disabled value='default'>Select your set</option>
@@ -424,17 +479,17 @@ export function Set() {
                                 height: '40vh',
                                 overflowY: 'scroll',
                             }}
-                            className='set-algo-code'
+                                className='set-algo-code'
                             >
-                            {currentQuestionData.algoCode ?
-                                currentQuestionData.algoCode.map((line, index) => {
-                                    return (
-                                        <div key={index} style={{ whiteSpace: 'pre' }}>
-                                            {line}
-                                        </div>
-                                    )
-                                }) : <div></div>
-                            }
+                                {currentQuestionData.algoCode ?
+                                    currentQuestionData.algoCode.map((line, index) => {
+                                        return (
+                                            <div key={index} style={{ whiteSpace: 'pre' }}>
+                                                {line}
+                                            </div>
+                                        )
+                                    }) : <div></div>
+                                }
 
                             </div>
                         </div>
