@@ -177,15 +177,17 @@ export function Set() {
         axios.post(url, {
             'algo.algoKey': algoKey
         }).then((response) => {
-            // console.log(response.data);
+            console.log(response.data);
             const algoName = response.data[0].algo.algoName;
             const algoCode = response.data[0].algo.algoCode;
             const algoKey = response.data[0].algo.algoKey;
+            const description = response.data[0].algo.description;
             dispatch(setCurrentQuestionData({
                 currentQuestionData: {
                     algoName,
                     algoCode,
-                    algoKey
+                    algoKey,
+                    description
                 }
             }))
         })
@@ -395,6 +397,9 @@ export function Set() {
                             algoCarelessErrors > 0 &&
                             <div> Algo Careless Errors: {algoCarelessErrors}</div>
                         }
+                        <div>
+                            Description: {currentQuestionData.description}
+                        </div>
                         <input type='text' placeholder='Enter your answer here' style={{
                             width: '100%',
                         }}
