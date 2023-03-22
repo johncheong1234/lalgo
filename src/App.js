@@ -14,6 +14,7 @@ import './App.css';
 import axios from 'axios';
 import { Analytics } from '@vercel/analytics/react';
 import { Navbar } from './navbar/Navbar';
+import Experiment from './features/experiment/Experiment';
 
 function App() {
 
@@ -110,6 +111,7 @@ function App() {
           <Route path="/submit" element={<SubmitAlgo />} />
           <Route path="/set" element={<Set />} />
           <Route path='/create-set' element={<CreateSet />} />
+          <Route path="/experiment" element={<Experiment />} />
           <Route path="*" element={<div>404</div>} />
         </Routes>
       </BrowserRouter>
