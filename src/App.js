@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 // import logo from './logo.svg';
 import { CustomAlgo } from './features/customAlgo/customAlgo/CustomAlgo';
 import { SubmitAlgo } from './features/submitAlgo/submitAlgo/SubmitAlgo';
+import { VisualizeCode } from './features/visualizeCode/VisualizeCode';
 import { Set } from './features/set/Set';
 import { CreateSet } from './features/createSet/CreateSet';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -110,6 +111,7 @@ function App() {
           <Route path="/submit" element={<SubmitAlgo />} />
           <Route path="/set" element={<Set />} />
           <Route path='/create-set' element={<CreateSet />} />
+          <Route path='/visualize-code' element={<VisualizeCode />} />
           <Route path="*" element={<div>404</div>} />
         </Routes>
       </BrowserRouter>
