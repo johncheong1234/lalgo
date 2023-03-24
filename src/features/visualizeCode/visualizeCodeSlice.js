@@ -15,11 +15,11 @@ export const visualizeCodeSlice = createSlice({
         setFunctionName: (state, action) => {
             state.functionName = action.payload.functionName;
         },
-        setArguments: (state, action) => {
+        setFunctionArguments: (state, action) => {
             state.arguments = action.payload.arguments;
 
         },
-        setCode: (state, action) => {
+        setFunctionCode: (state, action) => {
             state.code = action.payload.code;
         }
     }
@@ -27,7 +27,7 @@ export const visualizeCodeSlice = createSlice({
 
 export const {
     setFunctionName,
-    setArguments,
-    setCode
+    setFunctionArguments,
+    setFunctionCode
 } = visualizeCodeSlice.actions;
 export default visualizeCodeSlice.reducer;
