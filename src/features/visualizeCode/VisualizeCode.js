@@ -59,7 +59,15 @@ export function VisualizeCode() {
         }
 
         const url = 'http://localhost:5000/submit';
-        axios.post(url, postObj)
+        axios.post(url, postObj).then(
+            (response) => {
+                alert('success');
+            }
+        ).catch(
+            (error) => {
+                alert('error');
+            }
+        )
     }
 
     return (
