@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     setFunctionName,
@@ -15,6 +15,11 @@ export function VisualizeCode() {
     const functionArguments = useSelector((state) => state.visualizeCode.arguments);
     const functionName = useSelector((state) => state.visualizeCode.functionName);
     const code = useSelector((state) => state.visualizeCode.code);
+
+    useEffect(() => {
+        const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_questions";
+
+    }, []);
 
 
     function cleanString(str) {

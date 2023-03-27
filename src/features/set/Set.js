@@ -172,7 +172,7 @@ export function Set() {
     }
 
     function editCurrentQuestionData(algoKey) {
-        const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_question";
+        const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_algorithm";
 
         axios.post(url, {
             'algo.algoKey': algoKey
