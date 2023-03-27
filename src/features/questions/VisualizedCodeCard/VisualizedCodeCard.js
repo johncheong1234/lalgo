@@ -34,8 +34,8 @@ export function VisualizedCodeCard(props) {
                                     return (
                                         <tr key={index}>
                                             <td>{visual.event}</td>
-                                            <td>{visual.codeLineAt} </td>
                                             <td> {visual.codeLinePrior}</td>
+                                            <td>{visual.codeLineAt} </td>
                                             <td>{JSON.stringify(visual.localObjects)}</td>
                                         </tr>
                                     )
