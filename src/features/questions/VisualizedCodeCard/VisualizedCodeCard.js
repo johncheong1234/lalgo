@@ -6,6 +6,7 @@ export function VisualizedCodeCard(props) {
     const functionName = visualizedCode.functionName;
     const functionArguments = JSON.stringify(visualizedCode.arguments);
     const code = visualizedCode.code;
+    const visualList = visualizedCode.visualList;
 
     return (
         console.log(visualizedCode),
@@ -18,6 +19,30 @@ export function VisualizedCodeCard(props) {
                         whiteSpace: "pre-wrap",
                     }}>{code}
                     </div>
+                </div>
+                <div>
+                    <table>
+                        <tr>
+                            <th>event</th>
+                            <th>Code Line Prior</th>
+                            <th>Code Line At</th>
+                            <th>Objects</th>
+                        </tr>
+                        <tbody>
+                            {visualList.map((visual, index) => {
+                                if (visual.codeLineAt !== null && visual.codeLinePrior !== null) {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{visual.event}</td>
+                                            <td>{visual.codeLineAt} </td>
+                                            <td> {visual.codeLinePrior}</td>
+                                            <td>{JSON.stringify(visual.localObjects)}</td>
+                                        </tr>
+                                    )
+                                }
+                            })}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

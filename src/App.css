@@ -106,3 +106,7 @@
   /* navbar item font size */
   font-size: 20px;
 }
+
+table, th, td {
+  border:1px solid black;
+}
