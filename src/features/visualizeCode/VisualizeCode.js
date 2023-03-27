@@ -100,6 +100,23 @@ export function VisualizeCode() {
                     }
                 }
                 console.log(cleanedVisualList)
+                const newPostObj = {
+                    functionName: functionName,
+                    arguments: functionArguments,
+                    code: code,
+                    questionId: questionIdSelected,
+                    visualList: cleanedVisualList
+                }
+                const newUrl = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/create_visualize_code';
+                axios.post(newUrl, newPostObj).then(
+                    (response) => {
+                        alert('success on saving to db');
+                    }
+                ).catch(
+                    (error) => {
+                        alert('error on saving to db');
+                    }
+                )
             }
         ).catch(
             (error) => {
