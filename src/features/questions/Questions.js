@@ -36,19 +36,41 @@ export function Questions() {
 
     function handleGetVisuals(e) {
         const questionId = e.target.dataset.questionid;
-        console.log(questionId)
+        const postObj = {
+            questionId: questionId
+        }
+        const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_visualize_codes";
+        axios.post(url, postObj).then(
+            (response) => {
+                console.log(response.data)
+                const newQuestions = JSON.parse(JSON.stringify(questions));
+                newQuestions.forEach((question) => {
+                    if (question.questionId === questionId) {
+                        question.visualizedCodes = response.data;
+                    }
+                }
+                )
+                dispatch(setQuestions({
+                    questions: newQuestions
+                }))
+            }
+        ).catch(
+            (error) => {
+                console.log(error)
+            }
+        )
     }
 
     return (
         <div>
             <h2>Questions</h2>
             <div>
-                {questions.map((question) => {
+                {questions.map((question, i) => {
                     return (
-                        <div>
+                        <div key={i}>
                             <h3>{question.questionName}</h3>
                             <p>{question.questionDescription}</p>
-                            <div className='button-div' onClick={handleGetVisuals} data-questionId={question.questionId}>Get Visuals</div>
+                            <div className='button-div' onClick={handleGetVisuals} data-questionid={question.questionId}>Get Visuals</div>
                             {
                                 question.visualizedCodes.map((visualizedCode, index) => {
                                     return (
