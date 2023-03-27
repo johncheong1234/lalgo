@@ -8,6 +8,7 @@ export function Questions() {
 
     const dispatch = useDispatch();
     const questions = useSelector((state) => state.questions.questions);
+    const email = useSelector((state) => state.user.userObject.email);
 
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_questions";
@@ -62,6 +63,7 @@ export function Questions() {
     }
 
     return (
+        (email !== undefined) ?
         <div>
             <h2>Questions</h2>
             <div>
@@ -83,6 +85,9 @@ export function Questions() {
                 })
                 }
             </div>
+        </div> : 
+        <div>
+            <h2>Please login to access</h2>
         </div>
     )
 }
