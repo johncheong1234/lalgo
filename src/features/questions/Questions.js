@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setQuestions } from "./questionsSlice";
 import axios from "axios";
+import {VisualizedCodeCard} from "./VisualizedCodeCard/VisualizedCodeCard";
 
 export function Questions() {
 
@@ -13,8 +14,17 @@ export function Questions() {
         axios.post(url, {}).then(
             (response) => {
                 console.log(response.data)
+                const questions = [];
+                response.data.forEach((question) => {
+                    questions.push({
+                        questionName: question.questionName,
+                        questionDescription: question.questionDescription,
+                        questionId: question.questionId,
+                        visualizedCodes: []
+                    })
+                });
                 dispatch(setQuestions({
-                    questions: response.data
+                    questions: questions
                 }))
             }
         ).catch(
@@ -23,6 +33,11 @@ export function Questions() {
             }
         )
     }, [])
+
+    function handleGetVisuals(e) {
+        const questionId = e.target.dataset.questionid;
+        console.log(questionId)
+    }
 
     return (
         <div>
@@ -33,6 +48,14 @@ export function Questions() {
                         <div>
                             <h3>{question.questionName}</h3>
                             <p>{question.questionDescription}</p>
+                            <div className='button-div' onClick={handleGetVisuals} data-questionId={question.questionId}>Get Visuals</div>
+                            {
+                                question.visualizedCodes.map((visualizedCode, index) => {
+                                    return (
+                                        <VisualizedCodeCard visualizedCode={visualizedCode} key={index} />
+                                    )
+                                })
+                            }
                         </div>
                     )
                 })
