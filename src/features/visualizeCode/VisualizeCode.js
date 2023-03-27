@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     setFunctionName,
     setFunctionArguments,
-    setFunctionCode
+    setFunctionCode,
+    setQuestions
 } from './visualizeCodeSlice';
 import axios from 'axios';
 
@@ -15,10 +16,22 @@ export function VisualizeCode() {
     const functionArguments = useSelector((state) => state.visualizeCode.arguments);
     const functionName = useSelector((state) => state.visualizeCode.functionName);
     const code = useSelector((state) => state.visualizeCode.code);
+    const questions = useSelector((state) => state.visualizeCode.questions);
 
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_questions";
-
+        axios.post(url, {}).then(
+            (response) => {
+                console.log(response.data)
+                dispatch(setQuestions({
+                    questions: response.data
+                }))
+            }
+        ).catch(
+            (error) => {
+                console.log(error)
+            }
+        )
     }, []);
 
 
@@ -85,9 +98,9 @@ export function VisualizeCode() {
                 const cleanedVisualList = [];
                 for (let i = 0; i < response.data.visualList.length; i++) {
                     if (response.data.visualList[i].event !== 'opcode') {
-                        
+
                         const visualObject = response.data.visualList[i]
-                        
+
                         // implement try catch
                         try {
                             const newString = cleanString(visualObject.localObjects);
@@ -116,6 +129,21 @@ export function VisualizeCode() {
         (email !== undefined) ?
             <div>
                 <h2>Visualize Python Code</h2>
+                Question Select:
+                <select>
+                    <option value="" selected disabled hidden>Choose here</option>
+                    {
+                        questions.map((question, index) => {
+                            return (
+                                <option key={index} value={question._id}>
+                                    {question.questionName}
+                                </option>
+                            )
+                        })
+                    }
+                </select>
+
+
                 <div>
                     <input type="text" placeholder="Enter main function name, e.g. isMatch" style={{
                         width: '300px'
