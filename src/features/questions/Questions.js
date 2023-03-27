@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setQuestions } from "./questionsSlice";
 import axios from "axios";
-import {VisualizedCodeCard} from "./VisualizedCodeCard/VisualizedCodeCard";
+import { VisualizedCodeCard } from "./VisualizedCodeCard/VisualizedCodeCard";
 
 export function Questions() {
 
@@ -37,6 +37,9 @@ export function Questions() {
 
     function handleGetVisuals(e) {
         const questionId = e.target.dataset.questionid;
+        const visualslength = e.target.dataset.visualslength;
+        console.log(questionId, visualslength)
+        if(visualslength === '0') {
         const postObj = {
             questionId: questionId
         }
@@ -60,34 +63,52 @@ export function Questions() {
                 console.log(error)
             }
         )
+        }else{
+            const newQuestions = JSON.parse(JSON.stringify(questions));
+            newQuestions.forEach((question) => {
+                if (question.questionId === questionId) {
+                    question.visualizedCodes = [];
+                }
+            }
+            )
+            dispatch(setQuestions({
+                questions: newQuestions
+            }))
+        }
     }
 
     return (
         (email !== undefined) ?
-        <div>
-            <h2>Questions</h2>
             <div>
-                {questions.map((question, i) => {
-                    return (
-                        <div key={i}>
-                            <h3>{question.questionName}</h3>
-                            <p>{question.questionDescription}</p>
-                            <div className='button-div' onClick={handleGetVisuals} data-questionid={question.questionId}>Get Visuals</div>
-                            {
-                                question.visualizedCodes.map((visualizedCode, index) => {
-                                    return (
-                                        <VisualizedCodeCard visualizedCode={visualizedCode} key={index} />
-                                    )
-                                })
-                            }
-                        </div>
-                    )
-                })
-                }
+                <h2>Questions</h2>
+                <div>
+                    {questions.map((question, i) => {
+                        return (
+                            <div key={i}>
+                                <h3>{question.questionName}</h3>
+                                <p>{question.questionDescription}</p>
+                                <div className='button-div' onClick={handleGetVisuals} data-questionid={question.questionId} data-visualslength={question.visualizedCodes.length}>
+                                    {
+                                        (question.visualizedCodes.length === 0) ?
+                                        'Get Visuals' :
+                                        'Remove Visuals'
+                                    }
+                                </div>
+                                {
+                                    question.visualizedCodes.map((visualizedCode, index) => {
+                                        return (
+                                            <VisualizedCodeCard visualizedCode={visualizedCode} key={index} />
+                                        )
+                                    })
+                                }
+                            </div>
+                        )
+                    })
+                    }
+                </div>
+            </div> :
+            <div>
+                <h2>Please login to access</h2>
             </div>
-        </div> : 
-        <div>
-            <h2>Please login to access</h2>
-        </div>
     )
 }

@@ -22,13 +22,13 @@ export function VisualizedCodeCard(props) {
                 </div>
                 <div>
                     <table>
-                        <tr>
-                            <th>event</th>
-                            <th>Code Line Prior</th>
-                            <th>Code Line At</th>
-                            <th>Objects</th>
-                        </tr>
                         <tbody>
+                            <tr>
+                                <th>event</th>
+                                <th>Code Line Prior</th>
+                                <th>Code Line At</th>
+                                <th>Objects</th>
+                            </tr>
                             {visualList.map((visual, index) => {
                                 return (
                                     <tr key={index}>

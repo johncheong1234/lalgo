@@ -17,6 +17,9 @@ export function Navbar() {
             <div className='navbar-item'>
                 <a href='/submit'>Submit Algo</a>
             </div>
+            <div className='navbar-item'>
+                <a href='/questions'>Questions</a>
+            </div>
         </div>
     )
 
