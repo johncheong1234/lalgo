@@ -7,6 +7,7 @@ import setReducer from '../features/set/setSlice';
 import createSetReducer from '../features/createSet/createSetSlice';
 import visualizeCodeReducer from '../features/visualizeCode/visualizeCodeSlice';
 import createQuestionReducer from '../features/createQuestion/createQuestionSlice';
+import questionsReducer from '../features/questions/questionsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     set: setReducer,
     createSet: createSetReducer,
     visualizeCode: visualizeCodeReducer,
-    createQuestion: createQuestionReducer
+    createQuestion: createQuestionReducer,
+    questions: questionsReducer
   },
 });
