@@ -4,7 +4,8 @@ import {
     setFunctionName,
     setFunctionArguments,
     setFunctionCode,
-    setQuestions
+    setQuestions,
+    setQuestionIdSelected
 } from './visualizeCodeSlice';
 import axios from 'axios';
 
@@ -17,6 +18,7 @@ export function VisualizeCode() {
     const functionName = useSelector((state) => state.visualizeCode.functionName);
     const code = useSelector((state) => state.visualizeCode.code);
     const questions = useSelector((state) => state.visualizeCode.questions);
+    const questionIdSelected = useSelector((state) => state.visualizeCode.questionIdSelected);
 
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_questions";
@@ -125,17 +127,23 @@ export function VisualizeCode() {
         )
     }
 
+    function handleQuestionIdChange(e){
+        dispatch(setQuestionIdSelected({
+            questionIdSelected: e.target.value
+        }))
+    }
+
     return (
         (email !== undefined) ?
             <div>
                 <h2>Visualize Python Code</h2>
                 Question Select:
-                <select>
-                    <option value="" selected disabled hidden>Choose here</option>
+                <select defaultValue={questionIdSelected} onChange={handleQuestionIdChange}>
+                    <option value="">Choose here</option>
                     {
                         questions.map((question, index) => {
                             return (
-                                <option key={index} value={question._id}>
+                                <option key={index} value={question.questionId}>
                                     {question.questionName}
                                 </option>
                             )

@@ -10,7 +10,8 @@ export const visualizeCodeSlice = createSlice({
             }
         ],
         code: '',
-        questions: []
+        questions: [],
+        questionIdSelected: ''
     },
     reducers: {
         setFunctionName: (state, action) => {
@@ -25,6 +26,9 @@ export const visualizeCodeSlice = createSlice({
         },
         setQuestions: (state, action) => {
             state.questions = action.payload.questions;
+        },
+        setQuestionIdSelected: (state, action) => {
+            state.questionIdSelected = action.payload.questionIdSelected;
         }
     }
 });
@@ -33,6 +37,7 @@ export const {
     setFunctionName,
     setFunctionArguments,
     setFunctionCode,
-    setQuestions
+    setQuestions,
+    setQuestionIdSelected
 } = visualizeCodeSlice.actions;
 export default visualizeCodeSlice.reducer;
