@@ -9,7 +9,7 @@ export function VisualizedCodeCard(props) {
     const visualList = visualizedCode.visualList;
 
     return (
-        console.log(visualizedCode),
+        // console.log(visualizedCode),
         <div className='visualized-code-card'>
             <div>
                 <p>Function Name: {functionName} </p>
@@ -30,16 +30,26 @@ export function VisualizedCodeCard(props) {
                         </tr>
                         <tbody>
                             {visualList.map((visual, index) => {
-                                if (visual.codeLineAt !== null && visual.codeLinePrior !== null) {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{visual.event}</td>
-                                            <td> {visual.codeLinePrior}</td>
-                                            <td>{visual.codeLineAt} </td>
-                                            <td>{JSON.stringify(visual.localObjects)}</td>
-                                        </tr>
-                                    )
-                                }
+                                return (
+                                    <tr key={index}>
+                                        <td>{visual.event}</td>
+                                        <td> {visual.codeLinePrior}</td>
+                                        <td>{visual.codeLineAt} </td>
+                                        <td>
+                                            {
+                                                Object.keys(visual.localObjects).map((key, index) => {
+                                                    // console.log(key, visual.localObjects[key])
+                                                    return (
+                                                        <div key={index}>
+                                                            <p>{key}: {JSON.stringify(visual.localObjects[key])}</p>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </td>
+                                    </tr>
+                                )
+
                             })}
                         </tbody>
                     </table>
