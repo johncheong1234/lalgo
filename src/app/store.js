@@ -6,6 +6,7 @@ import pastRecordsReducer from '../features/customAlgo/customAlgo/pastRecordsPar
 import setReducer from '../features/set/setSlice';
 import createSetReducer from '../features/createSet/createSetSlice';
 import visualizeCodeReducer from '../features/visualizeCode/visualizeCodeSlice';
+import createQuestionReducer from '../features/createQuestion/createQuestionSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     set: setReducer,
     createSet: createSetReducer,
     visualizeCode: visualizeCodeReducer,
+    createQuestion: createQuestionReducer
   },
 });
