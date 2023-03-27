@@ -36,21 +36,6 @@ export function VisualizeCode() {
         )
     }, []);
 
-
-    function cleanString(str) {
-        // Remove all escape characters from the string
-        str = str.replace(/\\/g, '');
-
-        // Replace single quotes with double quotes
-        str = str.replace(/'/g, '"');
-
-        // Remove any trailing commas
-        str = str.replace(/,(?=\s*?[\]}])/g, '');
-
-        // Return the cleaned-up string
-        return str;
-    }
-
     function handleArgumentChange(e) {
         const index = e.target.dataset.index;
 
@@ -90,7 +75,8 @@ export function VisualizeCode() {
         const postObj = {
             functionName: functionName,
             arguments: functionArguments,
-            code: code
+            code: code,
+            questionId: questionIdSelected
         }
 
         const url = 'http://localhost:5000/submit';
@@ -105,18 +91,13 @@ export function VisualizeCode() {
 
                         // implement try catch
                         try {
-                            const newString = cleanString(visualObject.localObjects);
-                            const parsedLocalObjects = JSON.parse(newString);
+                            const parsedLocalObjects = JSON.parse(visualObject.localObjects);
                             visualObject.localObjects = parsedLocalObjects;
                         } catch (error) {
                             console.log(error, visualObject.localObjects)
                         }
-
                         cleanedVisualList.push(visualObject);
                     }
-
-
-
                 }
                 console.log(cleanedVisualList)
             }
