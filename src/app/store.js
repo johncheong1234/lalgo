@@ -8,6 +8,7 @@ import createSetReducer from '../features/createSet/createSetSlice';
 import visualizeCodeReducer from '../features/visualizeCode/visualizeCodeSlice';
 import createQuestionReducer from '../features/createQuestion/createQuestionSlice';
 import questionsReducer from '../features/questions/questionsSlice';
+import chooseLineGameReducer from '../features/chooseLineGame/chooseLineGameSlice';
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     createSet: createSetReducer,
     visualizeCode: visualizeCodeReducer,
     createQuestion: createQuestionReducer,
-    questions: questionsReducer
+    questions: questionsReducer,
+    chooseLineGame: chooseLineGameReducer
   },
 });
