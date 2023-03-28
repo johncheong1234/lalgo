@@ -28,15 +28,14 @@ export function VisualizedCodeCard(props) {
                             <tr>
                                 <th>event</th>
                                 {/* <th>Code Line Prior</th> */}
-                                <th>Code Line At</th>
                                 <th>Objects</th>
+                                <th>Code Line At</th>
                             </tr>
                             {visualList.map((visual, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>{visual.event}</td>
                                         {/* <td> {visual.codeLinePrior}</td> */}
-                                        <td>{visual.codeLineAt} </td>
                                         <td>
                                             {
                                                 Object.keys(visual.localObjects).map((key, index) => {
@@ -49,6 +48,7 @@ export function VisualizedCodeCard(props) {
                                                 })
                                             }
                                         </td>
+                                        <td>{visual.codeLineAt} </td>
                                     </tr>
                                 )
 
