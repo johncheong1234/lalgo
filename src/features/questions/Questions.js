@@ -91,7 +91,9 @@ export function Questions() {
                         return (
                             <div key={i}>
                                 <h3>{question.questionName}</h3>
-                                <p>{question.questionDescription}</p>
+                                <p style={{
+                                    whiteSpace: 'pre-line',
+                                }}>{question.questionDescription}</p>
                                 <div className='button-div' onClick={handleGetVisuals} data-questionid={question.questionId} data-visualslength={question.visualizedCodes.length}>
                                     {
                                         (question.visualizedCodes.length === 0) ?

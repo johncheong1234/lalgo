@@ -11,6 +11,7 @@ export function CreateQuestion() {
     const dispatch = useDispatch();
     const questionName = useSelector((state) => state.createQuestion.questionName);
     const questionDescription = useSelector((state) => state.createQuestion.questionDescription);
+    const email = useSelector((state) => state.user.userObject.email);
 
     function handleQuestionNameChange(e) {
         dispatch(setQuestionName({
@@ -51,6 +52,7 @@ export function CreateQuestion() {
     }
 
     return (
+        email !==undefined ? 
         <div>
             <h1>Create Question</h1>
             <input type="text" value={questionName} onChange={handleQuestionNameChange} placeholder='Enter Question Name' />
@@ -58,6 +60,6 @@ export function CreateQuestion() {
             <textarea placeholder='Enter Question Description' value={questionDescription} onChange={handleQuestionDescriptionChange} cols='140' rows='10' />
             <br></br>
             <div className='button-div' onClick={handleSubmitQuestion}>Submit Question</div>
-        </div>
+        </div>: <div>Please login to create a question</div>
     );
 }
