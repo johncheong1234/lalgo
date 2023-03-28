@@ -6,7 +6,7 @@ export function Navbar() {
     return (
         <div className='navbar'>
             <div className='navbar-item'>
-                <a href='/'>Home</a>
+                <a href='/'>Custom Algo</a>
             </div>
             <div className='navbar-item'>
                 <a href='/create-set'>Create Set</a>
@@ -19,6 +19,9 @@ export function Navbar() {
             </div>
             <div className='navbar-item'>
                 <a href='/questions'>Questions</a>
+            </div>
+            <div className='navbar-item'>
+                <a href='/choose-line-game'>Choose Line Game</a>
             </div>
         </div>
     )

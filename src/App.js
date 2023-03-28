@@ -79,13 +79,13 @@ function App() {
     <div>
       <Analytics />
       <div className='row'>
-        <div style={{
-          width: '50%',
+        {/* <div style={{
+          width: 'fit-content',
         }}>
           <h1>Learn Algos Fast Here</h1>
-        </div>
+        </div> */}
         <div style={{
-          width: '50%',
+          width: 'fit-content',
         }}>
           <Navbar />
         </div>

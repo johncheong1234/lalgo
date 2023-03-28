@@ -85,6 +85,13 @@
   text-decoration: none;
   /* navbar item font size */
   font-size: 18px;
+
+  /* center text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  width: fit-content;
 }
 
 
@@ -94,17 +101,22 @@
   /* navbar item text decoration */
   text-decoration: none;
   /* navbar item font size */
-  font-size: 18px;
+  font-size: 18px;  
+}
+
+.navbar-item a:hover{
+  color:  rgb(112, 76, 182);
 }
 
 
 .navbar-item:hover{
   /* navbar item text color */
-  color: white;
+  color: rgb(112, 76, 182);
   /* navbar item text decoration */
   text-decoration: none;
   /* navbar item font size */
   font-size: 18px;
+  background-color: white;
 }
 
 table, th, td {
