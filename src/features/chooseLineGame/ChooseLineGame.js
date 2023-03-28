@@ -54,18 +54,28 @@ export function ChooseLineGame() {
 
     }, [])
 
-    function handleAnswerChange(e){
+    useEffect(() => {
+
+        const elem = document.getElementById("row-attempting");
+        if (elem) {
+            elem.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+    }, [rowAttempting])
+
+    function handleAnswerChange(e) {
         const userAnswer = e.target.value;
         const correctAnswer = e.target.dataset.answer;
-        if(userAnswer === correctAnswer){
-            console.log("correct")
-            dispatch(setRowAttempting(
-                { rowAttempting: rowAttempting + 1 }
-            ))
-            if(rowAttempting === gameRows.length - 1){
+        if (userAnswer === correctAnswer) {
+            if (rowAttempting === gameRows.length - 1) {
                 alert("You have completed the game!")
+            } else {
+                dispatch(setRowAttempting(
+                    { rowAttempting: rowAttempting + 1 }
+                ))
             }
-        }else{
+
+        } else {
             console.log("wrong")
             dispatch(setMistakeCount(
                 { mistakeCount: mistakeCount + 1 }
@@ -73,7 +83,7 @@ export function ChooseLineGame() {
         }
     }
 
-    function handleRestart(){
+    function handleRestart() {
         dispatch(setRowAttempting(
             { rowAttempting: 0 }
         ))
@@ -85,7 +95,7 @@ export function ChooseLineGame() {
     return (
         <div>
             <h1>Choose Line Game</h1>
-            <h4>Misktake Count: 
+            <h4>Misktake Count:
                 <span style={{
                     color: 'red'
                 }}>{mistakeCount}</span>
@@ -95,13 +105,14 @@ export function ChooseLineGame() {
                 <div className='button-div' style={{
                     marginBottom: '10px'
                 }}
-                onClick={
-                    handleRestart
-                }
+                    onClick={
+                        handleRestart
+                    }
                 >Restart</div>
             </div>
             <table style={{
-                width: '100%'
+                width: '100%',
+                marginBottom: '200px'
             }}>
                 <tbody>
                     <tr>
@@ -133,7 +144,7 @@ export function ChooseLineGame() {
                             }
                             else if (index === rowAttempting) {
                                 return (
-                                    <tr key={index}>
+                                    <tr key={index} id='row-attempting'>
                                         <td>{gameRow.event}</td>
                                         <td>{
                                             Object.keys(gameRow.localObjects).map((key, index) => {
