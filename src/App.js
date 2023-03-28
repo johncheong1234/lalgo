@@ -7,6 +7,8 @@ import { Set } from './features/set/Set';
 import { CreateSet } from './features/createSet/CreateSet';
 import { CreateQuestion } from './features/createQuestion/CreateQuestion';
 import { Questions } from './features/questions/Questions';
+import {ChooseLineGame} from './features/chooseLineGame/ChooseLineGame';
+import {ChooseLineGameController} from './features/chooseLineGame/ChooseLineGameController';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import {
@@ -116,6 +118,8 @@ function App() {
           <Route path='/questions' element={<Questions />} />
           <Route path='/visualize-code' element={<VisualizeCode />} />
           <Route path='/create-question' element={<CreateQuestion />} />
+          <Route path='/choose-line-game' element={<ChooseLineGameController />} />
+          <Route path='/choose-line-game/:id' element={<ChooseLineGame />} />
           <Route path="*" element={<div>404</div>} />
         </Routes>
       </BrowserRouter>
