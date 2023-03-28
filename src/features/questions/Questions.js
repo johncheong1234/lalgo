@@ -86,7 +86,7 @@ export function Questions() {
             <div>
                 <div className='row'>
                 <div style={{
-                    width: '13%'
+                    width: 'fit-content'
                 }}><h2>Questions</h2></div>
                 <div className='button-div' onClick={handleCreateQuestionClick}>Create Question</div>
                 </div>
