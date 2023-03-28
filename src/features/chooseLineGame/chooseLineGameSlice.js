@@ -6,7 +6,8 @@ export const chooseLineGameSlice = createSlice({
         gameRows: [],
         rowAttempting: 0,
         uniqueCodeLineAt:[],
-        codeLineAtAnswer: 'default'
+        codeLineAtAnswer: 'default',
+        mistakeCount: 0
     },
     reducers: {
         setGameRows: (state, action) => {
@@ -20,6 +21,9 @@ export const chooseLineGameSlice = createSlice({
         },
         setCodeLineAtAnswer: (state, action) => {
             state.codeLineAtAnswer = action.payload.codeLineAtAnswer;
+        },
+        setMistakeCount: (state, action) => {
+            state.mistakeCount = action.payload.mistakeCount;
         }
     }
 });
@@ -28,6 +32,7 @@ export const {
     setGameRows,
     setRowAttempting,
     setUniqueCodeLineAt,
-    setCodeLineAtAnswer
+    setCodeLineAtAnswer,
+    setMistakeCount
 } = chooseLineGameSlice.actions;
 export default chooseLineGameSlice.reducer;

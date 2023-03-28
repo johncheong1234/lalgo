@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     setGameRows,
     setRowAttempting,
-    setUniqueCodeLineAt
+    setUniqueCodeLineAt,
+    setMistakeCount
 } from "./chooseLineGameSlice";
 import axios from "axios";
 
@@ -14,6 +15,7 @@ export function ChooseLineGame() {
     const rowAttempting = useSelector((state) => state.chooseLineGame.rowAttempting);
     const uniqueCodeLineAt = useSelector((state) => state.chooseLineGame.uniqueCodeLineAt);
     const codeLineAtAnswer = useSelector((state) => state.chooseLineGame.codeLineAtAnswer);
+    const mistakeCount = useSelector((state) => state.chooseLineGame.mistakeCount);
 
     useEffect(() => {
 
@@ -63,12 +65,41 @@ export function ChooseLineGame() {
             if(rowAttempting === gameRows.length - 1){
                 alert("You have completed the game!")
             }
+        }else{
+            console.log("wrong")
+            dispatch(setMistakeCount(
+                { mistakeCount: mistakeCount + 1 }
+            ))
         }
+    }
+
+    function handleRestart(){
+        dispatch(setRowAttempting(
+            { rowAttempting: 0 }
+        ))
+        dispatch(setMistakeCount(
+            { mistakeCount: 0 }
+        ))
     }
 
     return (
         <div>
             <h1>Choose Line Game</h1>
+            <h4>Misktake Count: 
+                <span style={{
+                    color: 'red'
+                }}>{mistakeCount}</span>
+            </h4>
+            <div>
+                <p>Choose the line of code that corresponds to the event and objects</p>
+                <div className='button-div' style={{
+                    marginBottom: '10px'
+                }}
+                onClick={
+                    handleRestart
+                }
+                >Restart</div>
+            </div>
             <table style={{
                 width: '100%'
             }}>
