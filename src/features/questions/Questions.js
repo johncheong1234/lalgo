@@ -77,6 +77,10 @@ export function Questions() {
         }
     }
 
+    function handleCreateQuestionClick(){
+        window.location.href = '/create-question';
+    }
+
     return (
         (email !== undefined) ?
             <div>
@@ -84,7 +88,7 @@ export function Questions() {
                 <div style={{
                     width: '13%'
                 }}><h2>Questions</h2></div>
-                <div className='button-div'>Submit Question</div>
+                <div className='button-div' onClick={handleCreateQuestionClick}>Create Question</div>
                 </div>
                 <div>
                     {questions.map((question, i) => {
