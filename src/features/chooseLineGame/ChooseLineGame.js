@@ -38,7 +38,8 @@ export function ChooseLineGame() {
                 ))
 
                 const uniqueCodeLineAt = [...new Set(gameRows.map((gameRow) => {
-                    return gameRow.codeLineAt;
+                    // strip leading spaces
+                    return gameRow.codeLineAt.replace(/^\s+/, "");
                 }
                 ))];
 
@@ -64,8 +65,8 @@ export function ChooseLineGame() {
     }, [rowAttempting])
 
     function handleAnswerChange(e) {
-        const userAnswer = e.target.value;
-        const correctAnswer = e.target.dataset.answer;
+        const userAnswer = e.target.value.replace(/^\s+/, "");
+        const correctAnswer = e.target.dataset.answer.replace(/^\s+/, "");
         if (userAnswer === correctAnswer) {
             if (rowAttempting === gameRows.length - 1) {
                 alert("You have completed the game!")
