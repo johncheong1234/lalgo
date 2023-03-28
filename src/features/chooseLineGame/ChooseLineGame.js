@@ -60,6 +60,9 @@ export function ChooseLineGame() {
             dispatch(setRowAttempting(
                 { rowAttempting: rowAttempting + 1 }
             ))
+            if(rowAttempting === gameRows.length - 1){
+                alert("You have completed the game!")
+            }
         }
     }
 
