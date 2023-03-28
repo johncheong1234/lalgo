@@ -10,7 +10,9 @@ export function VisualizedCodeCard(props) {
 
     return (
         // console.log(visualizedCode),
-        <div className='visualized-code-card'>
+        <div className='visualized-code-card' style={{
+            width: 'fit-content'
+        }}>
             <div>
                 <p>Function Name: {functionName} </p>
                 <p>Arguments: {functionArguments} </p>
@@ -25,7 +27,7 @@ export function VisualizedCodeCard(props) {
                         <tbody>
                             <tr>
                                 <th>event</th>
-                                <th>Code Line Prior</th>
+                                {/* <th>Code Line Prior</th> */}
                                 <th>Code Line At</th>
                                 <th>Objects</th>
                             </tr>
@@ -33,7 +35,7 @@ export function VisualizedCodeCard(props) {
                                 return (
                                     <tr key={index}>
                                         <td>{visual.event}</td>
-                                        <td> {visual.codeLinePrior}</td>
+                                        {/* <td> {visual.codeLinePrior}</td> */}
                                         <td>{visual.codeLineAt} </td>
                                         <td>
                                             {
