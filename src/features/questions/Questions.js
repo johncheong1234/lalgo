@@ -80,7 +80,12 @@ export function Questions() {
     return (
         (email !== undefined) ?
             <div>
-                <h2>Questions</h2>
+                <div className='row'>
+                <div style={{
+                    width: '13%'
+                }}><h2>Questions</h2></div>
+                <div className='button-div'>Submit Question</div>
+                </div>
                 <div>
                     {questions.map((question, i) => {
                         return (
