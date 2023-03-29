@@ -79,11 +79,7 @@ function App() {
     <div>
       <Analytics />
       <div className='row'>
-        {/* <div style={{
-          width: 'fit-content',
-        }}>
-          <h1>Learn Algos Fast Here</h1>
-        </div> */}
+
         <div style={{
           width: 'fit-content',
         }}>
@@ -91,7 +87,8 @@ function App() {
         </div>
       </div>
       {given_name ? 
-      <><h2>Welcome {given_name}</h2><div className='sign-out' onClick={handleSignOut}>Sign out</div></> :
+      <>
+      <div className='sign-out' onClick={handleSignOut}>Sign out</div></> :
         <div style={{
           display: 'flex',
           flexDirection: 'row',
@@ -100,13 +97,6 @@ function App() {
             style={{
               width: '240px'
             }}>
-          </div>
-          <div>
-            <p style={{
-              marginTop: '8px'
-            }}>
-              Sign in to enable records of your attempts to be saved.
-            </p>
           </div>
         </div>}
       {/* {given_name ? <div className='sign-out' onClick={handleSignOut}>Sign out</div> : null} */}
