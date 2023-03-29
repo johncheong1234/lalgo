@@ -50,7 +50,7 @@ export function Questions() {
                 const newQuestions = JSON.parse(JSON.stringify(questions));
                 newQuestions.forEach((question) => {
                     if (question.questionId === questionId) {
-                        question.visualizedCodes = response.data;
+                        question.visualizedCodes = response.data.docs;
                     }
                 }
                 )

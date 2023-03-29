@@ -4,7 +4,9 @@ import {
     setGameRows,
     setRowAttempting,
     setUniqueCodeLineAt,
-    setMistakeCount
+    setMistakeCount,
+    setGameArguments,
+    setGameCode
 } from "./chooseLineGameSlice";
 import axios from "axios";
 
@@ -46,6 +48,22 @@ export function ChooseLineGame() {
                 dispatch(setUniqueCodeLineAt(
                     { uniqueCodeLineAt: uniqueCodeLineAt }
                 ))
+
+                dispatch(
+                    setGameArguments(
+                        {
+                            arguments: response.data[0].arguments
+                        }
+                    )
+                )
+
+                dispatch(
+                    setGameCode(
+                        {
+                            code: response.data[0].code
+                        }
+                    )
+                )
             }
         ).catch(
             (error) => {
@@ -94,23 +112,39 @@ export function ChooseLineGame() {
     }
 
     return (
-        <div>
-            <h1>Choose Line Game</h1>
-            <h4>Misktake Count:
-                <span style={{
-                    color: 'red'
-                }}>{mistakeCount}</span>
-            </h4>
+        <div style={{
+            backgroundColor: '#1E333B',
+            backgroundImage: 'url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png)',
+            backgroundRepeat: 'repeat',
+        }}>
             <div>
-                <p>Choose the line of code that corresponds to the event and objects</p>
-                <div className='button-div' style={{
+                <span style={{
+                    fontSize: '30px',
+                    fontFamily: 'Trench',
+                    marginLeft: '55px',
+                    color: 'white',
+                    marginTop: '0px'
+                }}>Choose Line Game
+                </span>
+                <span>Mistake Count:
+                    <span style={{
+                        color: 'red'
+                    }}>{mistakeCount}</span>
+                </span>
+                <span className='button-div' style={{
                     marginBottom: '10px'
                 }}
                     onClick={
                         handleRestart
                     }
-                >Restart</div>
+                >Restart</span>
+                <span>
+                    Arguments: {
+
+                    }
+                </span>
             </div>
+            <p>Choose the line of code that corresponds to the event and objects</p>
             <table style={{
                 width: '100%',
                 marginBottom: '200px'
