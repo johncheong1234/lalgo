@@ -86,20 +86,18 @@ function App() {
           <Navbar />
         </div>
       </div>
-      {given_name ? 
-      <>
-      <div className='sign-out' onClick={handleSignOut}>Sign out</div></> :
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-        }}>
-          <div id="loginButton"
-            style={{
-              width: '240px'
-            }}>
-          </div>
-        </div>}
-      {/* {given_name ? <div className='sign-out' onClick={handleSignOut}>Sign out</div> : null} */}
+      {given_name ?
+
+        <div className='sign-out' onClick={handleSignOut}>
+          Sign out
+        </div> :
+
+        <div id="loginButton"
+          style={{
+            width: '240px'
+          }}>
+        </div>
+        }
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<CustomAlgo />} />

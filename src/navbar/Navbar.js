@@ -1,8 +1,14 @@
 import React from "react";
-
+import {
+    setUserObject
+} from '../features/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 export function Navbar() {
-    
+
+    const dispatch = useDispatch();
+    const given_name = useSelector((state) => state.user.userObject.given_name);
+
     return (
         <div className='navbar'>
             <div className='navbar-item'>
