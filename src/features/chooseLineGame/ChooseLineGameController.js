@@ -94,14 +94,19 @@ export function ChooseLineGameController() {
                                 <div>Code:
                                     <div style={{
                                         whiteSpace: "pre-wrap",
+                                        fontFamily: 'Trench',
+                                    fontStyle: 'normal',
+                                    fontWeight: '100',
+                                    fontSize: '12px',
+                                    lineHeight: '12px'
                                     }}>{visualizeCode.code}
-                                    </div>
                                 </div>
                             </div>
-                        )
+                            </div>
+            )
                     })
                 }
-            </div>
         </div>
+        </div >
     )
 }
