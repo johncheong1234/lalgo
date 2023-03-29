@@ -119,7 +119,7 @@ export function ChooseLineGame() {
             backgroundImage: 'url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png)',
             backgroundRepeat: 'repeat',
             border: '1px solid #1E333B',
-            height: '100vh'
+            minHeight: '100vh'
         }}>
             <div className='choose-line-game-misc-wrapper'>
                 <span style={{
