@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Trench;
+  src: url("assets/fonts/trench100.ttf") format("opentype");
+}
+
 .sign-out{
   /* signout button background */
   background-color: rgb(112, 76, 182);
@@ -29,7 +34,7 @@
   /* width of navbar */
   width: 100%;
   /* height of navbar */
-  height: 50px;
+  height: fit-content;
   /* navbar display */
   display: flex;
   /* navbar flex direction */
@@ -47,8 +52,7 @@
   /* navbar item text decoration */
   text-decoration: none;
   /* navbar item font size */
-  font-size: 18px;
-
+  font-size: 25px;
   /* center text */
   display: flex;
   justify-content: center;
@@ -64,7 +68,6 @@
   /* navbar item text decoration */
   text-decoration: none;
   /* navbar item font size */
-  font-size: 18px;  
 }
 
 /* .navbar-item a:hover{
