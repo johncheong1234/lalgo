@@ -42,6 +42,19 @@ export function ChooseLineGameController() {
         window.location.href = `/choose-line-game/${visualizeCodeId}`
     }
 
+    function handleToggleShowCode(e) {
+        const visualizeCodeId = e.target.dataset.id;
+        const newVisualizeCodes = JSON.parse(JSON.stringify(visualizeCodes));
+        for (let i = 0; i < newVisualizeCodes.length; i++) {
+            if (newVisualizeCodes[i]._id === visualizeCodeId) {
+                newVisualizeCodes[i].showCode = !newVisualizeCodes[i].showCode;
+            }
+        }
+        dispatch(setVisualizeCodes({
+            visualizeCodes: newVisualizeCodes
+        }))
+    }
+
     return (
         <div style={{
             backgroundColor: '#1E333B',
@@ -134,15 +147,37 @@ export function ChooseLineGameController() {
                                     </span>
                                 </p>
                                 {/* <p>Function Name: {visualizeCode.functionName}</p> */}
-                                <div className="button-div" data-id={visualizeCode._id} onClick={handlePlayGame}>Play Game</div>
+                                {/* <div className="button-div" data-id={visualizeCode._id} onClick={handlePlayGame}>Play Game</div> */}
+
+                                <div style={{
+                                    fontSize: '20px',
+                                    fontWeight: 'bold',
+                                    marginLeft: '15px',
+                                    color: 'white',
+                                    background: '#334C55',
+                                    borderRadius: '5px',
+                                    paddingTop: '4px',
+                                    paddingBottom: '4px',
+                                    paddingLeft: '25px',
+                                    paddingRight: '25px',
+                                    cursor: 'pointer',
+                                    maxWidth: '100px',
+                                    marginLeft:'0px',
+                                    marginBottom:'10px'
+                                }}
+                                    data-id={visualizeCode._id}
+                                onClick={handleToggleShowCode}
+                                >
+                                    {visualizeCode.showCode ? 'Hide Code' : 'Show Code'}
+                                </div>
                                 <div
                                     style={{
                                         whiteSpace: "pre-wrap",
                                         fontFamily: 'Trench',
                                         fontStyle: 'normal',
-                                        fontWeight: '100',
-                                        fontSize: '12px',
-                                        lineHeight: '12px',
+                                        fontWeight: 'bold',
+                                        fontSize: '14px',
+                                        lineHeight: '14px',
                                         display: visualizeCode.showCode ? 'block' : 'none'
                                     }}>
                                     {visualizeCode.code}
