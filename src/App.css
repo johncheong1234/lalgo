@@ -56,13 +56,15 @@
   margin-left: 55px;
 }
 
-.choose-line-game-table table{
-  border-collapse: collapse;
-  
+.choose-line-game-table table{  
   border: 1px solid white;
   color: white;
   width: 75vw;
   margin-bottom: 200px;
+  border-radius: 10px;
+  border-collapse: collapse;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px white; 
 }
 
 .choose-line-game-table th{
@@ -71,6 +73,8 @@
 
 .choose-line-game-table td{
   border-color: white;
+  /* center text */
+  text-align: center;
 }
 
 @media (max-width: 768px) {
