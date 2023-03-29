@@ -18,6 +18,7 @@ export function ChooseLineGame() {
     const uniqueCodeLineAt = useSelector((state) => state.chooseLineGame.uniqueCodeLineAt);
     const codeLineAtAnswer = useSelector((state) => state.chooseLineGame.codeLineAtAnswer);
     const mistakeCount = useSelector((state) => state.chooseLineGame.mistakeCount);
+    const gameArguments = useSelector((state) => state.chooseLineGame.arguments);
 
     useEffect(() => {
 
@@ -112,10 +113,12 @@ export function ChooseLineGame() {
     }
 
     return (
+        console.log('arguments are ', gameArguments),
         <div style={{
             backgroundColor: '#1E333B',
             backgroundImage: 'url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png)',
             backgroundRepeat: 'repeat',
+            border: '1px solid #1E333B',
         }}>
             <div>
                 <span style={{
@@ -123,25 +126,79 @@ export function ChooseLineGame() {
                     fontFamily: 'Trench',
                     marginLeft: '55px',
                     color: 'white',
-                    marginTop: '0px'
+                    marginTop: '0px',
+                    lineHeight: '30px',
                 }}>Choose Line Game
                 </span>
-                <span>Mistake Count:
+                <span style={{
+                    color: '#1E333B',
+                    backgroundColor: '#F8FBFC',
+                    padding: '8px',
+                    fontFamily: 'Trench',
+                    fontStyle: 'normal',
+                    fontWeight: '100',
+                    fontSize: '16px',
+                    lineHeight: '16px',
+                    border: '1px solid #476069',
+                    borderRadius: '5px',
+                    marginLeft: '20px'
+                }}>Mistake Count:
                     <span style={{
                         color: 'red'
                     }}>{mistakeCount}</span>
                 </span>
-                <span className='button-div' style={{
-                    marginBottom: '10px'
+                <span style={{
+                    marginLeft: '24px',
+                    color: 'white',
+                    background: '#1E333B',
+                    border: '1px solid #FFFFFF',
+                    borderRadius: '5px',
+                    padding: '8px',
+                    fontFamily: 'Trench',
+                    fontStyle: 'normal',
+                    fontWeight: '100',
+                    fontSize: '16px',
+                    lineHeight: '16px',
+                    cursor: 'pointer'
                 }}
                     onClick={
                         handleRestart
                     }
                 >Restart</span>
-                <span>
-                    Arguments: {
-
-                    }
+                <span style={{
+                    marginLeft: '24px',
+                    color: 'white',
+                    fontFamily: 'Trench',
+                    fontStyle: 'normal',
+                    fontWeight: '100',
+                    fontSize: '16px',
+                    lineHeight: '16px',
+                }}>
+                    Arguments:
+                    <span style={{
+                        color: '#1E333B',
+                        backgroundColor: '#F8FBFC',
+                        padding: '8px',
+                        fontFamily: 'Trench',
+                        fontStyle: 'normal',
+                        fontWeight: '100',
+                        fontSize: '16px',
+                        lineHeight: '16px',
+                        border: '1px solid #476069',
+                        borderRadius: '5px',
+                        marginLeft: '10px'
+                    }}>
+                        {
+                            gameArguments.map((argument, index) => {
+                                return (
+                                    <span key={index}>
+                                        {argument['input']}
+                                        {index !== gameArguments.length - 1 ? ', ' : ''}
+                                    </span>
+                                )
+                            })
+                        }
+                    </span>
                 </span>
             </div>
             <p>Choose the line of code that corresponds to the event and objects</p>
@@ -212,6 +269,6 @@ export function ChooseLineGame() {
                     }
                 </tbody>
             </table>
-        </div>
+        </div >
     )
 }

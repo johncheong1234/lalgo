@@ -24,6 +24,7 @@
   background-image: url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png);
   background-repeat: repeat;
   background-color: #1E333B;
+  border: 1px solid #1E333B;
 }
 
 .navbar{
