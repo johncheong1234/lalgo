@@ -215,73 +215,73 @@ export function ChooseLineGame() {
                 }}>Choose the appropriate line for the current set of local variables to generate the next set of variables.
                 </p>
             </div>
-            <table style={{
-                width: '100%',
-                marginBottom: '200px'
-            }}>
-                <tbody>
-                    <tr>
-                        <th>event</th>
-                        <th>Objects</th>
-                        <th>Code Line At</th>
-                    </tr>
-                    {
-                        gameRows.map((gameRow, index) => {
-                            if (index < rowAttempting) {
-                                return (
-                                    <tr key={index}>
-                                        <td>{gameRow.event}</td>
-                                        <td>{
+            <div className='choose-line-game-table'>
+                <table 
+                >
+                    <tbody>
+                        <tr>
+                            <th>event</th>
+                            <th>Objects</th>
+                            <th>Code Line At</th>
+                        </tr>
+                        {
+                            gameRows.map((gameRow, index) => {
+                                if (index < rowAttempting) {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{gameRow.event}</td>
+                                            <td>{
 
-                                            Object.keys(gameRow.localObjects).map((key, index) => {
-                                                // console.log(key, visual.localObjects[key])
-                                                return (
-                                                    <div key={index}>
-                                                        <p>{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
-                                                    </div>
-                                                )
-                                            })
+                                                Object.keys(gameRow.localObjects).map((key, index) => {
+                                                    // console.log(key, visual.localObjects[key])
+                                                    return (
+                                                        <div key={index}>
+                                                            <p>{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
+                                                        </div>
+                                                    )
+                                                })
 
-                                        }</td>
-                                        <td>{gameRow.codeLineAt}</td>
-                                    </tr>
-                                )
-                            }
-                            else if (index === rowAttempting) {
-                                return (
-                                    <tr key={index} id='row-attempting'>
-                                        <td>{gameRow.event}</td>
-                                        <td>{
-                                            Object.keys(gameRow.localObjects).map((key, index) => {
-                                                // console.log(key, visual.localObjects[key])
-                                                return (
-                                                    <div key={index}>
-                                                        <p>{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
-                                                    </div>
-                                                )
-                                            }
-                                            )
-                                        }</td>
-                                        <td>
-                                            <select data-answer={gameRow.codeLineAt} value={codeLineAtAnswer} onChange={handleAnswerChange} >
-                                                <option value='default' disabled>Choose Code Line At</option>
-                                                {
-                                                    uniqueCodeLineAt.map((codeLineAt, index) => {
-                                                        return (
-                                                            <option key={index} value={codeLineAt}>{codeLineAt}</option>
-                                                        )
-                                                    }
+                                            }</td>
+                                            <td>{gameRow.codeLineAt}</td>
+                                        </tr>
+                                    )
+                                }
+                                else if (index === rowAttempting) {
+                                    return (
+                                        <tr key={index} id='row-attempting'>
+                                            <td>{gameRow.event}</td>
+                                            <td>{
+                                                Object.keys(gameRow.localObjects).map((key, index) => {
+                                                    // console.log(key, visual.localObjects[key])
+                                                    return (
+                                                        <div key={index}>
+                                                            <p>{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
+                                                        </div>
                                                     )
                                                 }
-                                            </select>
-                                        </td>
-                                    </tr>
-                                )
-                            }
-                        })
-                    }
-                </tbody>
-            </table>
+                                                )
+                                            }</td>
+                                            <td>
+                                                <select data-answer={gameRow.codeLineAt} value={codeLineAtAnswer} onChange={handleAnswerChange} >
+                                                    <option value='default' disabled>Choose Code Line At</option>
+                                                    {
+                                                        uniqueCodeLineAt.map((codeLineAt, index) => {
+                                                            return (
+                                                                <option key={index} value={codeLineAt}>{codeLineAt}</option>
+                                                            )
+                                                        }
+                                                        )
+                                                    }
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            })
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div >
     )
 }

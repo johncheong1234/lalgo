@@ -51,6 +51,28 @@
 .choose-line-game-instructions-wrapper{
   margin-left: 55px;
 }
+
+.choose-line-game-table{
+  margin-left: 55px;
+}
+
+.choose-line-game-table table{
+  border-collapse: collapse;
+  
+  border: 1px solid white;
+  color: white;
+  width: 75vw;
+  margin-bottom: 200px;
+}
+
+.choose-line-game-table th{
+  border-color: white;
+}
+
+.choose-line-game-table td{
+  border-color: white;
+}
+
 @media (max-width: 768px) {
   .navbar-right{
     display: none;
@@ -71,6 +93,15 @@
   .choose-line-game-instructions-wrapper{
     margin-left: 0px;
     text-align: center;
+  }
+
+
+  .choose-line-game-table{
+    margin-left: 0px;
+    /* centralize table */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
