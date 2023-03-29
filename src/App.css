@@ -38,6 +38,7 @@
   justify-content: space-between;
   /* navbar align items */
   align-items: center;
+  font-family: 'Trench';
 }
 
 .navbar-item{
