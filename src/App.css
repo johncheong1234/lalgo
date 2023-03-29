@@ -20,7 +20,7 @@
 
 .navbar-wrapper{
   padding-top: 70px;
-  padding-left: 100px;
+  padding-left: 20px;
   padding-bottom: 80px;
   background-image: url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png);
   background-repeat: repeat;
@@ -30,20 +30,22 @@
 .navbar{
   /* navbar text color */
   color: white;
-  padding: 5px 10px;
-  /* width of navbar */
-  width: 100%;
-  /* height of navbar */
-  height: fit-content;
-  /* navbar display */
-  display: flex;
-  /* navbar flex direction */
-  flex-direction: row;
-  /* navbar justify content */
-  justify-content: space-between;
-  /* navbar align items */
-  align-items: center;
   font-family: 'Trench';
+  display: flex;
+  flex-direction: row;
+  align-items: stretch
+}
+
+.navbar-left{
+  width: fit-content;
+  padding-left: 50px;
+}
+
+.navbar-right{
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  padding-right: 30px;
 }
 
 .navbar-item{
@@ -59,15 +61,14 @@
   align-items: center;
   margin-right: 20px;
   width: fit-content;
+  text-shadow: 0px 0px 5px black;
 }
-
 
 .navbar-item a{
   /* navbar item text color */
   color: white;
   /* navbar item text decoration */
   text-decoration: none;
-  /* navbar item font size */
 }
 
 /* .navbar-item a:hover{

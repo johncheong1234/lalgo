@@ -69,44 +69,48 @@ export function Navbar() {
     return (
         <div className='navbar-wrapper'>
             <div className='navbar'>
-            <div className="logo-container" onClick={handleLogoClick} style={{
-                cursor: 'pointer'
-            }}>
-                <img src={AlgoLearnLogo} alt="AlgoLearn Logo" />
-            </div>
-            <div className='navbar-item'>
-                <a href='/choose-line-game'>Choose Line Game</a>
-            </div>
-            <div className='navbar-item'>
-                <a href='/questions'>Questions</a>
-            </div>
-            <div className='navbar-item'>
-                <a href='/custom-algo'>Algo Training</a>
-            </div>
-            {/* <div className='navbar-item'>
+                <div className="navbar-left">
+                    <div className="logo-container" onClick={handleLogoClick} style={{
+                        cursor: 'pointer'
+                    }}>
+                        <img src={AlgoLearnLogo} alt="AlgoLearn Logo" />
+                    </div>
+                </div>
+                <div className="navbar-right">
+                    <div className='navbar-item'>
+                        <a href='/choose-line-game'>Choose Line Game</a>
+                    </div>
+                    <div className='navbar-item'>
+                        <a href='/questions'>Questions</a>
+                    </div>
+                    <div className='navbar-item'>
+                        <a href='/custom-algo'>Algo Training</a>
+                    </div>
+                    {/* <div className='navbar-item'>
                 <a href='/create-set'>Create Set</a>
             </div> */}
-            <div className='navbar-item'>
-                <a href='/set'>Set Training</a>
-            </div>
-            <div className='navbar-item'>
-                <a href='/submit'>Submit Algo</a>
-            </div>
-            
-            
-            {given_name ?
+                    <div className='navbar-item'>
+                        <a href='/set'>Set Training</a>
+                    </div>
+                    <div className='navbar-item'>
+                        <a href='/submit'>Submit Algo</a>
+                    </div>
 
-                <div className='navbar-item' onClick={handleSignOut}>
-                    Sign out
-                </div> :
 
-                <div id="loginButton"
-                    // style={{
-                    //     width: '240px'
-                    // }}
-                    >
+                    {given_name ?
+
+                        <div className='navbar-item' onClick={handleSignOut}>
+                            Sign out
+                        </div> :
+
+                        <div id="loginButton"
+                        // style={{
+                        //     width: '240px'
+                        // }}
+                        >
+                        </div>
+                    }
                 </div>
-            }
             </div>
         </div>
     )

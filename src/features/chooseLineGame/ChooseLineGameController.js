@@ -17,7 +17,7 @@ export function ChooseLineGameController() {
                         }
                     }
                 }
-
+                console.log(response.data.docs)
                 setVisualizeCodes(response.data.docs)
             }
         ).catch(
