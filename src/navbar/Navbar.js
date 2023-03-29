@@ -5,6 +5,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
+import AlgoLearnLogo from '../assets/AlgoLearnLogo.svg';
 
 export function Navbar() {
 
@@ -60,8 +61,18 @@ export function Navbar() {
         window.localStorage.removeItem('userObject');
     }
 
+    function handleLogoClick(e) {
+        e.preventDefault();
+        window.location.href = '/';
+    }
+
     return (
         <div className='navbar'>
+            <div className="logo-container" onClick={handleLogoClick} style={{
+                cursor: 'pointer'
+            }}>
+                <img src={AlgoLearnLogo} alt="AlgoLearn Logo" />
+            </div>
             <div className='navbar-item'>
                 <a href='/choose-line-game'>Choose Line Game</a>
             </div>
@@ -69,7 +80,7 @@ export function Navbar() {
                 <a href='/questions'>Questions</a>
             </div>
             <div className='navbar-item'>
-                <a href='/'>Algo Training</a>
+                <a href='/custom-algo'>Algo Training</a>
             </div>
             {/* <div className='navbar-item'>
                 <a href='/create-set'>Create Set</a>

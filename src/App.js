@@ -79,28 +79,13 @@ function App() {
     <div>
       <Analytics />
       <div className='row'>
-
-        <div style={{
-          width: 'fit-content',
-        }}>
-          <Navbar />
-        </div>
+        <Navbar />
       </div>
-      {/* {given_name ?
-
-        <div className='sign-out' onClick={handleSignOut}>
-          Sign out
-        </div> :
-
-        <div id="loginButton"
-          style={{
-            width: '240px'
-          }}>
-        </div>
-        } */}
+   
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<CustomAlgo />} />
+          <Route path="/" element={<ChooseLineGameController />} />
+          <Route path='/custom-algo' element={<CustomAlgo />} />
           <Route path="/submit" element={<SubmitAlgo />} />
           <Route path="/set" element={<Set />} />
           <Route path='/create-set' element={<CreateSet />} />
