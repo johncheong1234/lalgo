@@ -23,6 +23,7 @@ export function ChooseLineGameController() {
                             response.data.docs[i].question = response.data.questions[j]
                         }
                     }
+                    response.data.docs[i].showCode = false;
                 }
                 console.log(response.data.docs)
                 dispatch(setVisualizeCodes({
@@ -100,17 +101,19 @@ export function ChooseLineGameController() {
                                         )
                                     })
                                 } </p>
-                                <div>Code:
-                                    <div style={{
+                                <div 
+                                style={{
                                         whiteSpace: "pre-wrap",
                                         fontFamily: 'Trench',
                                     fontStyle: 'normal',
                                     fontWeight: '100',
                                     fontSize: '12px',
-                                    lineHeight: '12px'
-                                    }}>{visualizeCode.code}
+                                    lineHeight: '12px',
+                                    display: visualizeCode.showCode ? 'block' : 'none'
+                                    }}>
+                                        {visualizeCode.code}
                                 </div>
-                            </div>
+                       
                             </div>
             )
                     })
