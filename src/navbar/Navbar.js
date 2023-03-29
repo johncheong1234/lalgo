@@ -67,7 +67,8 @@ export function Navbar() {
     }
 
     return (
-        <div className='navbar'>
+        <div className='navbar-wrapper'>
+            <div className='navbar'>
             <div className="logo-container" onClick={handleLogoClick} style={{
                 cursor: 'pointer'
             }}>
@@ -106,6 +107,7 @@ export function Navbar() {
                     >
                 </div>
             }
+            </div>
         </div>
     )
 

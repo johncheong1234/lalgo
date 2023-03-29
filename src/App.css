@@ -1,43 +1,3 @@
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-link {
-  color: rgb(112, 76, 182);
-}
-
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-} */
-
 .sign-out{
   /* signout button background */
   background-color: rgb(112, 76, 182);
@@ -53,16 +13,18 @@
   width: 100px;
 }
 
+.navbar-wrapper{
+  padding-top: 70px;
+  padding-left: 100px;
+  padding-bottom: 80px;
+  background-image: url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png);
+  background-repeat: repeat;
+  background-color: #1E333B;
+}
+
 .navbar{
-  /* navbar background color */
-  background-color: rgb(112, 76, 182);
   /* navbar text color */
   color: white;
-  /* navbar border */
-  border: 1px solid rgb(112, 76, 182);
-  /* navbar border radius */
-  border-radius: 5px;
-  /* navbar padding */
   padding: 5px 10px;
   /* width of navbar */
   width: 100%;
@@ -104,21 +66,22 @@
   font-size: 18px;  
 }
 
-.navbar-item a:hover{
+/* .navbar-item a:hover{
   color:  rgb(112, 76, 182);
-}
+} */
 
-
+/* 
 .navbar-item:hover{
   /* navbar item text color */
-  color: rgb(112, 76, 182);
+  /* color: rgb(112, 76, 182); */
   /* navbar item text decoration */
-  text-decoration: none;
+  /* text-decoration: none; */
   /* navbar item font size */
-  font-size: 18px;
+  /* font-size: 18px;
   background-color: white;
   cursor: pointer;
-}
+}  */
+
 
 table, th, td {
   border:1px solid black;
