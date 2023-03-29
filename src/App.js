@@ -78,10 +78,8 @@ function App() {
   return (
     <div>
       <Analytics />
-      <div className='row'>
-        <Navbar />
-      </div>
-   
+      <Navbar />
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ChooseLineGameController />} />

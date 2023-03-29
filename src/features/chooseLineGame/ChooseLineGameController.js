@@ -36,12 +36,14 @@ export function ChooseLineGameController() {
         <div style={{
             backgroundColor: '#1E333B',
             backgroundImage: 'url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png)',
+            backgroundRepeat: 'repeat',
         }}>
             <p style={{
                 fontSize: '30px',
                 fontFamily: 'Trench',
                 marginLeft: '55px',
-                color: 'white'
+                color: 'white',
+                marginTop: '0px'
             }}>Choose Line Game To Play</p>
             <div style={{
                 fontFamily: 'Trench',
@@ -49,6 +51,7 @@ export function ChooseLineGameController() {
                 color: 'white',
                 fontSize: '18px',
                 lineHeight: '2px',
+                width: '70vw'
             }}>
                 <p>Each game represents an algorithm that you want to learn for a particular problem.</p>
                 <p>Choose the appropriate line for the current set of local variables to generate the next set of variables.</p>
@@ -72,7 +75,8 @@ export function ChooseLineGameController() {
                                 fontFamily: 'Trench',
                                 paddingTop: '18px',
                                 paddingLeft: '35px',
-                                borderRadius: '20px'
+                                borderRadius: '20px',
+                                width: '70vw'
                             }}>
                                 <p style={{
                                     fontSize: '20px',

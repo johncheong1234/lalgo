@@ -20,7 +20,6 @@
 
 .navbar-wrapper{
   padding-top: 70px;
-  padding-left: 20px;
   padding-bottom: 80px;
   background-image: url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png);
   background-repeat: repeat;
@@ -33,19 +32,18 @@
   font-family: 'Trench';
   display: flex;
   flex-direction: row;
-  align-items: stretch
+  align-items: stretch;
+  justify-content: space-around;
 }
 
 .navbar-left{
   width: fit-content;
-  padding-left: 50px;
 }
 
 .navbar-right{
   width: fit-content;
   display: flex;
   flex-direction: row;
-  padding-right: 30px;
 }
 
 @media (max-width: 768px) {
