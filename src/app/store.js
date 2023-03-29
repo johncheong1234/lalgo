@@ -9,6 +9,7 @@ import visualizeCodeReducer from '../features/visualizeCode/visualizeCodeSlice';
 import createQuestionReducer from '../features/createQuestion/createQuestionSlice';
 import questionsReducer from '../features/questions/questionsSlice';
 import chooseLineGameReducer from '../features/chooseLineGame/chooseLineGameSlice';
+import chooseLineGameControllerReducer from '../features/chooseLineGame/chooseLineGameControllerSlice';
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     visualizeCode: visualizeCodeReducer,
     createQuestion: createQuestionReducer,
     questions: questionsReducer,
-    chooseLineGame: chooseLineGameReducer
+    chooseLineGame: chooseLineGameReducer,
+    chooseLineGameController: chooseLineGameControllerReducer
   },
 });

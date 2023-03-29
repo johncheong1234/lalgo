@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
+import {
+    useSelector, 
+    useDispatch
+} from "react-redux";
+import {
+    setVisualizeCodes,
+} from "./chooseLineGameControllerSlice";
 
 export function ChooseLineGameController() {
 
-    const [visualizeCodes, setVisualizeCodes] = useState([]);
-
+    const visualizeCodes = useSelector((state) => state.chooseLineGameController.visualizeCodes);
+    const dispatch = useDispatch();
     useEffect(() => {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_visualize_codes";
         axios.post(url, {}).then(
@@ -18,7 +25,9 @@ export function ChooseLineGameController() {
                     }
                 }
                 console.log(response.data.docs)
-                setVisualizeCodes(response.data.docs)
+                dispatch(setVisualizeCodes({
+                    visualizeCodes: response.data.docs
+                }))
             }
         ).catch(
             (error) => {
