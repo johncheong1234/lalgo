@@ -9,7 +9,17 @@ export function ChooseLineGameController() {
         const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_visualize_codes";
         axios.post(url, {}).then(
             (response) => {
-                setVisualizeCodes(response.data)
+                
+                for(let i = 0; i < response.data.docs.length; i++){
+                    for(let j=0; j < response.data.questions.length; j++){
+                        if(response.data.docs[i].questionId === response.data.questions[j].questionId){
+                            response.data.docs[i].question = response.data.questions[j]
+                        }
+                    }
+                }
+
+                console.log(response.data.docs)
+                setVisualizeCodes(response.data.docs)
             }
         ).catch(
             (error) => {
