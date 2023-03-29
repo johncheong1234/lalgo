@@ -119,8 +119,9 @@ export function ChooseLineGame() {
             backgroundImage: 'url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png)',
             backgroundRepeat: 'repeat',
             border: '1px solid #1E333B',
+            height: '100vh'
         }}>
-            <div>
+            <div className='choose-line-game-instructions-wrapper'>
                 <span style={{
                     fontSize: '30px',
                     fontFamily: 'Trench',
@@ -141,7 +142,8 @@ export function ChooseLineGame() {
                     lineHeight: '16px',
                     border: '1px solid #476069',
                     borderRadius: '5px',
-                    marginLeft: '20px'
+                    marginLeft: '20px',
+                    fontWeight: 'bold'
                 }}>Mistake Count:
                     <span style={{
                         color: 'red'
@@ -159,7 +161,8 @@ export function ChooseLineGame() {
                     fontWeight: '100',
                     fontSize: '16px',
                     lineHeight: '16px',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    fontWeight: 'bold'
                 }}
                     onClick={
                         handleRestart
@@ -186,7 +189,8 @@ export function ChooseLineGame() {
                         lineHeight: '16px',
                         border: '1px solid #476069',
                         borderRadius: '5px',
-                        marginLeft: '10px'
+                        marginLeft: '10px',
+                        fontWeight: 'bold'
                     }}>
                         {
                             gameArguments.map((argument, index) => {
