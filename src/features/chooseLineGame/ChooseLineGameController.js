@@ -73,7 +73,7 @@ export function ChooseLineGameController() {
                 marginLeft: '55px',
                 color: 'white',
                 fontSize: '18px',
-                lineHeight: '2px',
+                lineHeight: '14px',
                 width: '70vw'
             }}>
                 <p>Each game represents an algorithm that you want to learn for a particular problem.</p>
