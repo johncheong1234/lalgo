@@ -7,8 +7,8 @@ import { Set } from './features/set/Set';
 import { CreateSet } from './features/createSet/CreateSet';
 import { CreateQuestion } from './features/createQuestion/CreateQuestion';
 import { Questions } from './features/questions/Questions';
-import {ChooseLineGame} from './features/chooseLineGame/ChooseLineGame';
-import {ChooseLineGameController} from './features/chooseLineGame/ChooseLineGameController';
+import { ChooseLineGame } from './features/chooseLineGame/ChooseLineGame';
+import { ChooseLineGameController } from './features/chooseLineGame/ChooseLineGameController';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import {
@@ -90,7 +90,8 @@ function App() {
           <Navbar />
         </div>
       </div>
-      {given_name ? <h2>Welcome {given_name}</h2> :
+      {given_name ? 
+      <><h2>Welcome {given_name}</h2><div className='sign-out' onClick={handleSignOut}>Sign out</div></> :
         <div style={{
           display: 'flex',
           flexDirection: 'row',
@@ -108,7 +109,7 @@ function App() {
             </p>
           </div>
         </div>}
-      {given_name ? <div className='sign-out' onClick={handleSignOut}>Sign out</div> : null}
+      {/* {given_name ? <div className='sign-out' onClick={handleSignOut}>Sign out</div> : null} */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<CustomAlgo />} />
