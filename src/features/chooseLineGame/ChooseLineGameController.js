@@ -44,11 +44,23 @@ export function ChooseLineGameController() {
                 color: 'white'
             }}>Choose Line Game To Play</p>
             <div style={{
+                fontFamily: 'Trench',
+                marginLeft: '55px',
+                color: 'white',
+                fontSize: '18px',
+                lineHeight: '2px',
+            }}>
+                <p>Each game represents an algorithm that you want to learn for a particular problem.</p>
+                <p>Choose the appropriate line for the current set of local variables to generate the next set of variables.</p>
+                <p>Simple?</p>
+            </div>
+            <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'start',
                 justifyContent: 'start',
                 paddingLeft: '55px',
+                paddingTop: '60px',
             }}>
                 {
                     visualizeCodes.map((visualizeCode, index) => {
@@ -56,8 +68,16 @@ export function ChooseLineGameController() {
                             <div key={index} style={{
                                 boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.2)',
                                 marginBottom: '10px',
-                                backgroundColor: '#F1F7F9'
+                                backgroundColor: '#F1F7F9',
+                                fontFamily: 'Trench',
+                                paddingTop: '18px',
+                                paddingLeft: '35px',
+                                borderRadius: '20px'
                             }}>
+                                <p style={{
+                                    fontSize: '20px',
+                                    fontWeight: 'bold',
+                                }}>Question: {visualizeCode.question.questionName}</p>
                                 <p>Function Name: {visualizeCode.functionName}</p>
                                 <div className="button-div" data-id={visualizeCode._id} onClick={handlePlayGame}>Play Game</div>
                                 <p>Arguments: {

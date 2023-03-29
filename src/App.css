@@ -48,6 +48,12 @@
   padding-right: 30px;
 }
 
+@media (max-width: 768px) {
+  .navbar-right{
+    display: none;
+  }
+}
+
 .navbar-item{
   /* navbar item text color */
   color: white;
