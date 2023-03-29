@@ -121,7 +121,7 @@ export function ChooseLineGame() {
             border: '1px solid #1E333B',
             height: '100vh'
         }}>
-            <div className='choose-line-game-instructions-wrapper'>
+            <div className='choose-line-game-misc-wrapper'>
                 <span style={{
                     fontSize: '30px',
                     fontFamily: 'Trench',
@@ -205,7 +205,16 @@ export function ChooseLineGame() {
                     </span>
                 </span>
             </div>
-            <p>Choose the line of code that corresponds to the event and objects</p>
+            <div className="choose-line-game-instructions-wrapper">
+                <p style={{
+                    color: 'white',
+                    fontFamily: 'Trench',
+                    fontStyle: 'normal',
+                    fontWeight: '100',
+                    marginTop: '30px'
+                }}>Choose the appropriate line for the current set of local variables to generate the next set of variables.
+                </p>
+            </div>
             <table style={{
                 width: '100%',
                 marginBottom: '200px'
