@@ -88,10 +88,29 @@ export function ChooseLineGameController() {
                                 borderRadius: '20px',
                                 width: '70vw'
                             }}>
-                                <p style={{
-                                    fontSize: '20px',
-                                    fontWeight: 'bold',
-                                }}>Question: {visualizeCode.question.questionName}</p>
+                                <div>
+                                    <span style={{
+                                        fontSize: '20px',
+                                        fontWeight: 'bold',
+                                    }}>Question: {visualizeCode.question.questionName}</span>
+                                    <span style={{
+                                        fontSize: '20px',
+                                        fontWeight: 'bold',
+                                        marginLeft: '15px',
+                                        color: 'white',
+                                        background: '#334C55',
+                                        borderRadius: '5px',
+                                        paddingTop: '4px',
+                                        paddingBottom: '4px',
+                                        paddingLeft: '25px',
+                                        paddingRight: '25px',
+                                        cursor: 'pointer',
+                                    }}
+                                        data-id={visualizeCode._id} onClick={handlePlayGame}
+                                    >
+                                        Play!
+                                    </span>
+                                </div>
                                 <p>
                                     <span style={{
                                         fontWeight: 'bold',
