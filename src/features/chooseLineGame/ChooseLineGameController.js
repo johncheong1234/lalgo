@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import {
-    useSelector, 
+    useSelector,
     useDispatch
 } from "react-redux";
 import {
@@ -92,33 +92,48 @@ export function ChooseLineGameController() {
                                     fontSize: '20px',
                                     fontWeight: 'bold',
                                 }}>Question: {visualizeCode.question.questionName}</p>
-                                <p>Function Name: {visualizeCode.functionName}</p>
+                                <p>
+                                    <span style={{
+                                        fontWeight: 'bold',
+                                    }}>Arguments: </span>
+                                    <span style={{
+                                        border: '1px solid #1E333B',
+                                        borderRadius: '5px',
+                                        padding: '5px',
+                                    }}>
+                                        {
+                                            Object.keys(visualizeCode.arguments).map((argument, i) => {
+                                                // return comma if not the last argument
+                                                return (
+                                                    <span key={i}>
+                                                        {visualizeCode.arguments[argument]['input']}
+                                                        {i !== Object.keys(visualizeCode.arguments).length - 1 ? ', ' : ''}
+                                                    </span>
+                                                )
+                                            })
+                                        }
+                                    </span>
+                                </p>
+                                {/* <p>Function Name: {visualizeCode.functionName}</p> */}
                                 <div className="button-div" data-id={visualizeCode._id} onClick={handlePlayGame}>Play Game</div>
-                                <p>Arguments: {
-                                    Object.keys(visualizeCode.arguments).map((argument, i) => {
-                                        return (
-                                            <span key={i}>{visualizeCode.arguments[argument]['input']}</span>
-                                        )
-                                    })
-                                } </p>
-                                <div 
-                                style={{
+                                <div
+                                    style={{
                                         whiteSpace: "pre-wrap",
                                         fontFamily: 'Trench',
-                                    fontStyle: 'normal',
-                                    fontWeight: '100',
-                                    fontSize: '12px',
-                                    lineHeight: '12px',
-                                    display: visualizeCode.showCode ? 'block' : 'none'
+                                        fontStyle: 'normal',
+                                        fontWeight: '100',
+                                        fontSize: '12px',
+                                        lineHeight: '12px',
+                                        display: visualizeCode.showCode ? 'block' : 'none'
                                     }}>
-                                        {visualizeCode.code}
+                                    {visualizeCode.code}
                                 </div>
-                       
+
                             </div>
-            )
+                        )
                     })
                 }
-        </div>
+            </div>
         </div >
     )
 }
