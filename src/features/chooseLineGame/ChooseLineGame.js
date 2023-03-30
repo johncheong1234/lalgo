@@ -21,6 +21,7 @@ export function ChooseLineGame() {
     const mistakeCount = useSelector((state) => state.chooseLineGame.mistakeCount);
     const gameArguments = useSelector((state) => state.chooseLineGame.arguments);
     const showCode = useSelector((state) => state.chooseLineGame.showCode);
+    const code = useSelector((state) => state.chooseLineGame.code);
 
     useEffect(() => {
 
@@ -114,7 +115,7 @@ export function ChooseLineGame() {
         ))
     }
 
-    function handleShowCodeToggle(){
+    function handleShowCodeToggle() {
         dispatch(setShowCode(
             { showCode: !showCode }
         ))
@@ -233,13 +234,27 @@ export function ChooseLineGame() {
                     padding: '8px',
                     cursor: 'pointer',
                 }}
-                onClick = {handleShowCodeToggle}
+                    onClick={handleShowCodeToggle}
                 >
                     {showCode ? 'Hide Code' : 'Show Code'}
                 </span>
             </div>
+            <div
+                style={{
+                    whiteSpace: "pre-wrap",
+                    fontFamily: 'Trench',
+                    fontStyle: 'normal',
+                    fontWeight: 'bold',
+                    display: showCode ? 'block' : 'none',
+                    marginTop: '20px',
+                    color: 'white',
+                }}
+                className='choose-line-game-code'
+                >
+                {code}
+            </div>
             <div className='choose-line-game-table'>
-                <table 
+                <table
                 >
                     <tbody>
                         <tr>
