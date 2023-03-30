@@ -215,6 +215,19 @@ export function ChooseLineGame() {
                 }}>Choose the appropriate line for the current set of local variables to generate the next set of variables.
                 </p>
             </div>
+            <div className='choose-line-game-show-algorithm-wrapper'>
+                <span style={{
+                    fontFamily: 'Trench',
+                    fontWeight: 'bold',
+                    fontSize: '16px',
+                    border: '1px solid #FFFFFF',
+                    borderRadius: '5px',
+                    padding: '8px',
+                    cursor: 'pointer',
+                }}>
+                    Show Algorithm 
+                </span>
+            </div>
             <div className='choose-line-game-table'>
                 <table 
                 >
