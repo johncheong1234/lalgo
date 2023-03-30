@@ -6,7 +6,8 @@ import {
     setUniqueCodeLineAt,
     setMistakeCount,
     setGameArguments,
-    setGameCode
+    setGameCode,
+    setShowCode
 } from "./chooseLineGameSlice";
 import axios from "axios";
 
@@ -19,6 +20,7 @@ export function ChooseLineGame() {
     const codeLineAtAnswer = useSelector((state) => state.chooseLineGame.codeLineAtAnswer);
     const mistakeCount = useSelector((state) => state.chooseLineGame.mistakeCount);
     const gameArguments = useSelector((state) => state.chooseLineGame.arguments);
+    const showCode = useSelector((state) => state.chooseLineGame.showCode);
 
     useEffect(() => {
 
@@ -109,6 +111,12 @@ export function ChooseLineGame() {
         ))
         dispatch(setMistakeCount(
             { mistakeCount: 0 }
+        ))
+    }
+
+    function handleShowCodeToggle(){
+        dispatch(setShowCode(
+            { showCode: !showCode }
         ))
     }
 
@@ -224,8 +232,10 @@ export function ChooseLineGame() {
                     borderRadius: '5px',
                     padding: '8px',
                     cursor: 'pointer',
-                }}>
-                    Show Algorithm 
+                }}
+                onClick = {handleShowCodeToggle}
+                >
+                    {showCode ? 'Hide Code' : 'Show Code'}
                 </span>
             </div>
             <div className='choose-line-game-table'>
