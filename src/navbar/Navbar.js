@@ -95,8 +95,8 @@ export function Navbar() {
                     <div className='navbar-item'>
                         <a href='/submit'>Submit Algo</a>
                     </div>
-
-
+                </div>
+                <div className="navbar-login-wrapper">
                     {given_name ?
 
                         <div className='navbar-item' onClick={handleSignOut}>

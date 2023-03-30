@@ -22,6 +22,7 @@ export function ChooseLineGame() {
     const gameArguments = useSelector((state) => state.chooseLineGame.arguments);
     const showCode = useSelector((state) => state.chooseLineGame.showCode);
     const code = useSelector((state) => state.chooseLineGame.code);
+    const email = useSelector((state) => state.user.userObject.email);
 
     useEffect(() => {
 
@@ -122,71 +123,24 @@ export function ChooseLineGame() {
     }
 
     return (
-        console.log('arguments are ', gameArguments),
-        <div style={{
-            backgroundColor: '#1E333B',
-            backgroundImage: 'url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png)',
-            backgroundRepeat: 'repeat',
-            border: '1px solid #1E333B',
-            minHeight: '100vh'
-        }}>
-            <div className='choose-line-game-misc-wrapper'>
-                <span style={{
-                    fontSize: '30px',
-                    fontFamily: 'Trench',
-                    marginLeft: '55px',
-                    color: 'white',
-                    marginTop: '0px',
-                    lineHeight: '30px',
-                }}>Choose Line Game
-                </span>
-                <span style={{
-                    color: '#1E333B',
-                    backgroundColor: '#F8FBFC',
-                    padding: '8px',
-                    fontFamily: 'Trench',
-                    fontStyle: 'normal',
-                    fontWeight: '100',
-                    fontSize: '16px',
-                    lineHeight: '16px',
-                    border: '1px solid #476069',
-                    borderRadius: '5px',
-                    marginLeft: '20px',
-                    fontWeight: 'bold'
-                }}>Mistake Count:
+        email ? (
+            <div style={{
+                backgroundColor: '#1E333B',
+                backgroundImage: 'url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png)',
+                backgroundRepeat: 'repeat',
+                border: '1px solid #1E333B',
+                minHeight: '100vh'
+            }}>
+                <div className='choose-line-game-misc-wrapper'>
                     <span style={{
-                        color: 'red'
-                    }}>{mistakeCount}</span>
-                </span>
-                <span style={{
-                    marginLeft: '24px',
-                    color: 'white',
-                    background: '#1E333B',
-                    border: '1px solid #FFFFFF',
-                    borderRadius: '5px',
-                    padding: '8px',
-                    fontFamily: 'Trench',
-                    fontStyle: 'normal',
-                    fontWeight: '100',
-                    fontSize: '16px',
-                    lineHeight: '16px',
-                    cursor: 'pointer',
-                    fontWeight: 'bold'
-                }}
-                    onClick={
-                        handleRestart
-                    }
-                >Restart</span>
-                <span style={{
-                    marginLeft: '24px',
-                    color: 'white',
-                    fontFamily: 'Trench',
-                    fontStyle: 'normal',
-                    fontWeight: '100',
-                    fontSize: '16px',
-                    lineHeight: '16px',
-                }}>
-                    Arguments:
+                        fontSize: '30px',
+                        fontFamily: 'Trench',
+                        marginLeft: '55px',
+                        color: 'white',
+                        marginTop: '0px',
+                        lineHeight: '30px',
+                    }}>Choose Line Game
+                    </span>
                     <span style={{
                         color: '#1E333B',
                         backgroundColor: '#F8FBFC',
@@ -198,132 +152,196 @@ export function ChooseLineGame() {
                         lineHeight: '16px',
                         border: '1px solid #476069',
                         borderRadius: '5px',
-                        marginLeft: '10px',
+                        marginLeft: '20px',
                         fontWeight: 'bold'
-                    }}>
-                        {
-                            gameArguments.map((argument, index) => {
-                                return (
-                                    <span key={index}>
-                                        {argument['input']}
-                                        {index !== gameArguments.length - 1 ? ', ' : ''}
-                                    </span>
-                                )
-                            })
-                        }
+                    }}>Mistake Count:
+                        <span style={{
+                            color: 'red'
+                        }}>{mistakeCount}</span>
                     </span>
-                </span>
-            </div>
-            <div className="choose-line-game-instructions-wrapper">
-                <p style={{
-                    color: 'white',
-                    fontFamily: 'Trench',
-                    fontStyle: 'normal',
-                    fontWeight: '100',
-                    marginTop: '30px'
-                }}>Choose the appropriate line for the current set of local variables to generate the next set of variables.
-                </p>
-            </div>
-            <div className='choose-line-game-show-algorithm-wrapper'>
-                <span style={{
-                    fontFamily: 'Trench',
-                    fontWeight: 'bold',
-                    fontSize: '16px',
-                    border: '1px solid #FFFFFF',
-                    borderRadius: '5px',
-                    padding: '8px',
-                    cursor: 'pointer',
-                }}
-                    onClick={handleShowCodeToggle}
-                >
-                    {showCode ? 'Hide Code' : 'Show Code'}
-                </span>
-            </div>
-            <div
-                style={{
-                    whiteSpace: "pre-wrap",
-                    fontFamily: 'Trench',
-                    fontStyle: 'normal',
-                    fontWeight: 'bold',
-                    display: showCode ? 'block' : 'none',
-                    marginTop: '20px',
-                    color: 'white',
-                }}
-                className='choose-line-game-code'
-                >
-                {code}
-            </div>
-            <div className='choose-line-game-table'>
-                <table
-                >
-                    <tbody>
-                        <tr>
-                            <th>event</th>
-                            <th>Objects</th>
-                            <th>Code Line At</th>
-                        </tr>
-                        {
-                            gameRows.map((gameRow, index) => {
-                                if (index < rowAttempting) {
+                    <span style={{
+                        marginLeft: '24px',
+                        color: 'white',
+                        background: '#1E333B',
+                        border: '1px solid #FFFFFF',
+                        borderRadius: '5px',
+                        padding: '8px',
+                        fontFamily: 'Trench',
+                        fontStyle: 'normal',
+                        fontWeight: '100',
+                        fontSize: '16px',
+                        lineHeight: '16px',
+                        cursor: 'pointer',
+                        fontWeight: 'bold'
+                    }}
+                        onClick={
+                            handleRestart
+                        }
+                    >Restart</span>
+                    <span style={{
+                        marginLeft: '24px',
+                        color: 'white',
+                        fontFamily: 'Trench',
+                        fontStyle: 'normal',
+                        fontWeight: '100',
+                        fontSize: '16px',
+                        lineHeight: '16px',
+                    }}>
+                        Arguments:
+                        <span style={{
+                            color: '#1E333B',
+                            backgroundColor: '#F8FBFC',
+                            padding: '8px',
+                            fontFamily: 'Trench',
+                            fontStyle: 'normal',
+                            fontWeight: '100',
+                            fontSize: '16px',
+                            lineHeight: '16px',
+                            border: '1px solid #476069',
+                            borderRadius: '5px',
+                            marginLeft: '10px',
+                            fontWeight: 'bold'
+                        }}>
+                            {
+                                gameArguments.map((argument, index) => {
                                     return (
-                                        <tr key={index}>
-                                            <td>{gameRow.event}</td>
-                                            <td>{
-
-                                                Object.keys(gameRow.localObjects).map((key, index) => {
-                                                    // console.log(key, visual.localObjects[key])
-                                                    return (
-                                                        <div key={index}>
-                                                            <p>{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
-                                                        </div>
-                                                    )
-                                                })
-
-                                            }</td>
-                                            <td>{gameRow.codeLineAt}</td>
-                                        </tr>
+                                        <span key={index}>
+                                            {argument['input']}
+                                            {index !== gameArguments.length - 1 ? ', ' : ''}
+                                        </span>
                                     )
-                                }
-                                else if (index === rowAttempting) {
-                                    return (
-                                        <tr key={index} id='row-attempting'>
-                                            <td>{gameRow.event}</td>
-                                            <td>{
-                                                Object.keys(gameRow.localObjects).map((key, index) => {
-                                                    // console.log(key, visual.localObjects[key])
-                                                    return (
-                                                        <div key={index}>
-                                                            <p>{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
-                                                        </div>
-                                                    )
-                                                }
-                                                )
-                                            }</td>
-                                            <td>
-                                                <select data-answer={gameRow.codeLineAt} value={codeLineAtAnswer} onChange={handleAnswerChange} 
-                                                style={{
-                                                    maxWidth: '100px',
-                                                }}
-                                                >
-                                                    <option value='default' disabled>Choose Code Line At</option>
-                                                    {
-                                                        uniqueCodeLineAt.map((codeLineAt, index) => {
-                                                            return (
-                                                                <option key={index} value={codeLineAt}>{codeLineAt}</option>
-                                                            )
-                                                        }
+                                })
+                            }
+                        </span>
+                    </span>
+                </div>
+                <div className="choose-line-game-instructions-wrapper">
+                    <p style={{
+                        color: 'white',
+                        fontFamily: 'Trench',
+                        fontStyle: 'normal',
+                        fontWeight: '100',
+                        marginTop: '30px'
+                    }}>Choose the appropriate line for the current set of local variables to generate the next set of variables.
+                    </p>
+                </div>
+                <div className='choose-line-game-show-algorithm-wrapper'>
+                    <span style={{
+                        fontFamily: 'Trench',
+                        fontWeight: 'bold',
+                        fontSize: '16px',
+                        border: '1px solid #FFFFFF',
+                        borderRadius: '5px',
+                        padding: '8px',
+                        cursor: 'pointer',
+                    }}
+                        onClick={handleShowCodeToggle}
+                    >
+                        {showCode ? 'Hide Code' : 'Show Code'}
+                    </span>
+                </div>
+                <div
+                    style={{
+                        whiteSpace: "pre-wrap",
+                        fontFamily: 'Trench',
+                        fontStyle: 'normal',
+                        fontWeight: 'bold',
+                        display: showCode ? 'block' : 'none',
+                        marginTop: '20px',
+                        color: 'white',
+                    }}
+                    className='choose-line-game-code'
+                >
+                    {code}
+                </div>
+                <div className='choose-line-game-table'>
+                    <table
+                    >
+                        <tbody>
+                            <tr>
+                                <th>event</th>
+                                <th>Objects</th>
+                                <th>Code Line At</th>
+                            </tr>
+                            {
+                                gameRows.map((gameRow, index) => {
+                                    if (index < rowAttempting) {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{gameRow.event}</td>
+                                                <td>{
+
+                                                    Object.keys(gameRow.localObjects).map((key, index) => {
+                                                        // console.log(key, visual.localObjects[key])
+                                                        return (
+                                                            <div key={index}>
+                                                                <p>{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
+                                                            </div>
+                                                        )
+                                                    })
+
+                                                }</td>
+                                                <td>{gameRow.codeLineAt}</td>
+                                            </tr>
+                                        )
+                                    }
+                                    else if (index === rowAttempting) {
+                                        return (
+                                            <tr key={index} id='row-attempting'>
+                                                <td>{gameRow.event}</td>
+                                                <td>{
+                                                    Object.keys(gameRow.localObjects).map((key, index) => {
+                                                        // console.log(key, visual.localObjects[key])
+                                                        return (
+                                                            <div key={index}>
+                                                                <p>{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
+                                                            </div>
                                                         )
                                                     }
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    )
-                                }
-                            })
-                        }
-                    </tbody>
-                </table>
+                                                    )
+                                                }</td>
+                                                <td>
+                                                    <select data-answer={gameRow.codeLineAt} value={codeLineAtAnswer} onChange={handleAnswerChange}
+                                                        style={{
+                                                            maxWidth: '100px',
+                                                        }}
+                                                    >
+                                                        <option value='default' disabled>Choose Code Line At</option>
+                                                        {
+                                                            uniqueCodeLineAt.map((codeLineAt, index) => {
+                                                                return (
+                                                                    <option key={index} value={codeLineAt}>{codeLineAt}</option>
+                                                                )
+                                                            }
+                                                            )
+                                                        }
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div >
+        ) : (
+            <div style={{
+                backgroundColor: '#1E333B',
+                backgroundImage: 'url(https://assets.website-files.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png)',
+                backgroundRepeat: 'repeat',
+                border: '1px solid #1E333B',
+                minHeight: '100vh',
+                color: 'white',
+                fontFamily: 'Trench',
+            }}>
+                <h2>
+                    Please login to access game
+                </h2>
             </div>
-        </div >
+
+        )
+        
     )
 }
