@@ -300,7 +300,11 @@ export function ChooseLineGame() {
                                                 )
                                             }</td>
                                             <td>
-                                                <select data-answer={gameRow.codeLineAt} value={codeLineAtAnswer} onChange={handleAnswerChange} >
+                                                <select data-answer={gameRow.codeLineAt} value={codeLineAtAnswer} onChange={handleAnswerChange} 
+                                                style={{
+                                                    maxWidth: '100px',
+                                                }}
+                                                >
                                                     <option value='default' disabled>Choose Code Line At</option>
                                                     {
                                                         uniqueCodeLineAt.map((codeLineAt, index) => {
