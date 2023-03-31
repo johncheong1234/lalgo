@@ -25,6 +25,7 @@
   background-repeat: repeat;
   background-color: #1E333B;
   border: 1px solid #1E333B;
+  overflow: hidden;
 }
 
 .navbar{
@@ -39,6 +40,7 @@
 
 .navbar-left{
   width: fit-content;
+  padding-left: 30px;
 }
 
 .navbar-right{
@@ -105,6 +107,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  .navbar-left{
+    padding-left: 0px;
   }
 
   .navbar-right{
