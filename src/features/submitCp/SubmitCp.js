@@ -19,7 +19,7 @@ export function SubmitCp() {
         dispatch(setCode({ code: e.target.value }));
     }
 
-    function handleSubmitCp(){
+    function handleSubmitCp() {
         const body = {
             testCase,
             code
@@ -31,6 +31,23 @@ export function SubmitCp() {
         ).then(
             (response) => {
                 alert('success')
+                const cleanedVisualList = [];
+                for (let i = 0; i < response.data.visualList.length; i++) {
+                    if (response.data.visualList[i].event !== 'opcode') {
+
+                        const visualObject = response.data.visualList[i]
+
+                        // implement try catch
+                        try {
+                            const parsedLocalObjects = JSON.parse(visualObject.localObjects);
+                            visualObject.localObjects = parsedLocalObjects;
+                        } catch (error) {
+                            console.log(error, visualObject.localObjects)
+                        }
+                        cleanedVisualList.push(visualObject);
+                    }
+                }
+                console.log(cleanedVisualList)
             }
         ).catch(
             (error) => {
@@ -70,7 +87,7 @@ export function SubmitCp() {
                     border: '1px solid black',
                     cursor: 'pointer'
                 }}
-                onClick={handleSubmitCp}
+                    onClick={handleSubmitCp}
                 >
                     Submit
                 </span>
@@ -91,9 +108,9 @@ export function SubmitCp() {
                     fontSize: '18px',
                     color: 'white',
                     padding: '10px',
-                }} 
-                value = {testCase}
-                onChange = {handleTestCaseChange}
+                }}
+                    value={testCase}
+                    onChange={handleTestCaseChange}
                 />
                 <span style={{
                     fontSize: '24px',
@@ -110,9 +127,9 @@ export function SubmitCp() {
                     fontSize: '18px',
                     color: 'white',
                     padding: '10px',
-                }} 
-                value = {code}
-                onChange = {handleCodeChange}
+                }}
+                    value={code}
+                    onChange={handleCodeChange}
                 />
             </div>
         </div>
