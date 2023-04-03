@@ -30,6 +30,7 @@ export function SubmitCp() {
                     padding: '5px',
                     borderRadius: '5px',
                     border: '1px solid black',
+                    cursor: 'pointer'
                 }}>
                     Submit
                 </span>
