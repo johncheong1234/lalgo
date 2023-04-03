@@ -1,15 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     setTestCase,
-    setCode
+    setCode,
+    setQuestions,
+    setQuestionIdSelected
 } from './submitCpSlice';
 import axios from 'axios';
 
 export function SubmitCp() {
     const testCase = useSelector((state) => state.submitCp.testCase);
     const code = useSelector((state) => state.submitCp.code);
+    const questions = useSelector((state) => state.submitCp.questions);
+    const questionIdSelected = useSelector((state) => state.submitCp.questionIdSelected);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const url = "https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/get_questions";
+        axios.post(url, {}).then(
+            (response) => {
+                console.log(response.data)
+                dispatch(setQuestions({
+                    questions: response.data
+                }))
+            }
+        ).catch(
+            (error) => {
+                console.log(error)
+            }
+        )
+    }, []);
+
+    function handleQuestionIdChange(e) {
+        dispatch(setQuestionIdSelected({ questionIdSelected: e.target.value }));
+    }
 
     function handleTestCaseChange(e) {
         dispatch(setTestCase({ testCase: e.target.value }));
@@ -31,6 +55,7 @@ export function SubmitCp() {
         ).then(
             (response) => {
                 alert('success')
+                console.log(response.data)
                 const cleanedVisualList = [];
                 for (let i = 0; i < response.data.visualList.length; i++) {
                     if (response.data.visualList[i].event !== 'opcode') {
@@ -48,6 +73,29 @@ export function SubmitCp() {
                     }
                 }
                 console.log(cleanedVisualList)
+
+                const functionArguments = [{
+                    input: testCase
+                }]
+
+                const postObj = {
+                    code: code,
+                    functionName: 'Nil',
+                    arguments: functionArguments,
+                    visualList: cleanedVisualList,
+                    questionId: questionIdSelected
+                }
+                const newUrl = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/lalgo-ubstj/endpoint/create_visualize_code';
+                axios.post(newUrl, postObj).then(
+                    (response) => {
+                        alert('success on saving to db');
+                    }
+                ).catch(
+                    (error) => {
+                        alert('error on saving to db');
+                    }
+                )
+
             }
         ).catch(
             (error) => {
@@ -93,6 +141,19 @@ export function SubmitCp() {
                 </span>
             </div>
             <div className='submit-cp-body-container'>
+                Question Select:
+                <select defaultValue={questionIdSelected} onChange={handleQuestionIdChange}>
+                    <option value="">Choose here</option>
+                    {
+                        questions.map((question, index) => {
+                            return (
+                                <option key={index} value={question.questionId}>
+                                    {question.questionName}
+                                </option>
+                            )
+                        })
+                    }
+                </select>
                 <span style={{
                     fontSize: '24px',
                     fontFamily: 'Trench'

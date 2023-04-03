@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     setAlgoCode,
     setDescription,
-    setAlgoName
+    setAlgoName,
 } from '../submitAlgoSlice';
 import axios from 'axios';
 
