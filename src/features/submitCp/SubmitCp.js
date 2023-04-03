@@ -1,6 +1,22 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    setTestCase,
+    setCode
+} from './submitCpSlice';
 
 export function SubmitCp() {
+    const testCase = useSelector((state) => state.submitCp.testCase);
+    const code = useSelector((state) => state.submitCp.code);
+    const dispatch = useDispatch();
+
+    function handleTestCaseChange(e) {
+        dispatch(setTestCase({ testCase: e.target.value }));
+    }
+
+    function handleCodeChange(e) {
+        dispatch(setCode({ code: e.target.value }));
+    }
     return (
         <div style={{
             minHeight: '100vh',
@@ -51,7 +67,10 @@ export function SubmitCp() {
                     fontSize: '18px',
                     color: 'white',
                     padding: '10px',
-                }} />
+                }} 
+                value = {testCase}
+                onChange = {handleTestCaseChange}
+                />
                 <span style={{
                     fontSize: '24px',
                     fontFamily: 'Trench'
@@ -67,7 +86,10 @@ export function SubmitCp() {
                     fontSize: '18px',
                     color: 'white',
                     padding: '10px',
-                }} />
+                }} 
+                value = {code}
+                onChange = {handleCodeChange}
+                />
             </div>
         </div>
     )

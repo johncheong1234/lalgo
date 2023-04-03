@@ -10,6 +10,7 @@ import createQuestionReducer from '../features/createQuestion/createQuestionSlic
 import questionsReducer from '../features/questions/questionsSlice';
 import chooseLineGameReducer from '../features/chooseLineGame/chooseLineGameSlice';
 import chooseLineGameControllerReducer from '../features/chooseLineGame/chooseLineGameControllerSlice';
+import submitCpReducer from '../features/submitCp/submitCpSlice';
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     createQuestion: createQuestionReducer,
     questions: questionsReducer,
     chooseLineGame: chooseLineGameReducer,
-    chooseLineGameController: chooseLineGameControllerReducer
+    chooseLineGameController: chooseLineGameControllerReducer,
+    submitCp: submitCpReducer
   },
 });
