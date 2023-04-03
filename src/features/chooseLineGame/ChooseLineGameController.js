@@ -25,7 +25,7 @@ export function ChooseLineGameController() {
                     }
                     response.data.docs[i].showCode = false;
                 }
-                console.log(response.data.docs)
+                // console.log(response.data.docs)
                 dispatch(setVisualizeCodes({
                     visualizeCodes: response.data.docs
                 }))
@@ -128,24 +128,50 @@ export function ChooseLineGameController() {
                                     <span style={{
                                         fontWeight: 'bold',
                                     }}>Arguments: </span>
-                                    <span style={{
-                                        border: '1px solid #1E333B',
-                                        borderRadius: '5px',
-                                        padding: '5px',
-                                    }}>
-                                        {
-                                            Object.keys(visualizeCode.arguments).map((argument, i) => {
-                                                // return comma if not the last argument
+
+                                </p>
+                                <div style={{
+                                    border: '1px solid #1E333B',
+                                    borderRadius: '5px',
+                                    padding: '5px',
+                                    maxWidth: 'fit-content',
+                                    marginBottom: '10px'
+                                }}>
+                                    {
+                                        Object.keys(visualizeCode.arguments).map((argument, i) => {
+                                            // return comma if not the last argument
+                                            // split by line breaks
+                                            const inputLines = visualizeCode.arguments[argument]['input'].split('\n');
+
+                                            // if there is only one line, then no need to split
+                                            if (inputLines.length === 1) {
                                                 return (
                                                     <span key={i}>
                                                         {visualizeCode.arguments[argument]['input']}
                                                         {i !== Object.keys(visualizeCode.arguments).length - 1 ? ', ' : ''}
                                                     </span>
                                                 )
-                                            })
-                                        }
-                                    </span>
-                                </p>
+                                            } else {
+                                                console.log(inputLines)
+                                                return (
+                                                    // <span key={i}>
+                                                    //     this is it
+                                                    // </span>
+                                                    inputLines.map((line, j) => {
+                                                        return (
+                                                            <span key={j}>
+                                                                {line}
+                                                                {j !== inputLines.length - 1 ? <br /> : ''}
+                                                            </span>
+                                                        )
+                                                    })
+                                                )
+
+                                            }
+
+                                        })
+                                    }
+                                </div>
                                 {/* <p>Function Name: {visualizeCode.functionName}</p> */}
                                 {/* <div className="button-div" data-id={visualizeCode._id} onClick={handlePlayGame}>Play Game</div> */}
 
@@ -162,11 +188,11 @@ export function ChooseLineGameController() {
                                     paddingRight: '25px',
                                     cursor: 'pointer',
                                     maxWidth: '100px',
-                                    marginLeft:'0px',
-                                    marginBottom:'10px'
+                                    marginLeft: '0px',
+                                    marginBottom: '10px'
                                 }}
                                     data-id={visualizeCode._id}
-                                onClick={handleToggleShowCode}
+                                    onClick={handleToggleShowCode}
                                 >
                                     {visualizeCode.showCode ? 'Hide Code' : 'Show Code'}
                                 </div>
