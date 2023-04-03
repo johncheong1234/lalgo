@@ -119,7 +119,16 @@
   gap: 20px;
 }
 
+.game-arguments-wrapper{
+  margin-left: 55px;
+}
+
 @media (max-width: 768px) {
+
+  .game-arguments-wrapper{
+    margin-left: 0px;
+    text-align: center;
+  }
 
   .submit-cp-wrapper{
     padding-left: 0px;

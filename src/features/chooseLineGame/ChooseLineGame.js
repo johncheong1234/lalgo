@@ -178,8 +178,10 @@ export function ChooseLineGame() {
                             handleRestart
                         }
                     >Restart</span>
+
+                </div>
+                <div className='game-arguments-wrapper'>
                     <span style={{
-                        marginLeft: '24px',
                         color: 'white',
                         fontFamily: 'Trench',
                         fontStyle: 'normal',
@@ -188,33 +190,53 @@ export function ChooseLineGame() {
                         lineHeight: '16px',
                     }}>
                         Arguments:
-                        <span style={{
-                            color: '#1E333B',
-                            backgroundColor: '#F8FBFC',
-                            padding: '8px',
-                            fontFamily: 'Trench',
-                            fontStyle: 'normal',
-                            fontWeight: '100',
-                            fontSize: '16px',
-                            lineHeight: '16px',
-                            border: '1px solid #476069',
-                            borderRadius: '5px',
-                            marginLeft: '10px',
-                            fontWeight: 'bold'
-                        }}>
-                            {
-                                gameArguments.map((argument, index) => {
+
+                    </span>
+                    <div style={{
+                        border: '1px solid #1E333B',
+                        borderRadius: '5px',
+                        padding: '5px',
+                        maxWidth: 'fit-content',
+                        marginBottom: '10px',
+                        color: 'white',
+                    }}>
+                        {
+                            Object.keys(gameArguments).map((argument, i) => {
+                                // return comma if not the last argument
+                                // split by line breaks
+                                const inputLines = gameArguments[argument]['input'].split('\n');
+
+                                // if there is only one line, then no need to split
+                                if (inputLines.length === 1) {
                                     return (
-                                        <span key={index}>
-                                            {argument['input']}
-                                            {index !== gameArguments.length - 1 ? ', ' : ''}
+                                        <span key={i}>
+                                            {gameArguments[argument]['input']}
+                                            {i !== Object.keys(gameArguments).length - 1 ? ', ' : ''}
                                         </span>
                                     )
-                                })
-                            }
-                        </span>
-                    </span>
+                                } else {
+                                    console.log(inputLines)
+                                    return (
+                                        // <span key={i}>
+                                        //     this is it
+                                        // </span>
+                                        inputLines.map((line, j) => {
+                                            return (
+                                                <span key={j}>
+                                                    {line}
+                                                    {j !== inputLines.length - 1 ? <br /> : ''}
+                                                </span>
+                                            )
+                                        })
+                                    )
+
+                                }
+
+                            })
+                        }
+                    </div>
                 </div>
+
                 <div className="choose-line-game-instructions-wrapper">
                     <p style={{
                         color: 'white',
@@ -342,6 +364,6 @@ export function ChooseLineGame() {
             </div>
 
         )
-        
+
     )
 }
