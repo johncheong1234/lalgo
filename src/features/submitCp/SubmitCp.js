@@ -4,6 +4,7 @@ import {
     setTestCase,
     setCode
 } from './submitCpSlice';
+import axios from 'axios';
 
 export function SubmitCp() {
     const testCase = useSelector((state) => state.submitCp.testCase);
@@ -17,6 +18,27 @@ export function SubmitCp() {
     function handleCodeChange(e) {
         dispatch(setCode({ code: e.target.value }));
     }
+
+    function handleSubmitCp(){
+        const body = {
+            testCase,
+            code
+        }
+        const url = 'http://localhost:5000/submit-cp';
+        axios.post(
+            url,
+            body
+        ).then(
+            (response) => {
+                alert('success')
+            }
+        ).catch(
+            (error) => {
+                alert('error')
+            }
+        )
+    }
+
     return (
         <div style={{
             minHeight: '100vh',
@@ -47,7 +69,9 @@ export function SubmitCp() {
                     borderRadius: '5px',
                     border: '1px solid black',
                     cursor: 'pointer'
-                }}>
+                }}
+                onClick={handleSubmitCp}
+                >
                     Submit
                 </span>
             </div>
