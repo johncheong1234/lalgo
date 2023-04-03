@@ -9,6 +9,7 @@ import { CreateQuestion } from './features/createQuestion/CreateQuestion';
 import { Questions } from './features/questions/Questions';
 import { ChooseLineGame } from './features/chooseLineGame/ChooseLineGame';
 import { ChooseLineGameController } from './features/chooseLineGame/ChooseLineGameController';
+import {SubmitCp} from './features/submitCp/SubmitCp';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import jwt_decode from "jwt-decode";
 // import {
@@ -92,6 +93,7 @@ function App() {
           <Route path='/create-question' element={<CreateQuestion />} />
           <Route path='/choose-line-game' element={<ChooseLineGameController />} />
           <Route path='/choose-line-game/:id' element={<ChooseLineGame />} />
+          <Route path='/submit-cp' element = {<SubmitCp />} />
           <Route path="*" element={<div>404</div>} />
         </Routes>
       </BrowserRouter>

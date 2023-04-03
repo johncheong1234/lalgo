@@ -101,7 +101,26 @@
   line-height: 18px;
 }
 
+.submit-cp-wrapper{
+  padding-left: 75px;
+  margin-bottom: 20px;
+}
+
+.submit-cp-header-container{
+  flex-direction: row;
+  gap: 20px;
+}
+
 @media (max-width: 768px) {
+
+  .submit-cp-wrapper{
+    padding-left: 0px;
+    text-align: center;
+  }
+
+  .submit-cp-header-container{
+    flex-direction: column;
+  }
 
   .navbar {
     flex-direction: column;
