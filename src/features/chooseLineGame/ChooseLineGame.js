@@ -196,7 +196,6 @@ export function ChooseLineGame() {
                         border: '1px solid #1E333B',
                         borderRadius: '5px',
                         padding: '5px',
-                        maxWidth: 'fit-content',
                         marginBottom: '10px',
                         color: 'white',
                     }}>
