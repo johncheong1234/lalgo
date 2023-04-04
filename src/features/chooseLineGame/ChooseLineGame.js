@@ -294,9 +294,17 @@ export function ChooseLineGame() {
 
                                                     Object.keys(gameRow.localObjects).map((key, index) => {
                                                         // console.log(key, visual.localObjects[key])
+                                                        const classIndex = index % 5 === 0 ? 5 : index % 5;
                                                         return (
-                                                            <div key={index}>
-                                                                <p>{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
+                                                            <div key={index}
+                                                                style={{
+                                                                    display: 'flex',
+                                                                    justifyContent: 'center'
+                                                                }}
+                                                            >
+                                                                <p
+                                                                    className={`choose-line-game-table-objects-${classIndex}`}
+                                                                >{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
                                                             </div>
                                                         )
                                                     })
@@ -313,9 +321,17 @@ export function ChooseLineGame() {
                                                 <td>{
                                                     Object.keys(gameRow.localObjects).map((key, index) => {
                                                         // console.log(key, visual.localObjects[key])
+                                                        const classIndex = index % 5 === 0 ? 5 : index % 5;
                                                         return (
-                                                            <div key={index}>
-                                                                <p>{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
+                                                            <div key={index}
+                                                                style={{
+                                                                    display: 'flex',
+                                                                    justifyContent: 'center'
+                                                                }}
+                                                            >
+                                                                <p
+                                                                    className={`choose-line-game-table-objects-${classIndex}`}
+                                                                >{key}: {JSON.stringify(gameRow.localObjects[key])}</p>
                                                             </div>
                                                         )
                                                     }

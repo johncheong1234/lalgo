@@ -123,6 +123,33 @@
   margin-left: 55px;
 }
 
+.choose-line-game-table-objects-1{
+  background-color: #DBFF00;
+  color: black;
+  border-radius: 5px;
+}
+.choose-line-game-table-objects-2{
+  background-color: #00FFE0;
+  color: black;
+  border-radius: 5px;
+}
+.choose-line-game-table-objects-3{
+  background-color: #00FF57;
+  color: black;
+  border-radius: 5px;
+}
+.choose-line-game-table-objects-4{
+  background-color: #FF9900;
+  color: black;
+  border-radius: 5px;
+}
+
+.choose-line-game-table-objects-5{
+  background-color: #FFFFFF;
+  color: black;
+  border-radius: 5px;
+}
+
 @media (max-width: 768px) {
 
   .game-arguments-wrapper{
