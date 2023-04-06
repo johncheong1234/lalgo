@@ -48,7 +48,8 @@ export function SubmitCp() {
             testCase,
             code
         }
-        const url = 'http://localhost:5000/submit-cp';
+        // const url = 'http://localhost:5000/submit-cp';
+        const url = 'http://146.190.80.67:5000/submit-cp';
         axios.post(
             url,
             body
