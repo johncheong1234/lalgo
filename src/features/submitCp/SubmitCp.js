@@ -44,12 +44,32 @@ export function SubmitCp() {
     }
 
     function handleSubmitCp() {
+        const importLines = []
+        // split code into lines by line break
+        const codeLines = code.split('\n').filter((line) => {
+            // if line starts with import, add to importLines
+            if (line.startsWith('import')) {
+                importLines.push(line);
+                return false;
+            }
+            
+            // if line contains only spaces, return false
+            if (line.trim().length === 0) {
+                return false;
+            }
+
+            // if line is not empty, return true
+            return true;
+        });
+        console.log(importLines, codeLines)
+
         const body = {
             testCase,
-            code
+            codeLines,
+            importLines
         }
-        // const url = 'http://localhost:5000/submit-cp';
-        const url = 'http://146.190.80.67:5000/submit-cp';
+        const url = 'http://localhost:5000/submit-cp';
+        // const url = 'http://146.190.80.67:5000/submit-cp';
         axios.post(
             url,
             body
