@@ -122,6 +122,13 @@ export function ChooseLineGame() {
         ))
     }
 
+    function handleRowChange(e){
+        console.log(e.target.value)
+        dispatch(setRowAttempting(
+            { rowAttempting: parseInt(e.target.value) }
+        ))
+    }
+
     return (
         email ? (
             <div style={{
@@ -283,6 +290,7 @@ export function ChooseLineGame() {
                                 <th>event</th>
                                 <th>Objects</th>
                                 <th>Code Line At</th>
+                                <th>Row</th>
                             </tr>
                             {
                                 gameRows.map((gameRow, index) => {
@@ -311,6 +319,7 @@ export function ChooseLineGame() {
 
                                                 }</td>
                                                 <td>{gameRow.codeLineAt}</td>
+                                                <td>{index}</td>
                                             </tr>
                                         )
                                     }
@@ -353,6 +362,19 @@ export function ChooseLineGame() {
                                                             )
                                                         }
                                                     </select>
+
+                                                </td>
+                                                <td>
+                                                    <input value={index} type='number' onChange={
+                                                        handleRowChange
+                                                    }
+                                                    style = {{
+                                                        // centralize the input
+                                                        textAlign: 'center',
+                                                        fontSize: '16px',
+                                                        width: '30%',
+                                                    }}
+                                                    />
                                                 </td>
                                             </tr>
                                         )
