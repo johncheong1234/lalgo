@@ -267,7 +267,17 @@ export function ChooseLineGame() {
                     >
                         {showCode ? 'Hide Code' : 'Show Code'}
                     </span>
-                </div>
+
+                    <p style={{
+                        color: 'white',
+                        fontFamily: 'Trench',
+                        fontStyle: 'normal',
+                        fontWeight: '100',
+                        marginTop: '30px'
+                    }}>
+                        Total rows is: {gameRows.length}
+                    </p>
+                </div> 
                 <div
                     style={{
                         whiteSpace: "pre-wrap",
