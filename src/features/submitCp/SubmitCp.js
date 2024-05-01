@@ -205,7 +205,6 @@ export function SubmitCp() {
                     height: '250px',
                     border: '1px solid white',
                     borderRadius: '5px',
-                    fontFamily: 'Trench',
                     fontSize: '18px',
                     color: 'white',
                     padding: '10px',

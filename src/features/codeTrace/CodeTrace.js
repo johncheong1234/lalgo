@@ -312,7 +312,7 @@ export function CodeTrace() {
                 <div
                     style={{
                         whiteSpace: "pre-wrap",
-                        fontFamily: 'Trench',
+                        // fontFamily: 'Trench',
                         fontStyle: 'normal',
                         fontWeight: 'bold',
                         display: showCode ? 'block' : 'none',
@@ -363,7 +363,7 @@ export function CodeTrace() {
                                                 <td>
                                                     <textarea style={{ 
                                                         fontSize: '16px' ,
-                                                        fontFamily: 'Trench',
+                                                        // fontFamily: 'Trench',
                                                         fontWeight: 'bold',
                                                         border: '1px solid #FFFFFF',
                                                         borderRadius: '5px',
