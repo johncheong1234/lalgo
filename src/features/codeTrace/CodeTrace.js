@@ -361,7 +361,14 @@ export function CodeTrace() {
                                                 }</td>
                                                 {/* <td>{gameRow.codeLineAt}</td> */}
                                                 <td>
-                                                    <textarea rows="4" cols="25" />
+                                                    <textarea style={{ 
+                                                        fontSize: '16px' ,
+                                                        fontFamily: 'Trench',
+                                                        fontWeight: 'bold',
+                                                        border: '1px solid #FFFFFF',
+                                                        borderRadius: '5px',
+                                                        backgroundColor: "1E333B"
+                                                        }}  rows="8" cols="10" />
                                                 </td>
                                                 <td>{index}</td>
                                             </tr>
