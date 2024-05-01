@@ -361,14 +361,35 @@ export function CodeTrace() {
                                                 }</td>
                                                 {/* <td>{gameRow.codeLineAt}</td> */}
                                                 <td>
-                                                    <textarea style={{ 
+                                                    {/* <textarea style={{ 
                                                         fontSize: '16px' ,
                                                         // fontFamily: 'Trench',
                                                         fontWeight: 'bold',
                                                         border: '1px solid #FFFFFF',
                                                         borderRadius: '5px',
                                                         backgroundColor: "1E333B"
-                                                        }}  rows="8" cols="10" />
+                                                        }}  rows="8" cols="10" /> */}
+                                                    {Object.keys(gameRow.localObjects).map((key, index) => {
+                                                        const classIndex = index % 5 === 0 ? 5 : index % 5;
+                                                        return (
+                                                            <div key={index}
+                                                                style={{
+                                                                    display: 'flex',
+                                                                    justifyContent: 'center',
+                                                                    alignItems: 'center' 
+                                                                }}
+                                                            >
+                                                                <p
+                                                                    className={`choose-line-game-table-objects-${classIndex}`}
+                                                                >{key}: 
+                                                                <input type='text' style={{
+                                                                    textAlign: 'center'
+                                                                }}/>
+                                                                </p>
+                                                            </div>
+                                                        )
+                                                    })}
+                                                    
                                                 </td>
                                                 <td>{index}</td>
                                             </tr>
