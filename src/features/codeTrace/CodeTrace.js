@@ -160,6 +160,25 @@ export function CodeTrace() {
         ))
     }
 
+    function removeEmptySpacesFromString(str) {
+        return str.replace(/\s+/g, '');
+    }
+
+    function handleVariableInputChange(e) {
+        const inputValue = e.target.value.trim(); // Trim removes leading/trailing spaces
+        const correctAnswer = e.target.dataset.correctanswer;
+        const correctAnswerNoSpaces = removeEmptySpacesFromString(correctAnswer);
+        const inputElement = e.target;
+    
+        if (inputValue === correctAnswerNoSpaces) {
+            inputElement.style.color = '#00008B'; 
+        } else if (correctAnswerNoSpaces.startsWith(inputValue)) {
+            inputElement.style.color = '#FF8C00';
+        } else {
+            inputElement.style.color = 'red';
+        }
+    }    
+
     return (
         email ? (
             <div style={{
@@ -384,7 +403,10 @@ export function CodeTrace() {
                                                                 >{key}: 
                                                                 <input type='text' style={{
                                                                     textAlign: 'center'
-                                                                }}/>
+                                                                }}
+                                                                onChange={handleVariableInputChange}
+                                                                data-correctanswer = {gameRow.localObjects[key]}
+                                                                />
                                                                 </p>
                                                             </div>
                                                         )
