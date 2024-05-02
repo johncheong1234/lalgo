@@ -165,7 +165,8 @@ export function CodeTrace() {
     }
 
     function handleVariableInputChange(e) {
-        const inputValue = e.target.value.trim(); // Trim removes leading/trailing spaces
+        var inputValue = e.target.value.trim(); // Trim removes leading/trailing spaces
+        inputValue = removeEmptySpacesFromString(inputValue);
         const correctAnswer = e.target.dataset.correctanswer;
         const correctAnswerNoSpaces = removeEmptySpacesFromString(correctAnswer);
         const inputElement = e.target;
