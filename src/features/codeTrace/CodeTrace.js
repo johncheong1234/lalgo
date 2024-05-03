@@ -351,6 +351,7 @@ export function CodeTrace() {
                                 <th>event</th>
                                 <th>Objects</th>
                                 <th>Practice</th>
+                                <th>Code</th>
                                 <th>Row</th>
                             </tr>
                             {
@@ -379,7 +380,7 @@ export function CodeTrace() {
                                                     })
 
                                                 }</td>
-                                                {/* <td>{gameRow.codeLineAt}</td> */}
+                                                
                                                 <td>
                                                     {/* <textarea style={{ 
                                                         fontSize: '16px' ,
@@ -422,6 +423,7 @@ export function CodeTrace() {
                                                     })}
                                                     
                                                 </td>
+                                                <td>{gameRows[gameRowIndex].codeLineAt}</td>
                                                 <td>{gameRowIndex}</td>
                                             </tr>
                                         )
