@@ -354,10 +354,10 @@ export function CodeTrace() {
                                 <th>Row</th>
                             </tr>
                             {
-                                gameRows.map((gameRow, index) => {
-                                    if (index < rowAttempting) {
+                                gameRows.map((gameRow, gameRowIndex) => {
+                                    if (gameRowIndex < rowAttempting) {
                                         return (
-                                            <tr key={index}>
+                                            <tr key={gameRowIndex}>
                                                 <td>{gameRow.event}</td>
                                                 <td>{
 
@@ -391,6 +391,10 @@ export function CodeTrace() {
                                                         }}  rows="8" cols="10" /> */}
                                                     {Object.keys(gameRow.localObjects).map((key, index) => {
                                                         const classIndex = index % 5 === 0 ? 5 : index % 5;
+                                                        if (index > 0) {
+                                                            console.log("Previous game row:", gameRows[gameRowIndex - 1], gameRowIndex-1);
+                                                            console.log("current game row ", gameRow, gameRowIndex);
+                                                        }
                                                         return (
                                                             <div key={index}
                                                                 style={{
@@ -407,6 +411,10 @@ export function CodeTrace() {
                                                                 }}
                                                                 onChange={handleVariableInputChange}
                                                                 data-correctanswer = {gameRow.localObjects[key]}
+                                                                defaultValue={
+                                                                    (index > 0 && gameRows[gameRowIndex-1]?.localObjects[key] === gameRow.localObjects[key]) ?
+                                                                    gameRow.localObjects[key] : ''
+                                                                }                                                                
                                                                 />
                                                                 </p>
                                                             </div>
@@ -414,13 +422,13 @@ export function CodeTrace() {
                                                     })}
                                                     
                                                 </td>
-                                                <td>{index}</td>
+                                                <td>{gameRowIndex}</td>
                                             </tr>
                                         )
                                     }
-                                    else if (index === rowAttempting) {
+                                    else if (gameRowIndex === rowAttempting) {
                                         return (
-                                            <tr key={index} id='row-attempting'>
+                                            <tr key={gameRowIndex} id='row-attempting'>
                                                 <td>{gameRow.event}</td>
                                                 <td>{
                                                     Object.keys(gameRow.localObjects).map((key, index) => {
@@ -460,7 +468,7 @@ export function CodeTrace() {
 
                                                 </td>
                                                 <td>
-                                                    <input value={index} type='number' onChange={
+                                                    <input value={gameRowIndex} type='number' onChange={
                                                         handleRowChange
                                                     }
                                                     style = {{
