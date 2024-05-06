@@ -413,7 +413,7 @@ export function CodeTrace() {
                                                                 onChange={handleVariableInputChange}
                                                                 data-correctanswer = {gameRow.localObjects[key]}
                                                                 defaultValue={
-                                                                    (index > 0 && gameRows[gameRowIndex-1]?.localObjects[key] === gameRow.localObjects[key]) ?
+                                                                    (gameRowIndex > 0 && gameRows[gameRowIndex-1]?.localObjects[key] === gameRow.localObjects[key]) ?
                                                                     gameRow.localObjects[key] : ''
                                                                 }                                                                
                                                                 />
