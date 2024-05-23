@@ -213,7 +213,7 @@ export function CustomAlgo() {
                 dispatch(setAlgoLineState({ algoLineState: 'correct' }))
             } else {
                 dispatch(setAlgoLineState({ algoLineState: 'incorrect' }))
-                dispatch(setMistakeModalDisplay({ mistakeModalDisplay: true }))
+                // dispatch(setMistakeModalDisplay({ mistakeModalDisplay: true }))
             }
         }
     }
